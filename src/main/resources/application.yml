@@ -1,0 +1,10 @@
+server:
+  port: 8088
+  shutdown: graceful
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://3.37.42.105:3306/foodDelivery?serverTimezone=UTC&characterEncoding=UTF-8
+    username: foodDel
+    password: Qwer1234!@
