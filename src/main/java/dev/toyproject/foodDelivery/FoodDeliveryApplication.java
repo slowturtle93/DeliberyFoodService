@@ -1,4 +1,4 @@
-package dev.practice.toyproject.foodDelivery;
+package dev.toyproject.foodDelivery;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

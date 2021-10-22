@@ -1,4 +1,4 @@
-package dev.practice.toyproject.foodDelivery;
+package dev.toyproject.foodDelivery;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
