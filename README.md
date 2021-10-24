@@ -1,8 +1,8 @@
 # DeliberyFoodService
-<span style="align:center">
+<div style="text-align:center">
 "음식점 정보부터 음식 배달까지"<br>
 배달의 민족을 모티브로 만든 음식배달 플랫폼 API 서버 토이 프로젝트입니다.
-<span>
+<div>
 
 # 프로젝트 구조
 
