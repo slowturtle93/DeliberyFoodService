@@ -1,7 +1,8 @@
 # DeliberyFoodService
 배달의 민족 플랫폼을 모티브로 사용자들에게 음식점을 연결시켜 원하는 음식을 배달 시키는 서비스
 
-![배달의 민족](https://user-images.githubusercontent.com/80434153/138584414-6f5c6977-fa2f-4fdf-9d8b-f4ec7d436787.png)
+![배달의 민족](https://user-images.githubusercontent.com/80434153/138584478-2687a08a-c334-4b69-9b95-06ee5e813671.png)
+
 
 "음식점 정보부터 음식 배달까지"<br>
 배달의 민족을 모티브로 만든 음식배달 플랫폼 API 서버 토이 프로젝트입니다.
