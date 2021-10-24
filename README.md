@@ -28,3 +28,8 @@
 # 프로젝트 사용기술
 
 ![사용기술](https://user-images.githubusercontent.com/80434153/138026855-6253e281-c69a-49d9-903a-97dda97bfea0.png)
+
+# 프로젝트 화면 구성도
+
+
+# 프로젝트 ERD
