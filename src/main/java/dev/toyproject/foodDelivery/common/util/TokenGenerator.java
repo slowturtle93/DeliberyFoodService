@@ -2,6 +2,9 @@ package dev.toyproject.foodDelivery.common.util;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
+/**
+ * Token 발행
+ */
 public class TokenGenerator {
 
     private static final int TOKEN_LENGTH = 20;
