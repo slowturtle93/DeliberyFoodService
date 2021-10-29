@@ -32,6 +32,13 @@ dependencies {
 	// lang 의존성 주입
 	implementation 'org.apache.commons:commons-lang3:3.9'
 
+	// Redis Session
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.session:spring-session-data-redis'
+
+	// aop
+	implementation "org.springframework.boot:spring-boot-starter-aop"
+
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.projectlombok:lombok'
