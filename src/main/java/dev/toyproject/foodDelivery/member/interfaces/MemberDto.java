@@ -43,6 +43,26 @@ public class MemberDto {
         }
     }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class LoginRequest{
+
+        @NotEmpty(message = "email 필수값입니다.")
+        @Email(message = "email 형식에 맞아야 합니다.")
+        private String memberMail;
+
+        @NotEmpty(message = "memberPassword 는 필수값입니다.")
+        private String memberPwd;
+
+        public MemberCommand toCommand(){
+            return MemberCommand.builder()
+                    .memberMail(memberMail)
+                    .memberPwd(SHA256Util.encryptSHA256(memberPwd))
+                    .build();
+        }
+    }
+
     /******************************** response ********************************/
 
     @Getter

@@ -6,4 +6,6 @@ package dev.toyproject.foodDelivery.member.domain;
 public interface MemberService {
 
     MemberInfo registerMember(MemberCommand command);
+
+    MemberInfo loginMemberInfo(String memberMail, String memberPwd);
 }
