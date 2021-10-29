@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
+import javax.print.DocFlavor;
 
 @Slf4j
 @Getter
@@ -50,10 +51,10 @@ public class Member extends AbstracEntity {
             String memberTel,
             String memberNickname
     ){
-        if(memberMail     == null) throw new InvalidParamException("Member.memberMail");
-        if(memberPwd      == null) throw new InvalidParamException("Member.memberPwd");
-        if(memberTel      == null) throw new InvalidParamException("Member.memberTel");
-        if(memberNickname == null) throw new InvalidParamException("Member.memberNickname");
+        if(StringUtils.isEmpty(memberMail))     throw new InvalidParamException("Member.memberMail");
+        if(StringUtils.isEmpty(memberPwd))      throw new InvalidParamException("Member.memberPwd");
+        if(StringUtils.isEmpty(memberTel))      throw new InvalidParamException("Member.memberTel");
+        if(StringUtils.isEmpty(memberNickname)) throw new InvalidParamException("Member.memberNickname");
 
         // 사용자 Token 이 빈값이 경우 Token 발행
         if(StringUtils.isEmpty(memberToken)) { this.memberToken = TokenGenerator.randomCharacterWithPrefix(MEMBER_PREFIX); }
