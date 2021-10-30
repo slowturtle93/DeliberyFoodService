@@ -6,13 +6,11 @@ import dev.toyproject.foodDelivery.common.response.CommonResponse;
 import dev.toyproject.foodDelivery.member.application.MemberFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @Slf4j
 @RestController
@@ -60,6 +58,18 @@ public class MemberController {
     @LoginCheck(type = LoginCheck.UserType.MEMBER)
     public CommonResponse logoutMember(HttpSession session){
         memberFacade.logoutMember(session); // MEMBER 로그아웃
+        return CommonResponse.success("OK");
+    }
+
+    /**
+     * 이메일 중복확인
+     *
+     * @param memberMail
+     * @return
+     */
+    @GetMapping("/duplicatedMail/{memberMail}")
+    public CommonResponse duplicatedMemberMail(@PathVariable("memberMail") @NotNull String memberMail){
+        memberFacade.duplicateMemberMail(memberMail); // 이메일 중복 확인
         return CommonResponse.success("OK");
     }
 }

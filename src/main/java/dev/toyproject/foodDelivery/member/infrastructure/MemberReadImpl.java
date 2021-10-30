@@ -1,11 +1,14 @@
 package dev.toyproject.foodDelivery.member.infrastructure;
 
+import dev.toyproject.foodDelivery.common.exception.DuplicateKeyException;
 import dev.toyproject.foodDelivery.common.exception.EntityNotFoundException;
 import dev.toyproject.foodDelivery.member.domain.Member;
 import dev.toyproject.foodDelivery.member.domain.MemberReader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Slf4j
 @Component
@@ -25,5 +28,16 @@ public class MemberReadImpl implements MemberReader {
     public Member getLoginMember(String memberMail, String memberPwd) {
         return memberRepository.findByMemberMailAndMemberPwdAndStatus(memberMail, memberPwd, Member.Status.ENABLE)
                 .orElseThrow(EntityNotFoundException::new);
+    }
+
+    /**
+     * 사용자 Mail 중복여부 확인
+     *
+     * @param memberMail
+     */
+    @Override
+    public void DuplicateCheckMemberMail(String memberMail) {
+        Optional<Member> member = memberRepository.findByMemberMail(memberMail);
+        if(!member.isEmpty()){ throw new DuplicateKeyException(); }
     }
 }

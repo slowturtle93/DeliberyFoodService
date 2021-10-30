@@ -49,4 +49,13 @@ public class MemberFacade {
     public void logoutMember(HttpSession session){
         SessionUtil.removeLogoutMember(session); // session 에 사용자 Token 정보 삭제
     }
+
+    /**
+     * 사용자 이메일 중복 확인
+     *
+     * @param memberMail
+     */
+    public void duplicateMemberMail(String memberMail){
+        memberService.duplicateMemberMail(memberMail); // 이메일 중복 확인
+    }
 }

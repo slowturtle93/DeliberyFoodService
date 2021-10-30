@@ -42,4 +42,15 @@ public class MemberServiceImpl implements MemberService{
         Member member = memberReader.getLoginMember(memberMail, memberPwd); // Mail, Pwd 조건으로 사용자 정보 조회
         return new MemberInfo(member);
     }
+
+    /**
+     * 이메일 중복 확인
+     *
+     * @param memberMail
+     * @return
+     */
+    @Override
+    public void duplicateMemberMail(String memberMail) {
+        memberReader.DuplicateCheckMemberMail(memberMail); // email Duplicate Check;
+    }
 }

@@ -8,4 +8,6 @@ public interface MemberService {
     MemberInfo registerMember(MemberCommand command);
 
     MemberInfo loginMemberInfo(String memberMail, String memberPwd);
+
+    void duplicateMemberMail(String memberMail);
 }
