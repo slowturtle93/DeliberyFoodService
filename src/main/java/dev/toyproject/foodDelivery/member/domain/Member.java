@@ -67,4 +67,15 @@ public class Member extends AbstracEntity {
         this.status         = Status.ENABLE;
     }
 
+    // 사용자 정보 수정
+    public void updateMemberInfo(String memberTel, String memberNickname){
+        this.memberTel      = memberTel;
+        this.memberNickname = memberNickname;
+    }
+
+    // 사용자 비밀번호 변경
+    public void updateMemberPassword(String memberPwd){
+        this.memberPwd = memberPwd;
+    }
+
 }

@@ -53,4 +53,32 @@ public class MemberServiceImpl implements MemberService{
     public void duplicateMemberMail(String memberMail) {
         memberReader.DuplicateCheckMemberMail(memberMail); // email Duplicate Check;
     }
+
+    /**
+     * 사용자 정보 변경
+     *
+     * @param command
+     * @return
+     */
+    @Override
+    @Transactional
+    public MemberInfo updateMember(MemberCommand command) {
+        Member member = memberReader.getMemberByToken(command.getMemberToken());      // MEMBER 정보 조회
+        member.updateMemberInfo(command.getMemberTel(), command.getMemberNickname()); // MEMBER 정보 수정
+        return new MemberInfo(member);
+    }
+
+    /**
+     * 사용자 비밀번호 변경
+     *
+     * @param command
+     * @return
+     */
+    @Override
+    @Transactional
+    public MemberInfo updateMemberPassword(MemberCommand command, String afterPassword) {
+        Member member = memberReader.getMemberByTokenAndPwd(command.getMemberToken(), command.getMemberPwd()); // Token, Pwd 조건으로 MEMBER 정보 조회
+        member.updateMemberPassword(afterPassword); // MEMBER 비밀번호 변경
+        return new MemberInfo(member);
+    }
 }

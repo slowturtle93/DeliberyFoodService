@@ -10,4 +10,8 @@ public interface MemberService {
     MemberInfo loginMemberInfo(String memberMail, String memberPwd);
 
     void duplicateMemberMail(String memberMail);
+
+    MemberInfo updateMember(MemberCommand command);
+
+    MemberInfo updateMemberPassword(MemberCommand command, String afterPassword);
 }

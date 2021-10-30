@@ -3,6 +3,7 @@ package dev.toyproject.foodDelivery.member.interfaces;
 
 import dev.toyproject.foodDelivery.common.aop.LoginCheck;
 import dev.toyproject.foodDelivery.common.response.CommonResponse;
+import dev.toyproject.foodDelivery.common.util.SHA256Util;
 import dev.toyproject.foodDelivery.member.application.MemberFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -71,5 +72,36 @@ public class MemberController {
     public CommonResponse duplicatedMemberMail(@PathVariable("memberMail") @NotNull String memberMail){
         memberFacade.duplicateMemberMail(memberMail); // 이메일 중복 확인
         return CommonResponse.success("OK");
+    }
+
+    /**
+     * 사용자 정보 변경
+     *
+     * @param request
+     * @return
+     */
+    @PatchMapping("/update")
+    @LoginCheck(type = LoginCheck.UserType.MEMBER)
+    public CommonResponse updateMember(@Valid MemberDto.UpdateRequest request){
+        var Command = request.toCommand();               // request Data Convert (Command)
+        var memberInfo = memberFacade.updateMember(Command); // MEMBER 정보 수정
+        var response = new MemberDto.response(memberInfo);              // MemberInfo Data Convert (response)
+        return CommonResponse.success(response);
+    }
+
+    /**
+     * 사용자 비밀번호 변경
+     *
+     * @param request
+     * @return
+     */
+    @PatchMapping("/update/password")
+    @LoginCheck(type = LoginCheck.UserType.MEMBER)
+    public CommonResponse updateMemberPassword(@Valid MemberDto.UpdatePasswordRequest request, HttpSession session){
+        var Command = request.toCommand(); // request Data Convert (Command)
+        var afterPassword = SHA256Util.encryptSHA256(request.getAfterPassword());                 // AfterPassword Data Convert (String)
+        var memberInfo = memberFacade.updateMemberPassword(Command, afterPassword, session); // MEMBER 비밀번호 변경
+        var response = new MemberDto.response(memberInfo); // MemberInfo Data Convert (response)
+        return CommonResponse.success(response);
     }
 }

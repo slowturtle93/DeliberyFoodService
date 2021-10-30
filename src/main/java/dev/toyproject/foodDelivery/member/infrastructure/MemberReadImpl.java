@@ -40,4 +40,29 @@ public class MemberReadImpl implements MemberReader {
         Optional<Member> member = memberRepository.findByMemberMail(memberMail);
         if(!member.isEmpty()){ throw new DuplicateKeyException(); }
     }
+
+    /**
+     * 사용자 정보 조회 By MemberToken
+     *
+     * @param memberToken
+     * @return
+     */
+    @Override
+    public Member getMemberByToken(String memberToken) {
+        return memberRepository.findByMemberTokenAndStatus(memberToken, Member.Status.ENABLE)
+                .orElseThrow(EntityNotFoundException::new);
+    }
+
+    /**
+     * 사용자 정보 조회 By Token, Password
+     *
+     * @param memberToken
+     * @param memberPwd
+     * @return
+     */
+    @Override
+    public Member getMemberByTokenAndPwd(String memberToken, String memberPwd) {
+        return memberRepository.findByMemberTokenAndMemberPwdAndStatus(memberToken, memberPwd, Member.Status.ENABLE)
+                .orElseThrow(EntityNotFoundException::new);
+    }
 }

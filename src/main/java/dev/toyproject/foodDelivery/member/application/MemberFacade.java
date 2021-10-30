@@ -58,4 +58,27 @@ public class MemberFacade {
     public void duplicateMemberMail(String memberMail){
         memberService.duplicateMemberMail(memberMail); // 이메일 중복 확인
     }
+
+    /**
+     * 사용자 정보 수정
+     *
+     * @param command
+     * @return
+     */
+    public MemberInfo updateMember(MemberCommand command){
+        var memberInfo = memberService.updateMember(command); // 사용자 정보 수정
+        return memberInfo;
+    }
+
+    /**
+     * 사용자 비밀번호 변경
+     *
+     * @param command
+     * @return
+     */
+    public MemberInfo updateMemberPassword(MemberCommand command, String afterPassword, HttpSession session){
+        var MemberInfo = memberService.updateMemberPassword(command, afterPassword); // 비밀번호 변경
+        SessionUtil.removeLogoutMember(session); // 비밀번호 변경 후 재접속을 위해 session 값 삭제
+        return MemberInfo;
+    }
 }

@@ -63,6 +63,49 @@ public class MemberDto {
         }
     }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class UpdateRequest{
+        @NotEmpty(message = "memberToken 는 필수값입니다.")
+        private String memberToken;
+
+        @NotEmpty(message = "memberTel 는 필수값입니다.")
+        private String memberTel;
+
+        @NotEmpty(message = "memberNickname 는 필수값입니다.")
+        private String memberNickname;
+
+        public MemberCommand toCommand(){
+            return MemberCommand.builder()
+                    .memberToken(memberToken)
+                    .memberTel(memberTel)
+                    .memberNickname(memberNickname)
+                    .build();
+        }
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class UpdatePasswordRequest{
+        @NotEmpty(message = "memberToken 는 필수값입니다.")
+        private String memberToken;
+
+        @NotEmpty(message = "beforePassword 는 필수값입니다.")
+        private String beforePassword;
+
+        @NotEmpty(message = "afterPassword 는 필수값입니다.")
+        private String afterPassword;
+
+        public MemberCommand toCommand(){
+            return MemberCommand.builder()
+                    .memberToken(memberToken)
+                    .memberPwd(SHA256Util.encryptSHA256(beforePassword))
+                    .build();
+        }
+    }
+
     /******************************** response ********************************/
 
     @Getter
