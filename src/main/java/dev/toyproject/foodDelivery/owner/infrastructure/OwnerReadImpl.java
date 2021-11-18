@@ -1,6 +1,7 @@
 package dev.toyproject.foodDelivery.owner.infrastructure;
 
 import dev.toyproject.foodDelivery.common.exception.DuplicateKeyException;
+import dev.toyproject.foodDelivery.common.exception.EntityNotFoundException;
 import dev.toyproject.foodDelivery.owner.domain.Owner;
 import dev.toyproject.foodDelivery.owner.domain.OwnerReader;
 import lombok.RequiredArgsConstructor;
@@ -25,5 +26,18 @@ public class OwnerReadImpl implements OwnerReader {
     public void duplicateCheckOwnerLoginId(String ownerLoginId) {
         Optional<Owner> member = ownerRepository.findByOwnerLoginId(ownerLoginId);
         if(!member.isEmpty()){ throw new DuplicateKeyException(); }
+    }
+
+    /**
+     * 사용자 로그인 진행 By Mail, Password
+     *
+     * @param ownerLoginId
+     * @param ownerPwd
+     * @return
+     */
+    @Override
+    public Owner getLoginOwner(String ownerLoginId, String ownerPwd) {
+        return ownerRepository.findByOwnerLoginIdAndOwnerPwdAndStatus(ownerLoginId, ownerPwd, Owner.Status.ENABLE)
+                .orElseThrow(EntityNotFoundException::new);
     }
 }

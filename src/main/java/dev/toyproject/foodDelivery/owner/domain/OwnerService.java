@@ -5,4 +5,6 @@ public interface OwnerService {
     OwnerInfo registerOwner(OwnerCommand command);
 
     void duplicateOwnerLoginId(String ownerLoginId);
+
+    OwnerInfo loginOwnerInfo(String ownerLoginId, String ownerPwd);
 }

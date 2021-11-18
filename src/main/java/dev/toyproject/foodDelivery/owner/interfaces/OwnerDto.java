@@ -51,6 +51,25 @@ public class OwnerDto {
         }
     }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class LoginRequest{
+
+        @NotEmpty(message = "ownerLoginId 필수값입니다.")
+        private String ownerLoginId;
+
+        @NotEmpty(message = "ownerPassword 는 필수값입니다.")
+        private String ownerPwd;
+
+        public OwnerCommand toCommand(){
+            return OwnerCommand.builder()
+                    .ownerLoginId(ownerLoginId)
+                    .ownerPwd(SHA256Util.encryptSHA256(ownerPwd))
+                    .build();
+        }
+    }
+
     /******************************** response ********************************/
 
     @Getter

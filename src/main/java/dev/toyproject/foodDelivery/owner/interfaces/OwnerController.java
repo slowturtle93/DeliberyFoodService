@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -41,5 +42,19 @@ public class OwnerController {
     public CommonResponse duplicateOwnerLoginId(@PathVariable("ownerLoginId") @NotNull String ownerLoginId){
         ownerFacade.duplicateOwnerLoginId(ownerLoginId); // 이메일 중복 확인
         return CommonResponse.success("OK");
+    }
+
+    /**
+     * 사장 로그인 진행
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/login")
+    public CommonResponse loginOwner(@Valid OwnerDto.LoginRequest request, HttpSession session){
+        var Command = request.toCommand();                       // request Data Convert (Command)
+        var ownerInfo = ownerFacade.loginOwner(Command, session);     // OWNER 로그인
+        var response = new OwnerDto.response(ownerInfo);                         // OwnerInfo Data Convert (response)
+        return CommonResponse.success(response);
     }
 }

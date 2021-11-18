@@ -37,4 +37,16 @@ public class OwnerServiceImpl implements OwnerService {
     public void duplicateOwnerLoginId(String ownerLoginId) {
         ownerReader.duplicateCheckOwnerLoginId(ownerLoginId); // loginId Duplicate Check;
     }
+
+    /**
+     * 사장님 로그인 진행
+     * @param ownerLoginId
+     * @param ownerPwd
+     * @return
+     */
+    @Override
+    public OwnerInfo loginOwnerInfo(String ownerLoginId, String ownerPwd) {
+        Owner owner = ownerReader.getLoginOwner(ownerLoginId, ownerPwd); // loginId, Pwd 조건으로 사장 정보 조회
+        return new OwnerInfo(owner);
+    }
 }
