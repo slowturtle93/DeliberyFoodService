@@ -29,7 +29,7 @@ public class LoginCheckAspect {
         log.debug("AOP - Member Login Check Started");
 
         HttpSession session = ((ServletRequestAttributes)(RequestContextHolder.currentRequestAttributes())).getRequest().getSession();
-        String memberToken = SessionUtil.getLoginMemberId(session);
+        String memberToken = SessionUtil.getLoginMemberToken(session);
 
         if (memberToken == null) {
             throw new HttpStatusCodeException(HttpStatus.UNAUTHORIZED, "NO_LOGIN") {};

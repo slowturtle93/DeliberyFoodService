@@ -4,8 +4,7 @@ import javax.servlet.http.HttpSession;
 
 public class SessionUtil {
 
-    private static final String LOGIN_MEMBER_ID = "LOGIN_MEMBER_ID";
-    private static final String LOGIN_RIDER_ID = "LOGIN_RIDER_ID";
+    private static final String LOGIN_MEMBER_TOKEN = "LOGIN_MEMBER_TOKEN";
 
     // 인스턴스화 방지
     private SessionUtil(){}
@@ -13,13 +12,13 @@ public class SessionUtil {
     /********************************* Member ***********************************/
 
     /**
-     * 사용자 정보 session 조회
+     * 로그인한 사용자의 Mail 을 session 에서 조회
      *
      * @param session
      * @return
      */
-    public static String getLoginMemberId(HttpSession session) {
-        return (String) session.getAttribute(LOGIN_MEMBER_ID);
+    public static String getLoginMemberToken(HttpSession session) {
+        return (String) session.getAttribute(LOGIN_MEMBER_TOKEN);
     }
 
     /**
@@ -28,8 +27,8 @@ public class SessionUtil {
      * @param session
      * @param memberToken
      */
-    public static void setLoginMemberId(HttpSession session, String memberToken){
-        session.setAttribute(LOGIN_MEMBER_ID, memberToken);
+    public static void setLoginMemberToken(HttpSession session, String memberToken){
+        session.setAttribute(LOGIN_MEMBER_TOKEN, memberToken);
     }
 
     /**
@@ -38,6 +37,6 @@ public class SessionUtil {
      * @param session
      */
     public static void removeLogoutMember(HttpSession session){
-        session.removeAttribute(LOGIN_MEMBER_ID);
+        session.removeAttribute(LOGIN_MEMBER_TOKEN);
     }
 }
