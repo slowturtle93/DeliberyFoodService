@@ -4,11 +4,10 @@ import dev.toyproject.foodDelivery.common.response.CommonResponse;
 import dev.toyproject.foodDelivery.owner.application.OwnerFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @Slf4j
 @RestController
@@ -30,5 +29,17 @@ public class OwnerController {
         var ownerInfo = ownerFacade.registerOwner(Command);  // Owner 정보 조회
         var response = new OwnerDto.response(ownerInfo);                // OwnerInfo Data Convert (response)
         return CommonResponse.success(response);
+    }
+
+    /**
+     * 사장님 로그인 아이디 중복확인
+     *
+     * @param ownerLoginId
+     * @return
+     */
+    @GetMapping("/duplicatedOwnerLoginId/{ownerLoginId}")
+    public CommonResponse duplicateOwnerLoginId(@PathVariable("ownerLoginId") @NotNull String ownerLoginId){
+        ownerFacade.duplicateOwnerLoginId(ownerLoginId); // 이메일 중복 확인
+        return CommonResponse.success("OK");
     }
 }
