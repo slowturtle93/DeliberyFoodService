@@ -70,6 +70,37 @@ public class OwnerDto {
         }
     }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class UpdateRequest{
+
+        @NotEmpty(message = "ownerToken 는 필수값입니다.")
+        private String ownerToken;
+
+        @NotEmpty(message = "ownerTel 는 필수값입니다.")
+        private String ownerTel;
+
+        @NotEmpty(message = "ownerName 는 필수값입니다.")
+        private String ownerName;
+
+        @NotEmpty(message = "ownerMail 는 필수값입니다.")
+        private String ownerMail;
+
+        @NotEmpty(message = "ownerBirth 는 필수값입니다.")
+        private String ownerBirth;
+
+        public OwnerCommand toCommand(){
+            return OwnerCommand.builder()
+                    .ownerToken(ownerToken)
+                    .ownerMail(ownerMail)
+                    .ownerTel(ownerTel)
+                    .ownerName(ownerName)
+                    .ownerBirth(ownerBirth)
+                    .build();
+        }
+    }
+
     /******************************** response ********************************/
 
     @Getter

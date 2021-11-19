@@ -7,6 +7,8 @@ import java.util.Optional;
 
 public interface OwnerRepository extends JpaRepository<Owner, String> {
 
+    Optional<Owner> findByOwnerTokenAndStatus(String ownerToken, Owner.Status status);
+
     Optional<Owner> findByOwnerLoginId(String ownerLoginId);
 
     Optional<Owner> findByOwnerLoginIdAndOwnerPwdAndStatus(String ownerLoginId, String ownerPwd, Owner.Status status);

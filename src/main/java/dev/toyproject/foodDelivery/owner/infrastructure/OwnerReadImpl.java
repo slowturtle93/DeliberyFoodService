@@ -18,6 +18,18 @@ public class OwnerReadImpl implements OwnerReader {
     private final OwnerRepository ownerRepository;
 
     /**
+     * 사장님 정보 조회 By OwnerToken
+     *
+     * @param ownerToken
+     * @return
+     */
+    @Override
+    public Owner getOwnerByToken(String ownerToken) {
+        return ownerRepository.findByOwnerTokenAndStatus(ownerToken, Owner.Status.ENABLE)
+                .orElseThrow(EntityNotFoundException::new);
+    }
+
+    /**
      * 회원가입 진행 시 request 의 LoginId 의 중복여부 확인
      *
      * @param ownerLoginId

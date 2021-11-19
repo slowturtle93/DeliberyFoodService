@@ -58,4 +58,15 @@ public class OwnerFacade {
     public void logoutOwner(HttpSession session){
         SessionUtil.removeLogoutOwner(session); // session 에 사장 Token 정보 삭제
     }
+
+    /**
+     * 사장 정보 수정
+     *
+     * @param command
+     * @return
+     */
+    public OwnerInfo updateOwner(OwnerCommand command){
+        var ownerInfo = ownerService.updateOwner(command); // 사장 정보 수정
+        return ownerInfo;
+    }
 }

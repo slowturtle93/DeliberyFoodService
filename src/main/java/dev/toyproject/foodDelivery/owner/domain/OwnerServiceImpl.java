@@ -49,4 +49,18 @@ public class OwnerServiceImpl implements OwnerService {
         Owner owner = ownerReader.getLoginOwner(ownerLoginId, ownerPwd); // loginId, Pwd 조건으로 사장 정보 조회
         return new OwnerInfo(owner);
     }
+
+    /**
+     * 사장 정보 변경
+     *
+     * @param command
+     * @return
+     */
+    @Override
+    @Transactional
+    public OwnerInfo updateOwner(OwnerCommand command) {
+        Owner owner = ownerReader.getOwnerByToken(command.getOwnerToken());                             // OWNER 정보 조회
+        owner.updateOwnerInfo(command.getOwnerTel(), command.getOwnerBirth(), command.getOwnerMail());  // OWNER 정보 수정
+        return new OwnerInfo(owner);
+    }
 }

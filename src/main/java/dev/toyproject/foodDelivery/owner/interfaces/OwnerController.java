@@ -71,4 +71,19 @@ public class OwnerController {
         ownerFacade.logoutOwner(session); // OWNER 로그아웃
         return CommonResponse.success("OK");
     }
+
+    /**
+     * 사장님 정보 변경
+     *
+     * @param request
+     * @return
+     */
+    @PatchMapping("/update")
+    @LoginCheck(type = LoginCheck.UserType.OWNER)
+    public CommonResponse updateOwner(@Valid OwnerDto.UpdateRequest request){
+        var Command = request.toCommand();              // request Data Convert (Command)
+        var ownerInfo = ownerFacade.updateOwner(Command);   // OWNER 정보 수정
+        var response = new OwnerDto.response(ownerInfo);               // OwnerInfo Data Convert (response)
+        return CommonResponse.success(response);
+    }
 }
