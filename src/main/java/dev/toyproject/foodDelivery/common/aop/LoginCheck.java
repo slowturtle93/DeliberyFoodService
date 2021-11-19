@@ -16,6 +16,6 @@ public @interface LoginCheck {
 
     // 로그인 진행하는 Type 구분
     public static enum UserType {
-        MEMBER
+        MEMBER, OWNER
     }
 }
