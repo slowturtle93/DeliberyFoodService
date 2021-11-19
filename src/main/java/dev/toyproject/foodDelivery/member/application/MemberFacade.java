@@ -37,7 +37,7 @@ public class MemberFacade {
      */
     public MemberInfo loginMember(MemberCommand command, HttpSession session){
         var loginMemberInfo = memberService.loginMemberInfo(command.getMemberMail(), command.getMemberPwd()); // 로그인 정보 확인
-        SessionUtil.setLoginMemberId(session, loginMemberInfo.getMemberToken()); // session 에 사용자 Token 정보 저장
+        SessionUtil.setLoginMemberToken(session, loginMemberInfo.getMemberToken()); // session 에 사용자 Token 정보 저장
         return loginMemberInfo;
     }
 
