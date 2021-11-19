@@ -24,15 +24,27 @@ public class LoginCheckAspect {
      * @param jp
      * @throws Throwable
      */
-    @Before("@annotation(dev.practice.toyproject.foodDelivery.common.aop.LoginCheck)")
-    public void memberLoginCheck(JoinPoint jp) throws Throwable {
+    @Before("@annotation(dev.practice.toyproject.foodDelivery.common.aop.LoginCheck) && @annotation(loginCheck)")
+    public void memberLoginCheck(JoinPoint jp, LoginCheck loginCheck) throws Throwable {
         log.debug("AOP - Member Login Check Started");
-
         HttpSession session = ((ServletRequestAttributes)(RequestContextHolder.currentRequestAttributes())).getRequest().getSession();
-        String memberToken = SessionUtil.getLoginMemberId(session);
 
-        if (memberToken == null) {
-            throw new HttpStatusCodeException(HttpStatus.UNAUTHORIZED, "NO_LOGIN") {};
+        String userType = loginCheck.type().toString();
+        String token = null;
+
+        switch (userType){
+            case "MEMBER":{
+                token = SessionUtil.getLoginMemberToken(session);
+                break;
+            }
+            case "OWNER":{
+                token = SessionUtil.getLoginOwnerToken(session);
+                break;
+            }
+        }
+
+        if(token == null ){
+            throw new  HttpStatusCodeException(HttpStatus.UNAUTHORIZED, "NO_LOGIN") {};
         }
     }
 }
