@@ -18,7 +18,7 @@ public class SessionUtil {
      * @param session
      * @return
      */
-    public static String getLoginMemberId(HttpSession session) {
+    public static String getLoginMemberToken(HttpSession session) {
         return (String) session.getAttribute(LOGIN_MEMBER_ID);
     }
 
@@ -28,7 +28,7 @@ public class SessionUtil {
      * @param session
      * @param memberToken
      */
-    public static void setLoginMemberId(HttpSession session, String memberToken){
+    public static void setLoginMemberToken(HttpSession session, String memberToken){
         session.setAttribute(LOGIN_MEMBER_ID, memberToken);
     }
 
