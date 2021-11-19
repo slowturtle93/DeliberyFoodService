@@ -49,4 +49,13 @@ public class OwnerFacade {
         SessionUtil.setLoginOwnerToken(session, loginOwnerInfo.getOwnerToken()); // session 에 사장 Token 정보 저장
         return loginOwnerInfo;
     }
+
+    /**
+     * 사장님 로그아웃 진행
+     *
+     * @param session
+     */
+    public void logoutOwner(HttpSession session){
+        SessionUtil.removeLogoutOwner(session); // session 에 사장 Token 정보 삭제
+    }
 }

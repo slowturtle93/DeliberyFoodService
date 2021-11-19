@@ -1,5 +1,6 @@
 package dev.toyproject.foodDelivery.owner.interfaces;
 
+import dev.toyproject.foodDelivery.common.aop.LoginCheck;
 import dev.toyproject.foodDelivery.common.response.CommonResponse;
 import dev.toyproject.foodDelivery.owner.application.OwnerFacade;
 import lombok.RequiredArgsConstructor;
@@ -45,7 +46,7 @@ public class OwnerController {
     }
 
     /**
-     * 사장 로그인 진행
+     * 사장님 로그인 진행
      *
      * @param request
      * @return
@@ -56,5 +57,18 @@ public class OwnerController {
         var ownerInfo = ownerFacade.loginOwner(Command, session);     // OWNER 로그인
         var response = new OwnerDto.response(ownerInfo);                         // OwnerInfo Data Convert (response)
         return CommonResponse.success(response);
+    }
+
+    /**
+     * 사장님 로그아웃 진행
+     *
+     * @param session
+     * @return
+     */
+    @GetMapping("/logout")
+    @LoginCheck(type = LoginCheck.UserType.OWNER)
+    public CommonResponse logoutOwner(HttpSession session){
+        ownerFacade.logoutOwner(session); // OWNER 로그아웃
+        return CommonResponse.success("OK");
     }
 }
