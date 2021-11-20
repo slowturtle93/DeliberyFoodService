@@ -4,8 +4,9 @@ import javax.servlet.http.HttpSession;
 
 public class SessionUtil {
 
-    private static final String LOGIN_MEMBER_ID = "LOGIN_MEMBER_ID";
+    private static final String LOGIN_MEMBER_ID    = "LOGIN_MEMBER_ID";
     private static final String LOGIN_OWNER_TOKEN  = "LOGIN_OWNER_TOKEN";
+    private static final String LOGIN_RIDER_TOKEN  = "LOGIN_RIDER_TOKEN";
 
     // 인스턴스화 방지
     private SessionUtil(){}
@@ -70,5 +71,36 @@ public class SessionUtil {
      */
     public static void removeLogoutOwner(HttpSession session){
         session.removeAttribute(LOGIN_OWNER_TOKEN);
+    }
+
+    /********************************* RIDER ***********************************/
+
+    /**
+     * 라이더 session 정보 조회
+     *
+     * @param session
+     * @return
+     */
+    public static String getLoginRiderToken(HttpSession session) {
+        return (String) session.getAttribute(LOGIN_RIDER_TOKEN);
+    }
+
+    /**
+     * 라이더 Token 정보 session 저장
+     *
+     * @param session
+     * @param riderToken
+     */
+    public static void setLoginRiderToken(HttpSession session, String riderToken){
+        session.setAttribute(LOGIN_RIDER_TOKEN, riderToken);
+    }
+
+    /**
+     * 라이더 Token 정보 session 삭제
+     *
+     * @param session
+     */
+    public static void removeLogoutRider(HttpSession session){
+        session.removeAttribute(LOGIN_RIDER_TOKEN);
     }
 }
