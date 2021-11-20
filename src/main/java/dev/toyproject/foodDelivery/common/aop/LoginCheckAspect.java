@@ -41,6 +41,10 @@ public class LoginCheckAspect {
                 token = SessionUtil.getLoginOwnerToken(session);
                 break;
             }
+            case "RIDER":{
+                token = SessionUtil.getLoginRiderToken(session);
+                break;
+            }
         }
 
         if(token == null ){
