@@ -103,4 +103,17 @@ public class OwnerController {
         var response = new OwnerDto.response(ownerInfo);                                  // OwnerInfo Data Convert (response)
         return CommonResponse.success(response);
     }
+
+    /**
+     * 사장님 회원탈퇴 (상태 [Disable] 변경)
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/disable")
+    public CommonResponse disableOwner(@Valid OwnerDto.ChangeOwnerRequest request, HttpSession session){
+        var ownerToken = request.getOwnerToken(); // request Data Convert (String)
+        ownerFacade.disableOwner(ownerToken, session);   // 사장님 상태 [DISABLE] 변경
+        return CommonResponse.success("OK");
+    }
 }

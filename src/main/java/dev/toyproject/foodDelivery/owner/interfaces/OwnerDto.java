@@ -122,6 +122,12 @@ public class OwnerDto {
         }
     }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class ChangeOwnerRequest{
+        private String ownerToken;
+    }
     /******************************** response ********************************/
 
     @Getter

@@ -77,4 +77,18 @@ public class OwnerServiceImpl implements OwnerService {
         owner.updateOwnerPassword(afterPassword); // OWNER 비밀번호 변경
         return new OwnerInfo(owner);
     }
+
+    /**
+     * 사장님 회원탈퇴
+     *
+     * @param ownerToken
+     * @return
+     */
+    @Override
+    @Transactional
+    public OwnerInfo disableOwner(String ownerToken) {
+        Owner owner = ownerReader.getOwnerByToken(ownerToken); // Token 조건으로 사장님 정보 조회
+        owner.disable(); // 사장 상태 [DISABLE] 변경
+        return new OwnerInfo(owner);
+    }
 }

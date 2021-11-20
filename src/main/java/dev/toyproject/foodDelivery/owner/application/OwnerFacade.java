@@ -81,4 +81,15 @@ public class OwnerFacade {
         SessionUtil.removeLogoutOwner(session);                                   // 비밀번호 변경 후 재접속을 위해 session 값 삭제
         return OwnerInfo;
     }
+
+    /**
+     * 회원 탈퇴 (사장님 [DISABLE] 상태 변경)
+     *
+     * @param ownerToken
+     * @param session
+     */
+    public void disableOwner(String ownerToken, HttpSession session){
+        ownerService.disableOwner(ownerToken); // 사장 상태 [DISABLE] 변경
+        SessionUtil.removeLogoutOwner(session);  // 회원 탈퇴 시 Session 정보 삭제
+    }
 }
