@@ -51,7 +51,7 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     /**
-     * 사장 정보 변경
+     * 사장님 정보 변경
      *
      * @param command
      * @return
@@ -61,6 +61,20 @@ public class OwnerServiceImpl implements OwnerService {
     public OwnerInfo updateOwner(OwnerCommand command) {
         Owner owner = ownerReader.getOwnerByToken(command.getOwnerToken());                             // OWNER 정보 조회
         owner.updateOwnerInfo(command.getOwnerTel(), command.getOwnerBirth(), command.getOwnerMail());  // OWNER 정보 수정
+        return new OwnerInfo(owner);
+    }
+
+    /**
+     * 사장님 비밀번호 변경
+     *
+     * @param command
+     * @return
+     */
+    @Override
+    @Transactional
+    public OwnerInfo updateOwnerPassword(OwnerCommand command, String afterPassword) {
+        Owner owner = ownerReader.getOwnerByTokenAndPwd(command.getOwnerToken(), command.getOwnerPwd()); // Token, Pwd 조건으로 OWNER 정보 조회
+        owner.updateOwnerPassword(afterPassword); // OWNER 비밀번호 변경
         return new OwnerInfo(owner);
     }
 }

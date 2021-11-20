@@ -2,6 +2,7 @@ package dev.toyproject.foodDelivery.owner.interfaces;
 
 import dev.toyproject.foodDelivery.common.aop.LoginCheck;
 import dev.toyproject.foodDelivery.common.response.CommonResponse;
+import dev.toyproject.foodDelivery.common.util.SHA256Util;
 import dev.toyproject.foodDelivery.owner.application.OwnerFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -84,6 +85,22 @@ public class OwnerController {
         var Command = request.toCommand();              // request Data Convert (Command)
         var ownerInfo = ownerFacade.updateOwner(Command);   // OWNER 정보 수정
         var response = new OwnerDto.response(ownerInfo);               // OwnerInfo Data Convert (response)
+        return CommonResponse.success(response);
+    }
+
+    /**
+     * 사장님 비밀번호 변경
+     *
+     * @param request
+     * @return
+     */
+    @PatchMapping("/update/password")
+    @LoginCheck(type = LoginCheck.UserType.OWNER)
+    public CommonResponse updateOwnerPassword(@Valid OwnerDto.UpdatePasswordRequest request, HttpSession session){
+        var Command = request.toCommand();                                 // request Data Convert (Command)
+        var afterPassword = SHA256Util.encryptSHA256(request.getAfterPassword());  // AfterPassword Data Convert (String)
+        var ownerInfo = ownerFacade.updateOwnerPassword(Command, afterPassword, session); // OWNER 비밀번호 변경
+        var response = new OwnerDto.response(ownerInfo);                                  // OwnerInfo Data Convert (response)
         return CommonResponse.success(response);
     }
 }

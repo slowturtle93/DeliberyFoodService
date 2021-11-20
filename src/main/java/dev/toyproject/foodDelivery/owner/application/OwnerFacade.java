@@ -60,13 +60,25 @@ public class OwnerFacade {
     }
 
     /**
-     * 사장 정보 수정
+     * 사장님 정보 수정
      *
      * @param command
      * @return
      */
     public OwnerInfo updateOwner(OwnerCommand command){
-        var ownerInfo = ownerService.updateOwner(command); // 사장 정보 수정
+        var ownerInfo = ownerService.updateOwner(command); // 사장님 정보 수정
         return ownerInfo;
+    }
+
+    /**
+     * 사장님 비밀번호 변경
+     *
+     * @param command
+     * @return
+     */
+    public OwnerInfo updateOwnerPassword(OwnerCommand command, String afterPassword, HttpSession session){
+        var OwnerInfo = ownerService.updateOwnerPassword(command, afterPassword); // 비밀번호 변경
+        SessionUtil.removeLogoutOwner(session);                                   // 비밀번호 변경 후 재접속을 위해 session 값 삭제
+        return OwnerInfo;
     }
 }

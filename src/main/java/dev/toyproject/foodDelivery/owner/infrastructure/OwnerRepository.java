@@ -13,4 +13,6 @@ public interface OwnerRepository extends JpaRepository<Owner, String> {
 
     Optional<Owner> findByOwnerLoginIdAndOwnerPwdAndStatus(String ownerLoginId, String ownerPwd, Owner.Status status);
 
+    Optional<Owner> findByOwnerTokenAndOwnerPwdAndStatus(String ownerToken, String ownerPwd, Owner.Status status);
+
 }

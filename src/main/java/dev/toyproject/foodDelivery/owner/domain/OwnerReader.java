@@ -7,4 +7,6 @@ public interface OwnerReader {
     void duplicateCheckOwnerLoginId(String ownerLoginId);
 
     Owner getLoginOwner(String ownerLoginId, String ownerPwd);
+
+    Owner getOwnerByTokenAndPwd(String ownerToken, String ownerPwd);
 }

@@ -9,4 +9,6 @@ public interface OwnerService {
     OwnerInfo loginOwnerInfo(String ownerLoginId, String ownerPwd);
 
     OwnerInfo updateOwner(OwnerCommand command);
+
+    OwnerInfo updateOwnerPassword(OwnerCommand command, String afterPassword);
 }

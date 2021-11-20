@@ -101,6 +101,27 @@ public class OwnerDto {
         }
     }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class UpdatePasswordRequest{
+        @NotEmpty(message = "ownerToken 는 필수값입니다.")
+        private String ownerToken;
+
+        @NotEmpty(message = "beforePassword 는 필수값입니다.")
+        private String beforePassword;
+
+        @NotEmpty(message = "afterPassword 는 필수값입니다.")
+        private String afterPassword;
+
+        public OwnerCommand toCommand(){
+            return OwnerCommand.builder()
+                    .ownerToken(ownerToken)
+                    .ownerPwd(SHA256Util.encryptSHA256(beforePassword))
+                    .build();
+        }
+    }
+
     /******************************** response ********************************/
 
     @Getter
