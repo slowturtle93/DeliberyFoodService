@@ -12,4 +12,6 @@ public interface RiderRepository extends JpaRepository<Rider, String> {
     Optional<Rider> findByRiderLoginIdAndRiderPwdAndStatus(String riderLoginId, String riderPWd, Rider.Status status);
 
     Optional<Rider> findByRiderTokenAndStatus(String riderToken, Rider.Status status);
+
+    Optional<Rider> findByRiderTokenAndRiderPwdAndStatus(String riderToken, String riderPwd, Rider.Status status);
 }

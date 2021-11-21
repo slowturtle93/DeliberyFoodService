@@ -106,6 +106,27 @@ public class RiderDto {
         }
     }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class UpdatePasswordRequest{
+        @NotEmpty(message = "riderToken 는 필수값입니다.")
+        private String riderToken;
+
+        @NotEmpty(message = "beforePassword 는 필수값입니다.")
+        private String beforePassword;
+
+        @NotEmpty(message = "afterPassword 는 필수값입니다.")
+        private String afterPassword;
+
+        public RiderCommand toCommand(){
+            return RiderCommand.builder()
+                    .riderToken(riderToken)
+                    .riderPwd(SHA256Util.encryptSHA256(beforePassword))
+                    .build();
+        }
+    }
+
     /******************************** response ********************************/
 
     @Getter

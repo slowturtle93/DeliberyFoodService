@@ -2,6 +2,7 @@ package dev.toyproject.foodDelivery.rider.interfaces;
 
 import dev.toyproject.foodDelivery.common.aop.LoginCheck;
 import dev.toyproject.foodDelivery.common.response.CommonResponse;
+import dev.toyproject.foodDelivery.common.util.SHA256Util;
 import dev.toyproject.foodDelivery.rider.application.RiderFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -84,6 +85,22 @@ public class RiderController {
         var Command = request.toCommand();            // request Data Convert (Command)
         var riderInfo = riderFacade.updateRider(Command); // Rider 정보 수정
         var response = new RiderDto.response(riderInfo);           // RiderInfo Data Convert (response)
+        return CommonResponse.success(response);
+    }
+
+    /**
+     * 라이더 비밀번호 변경
+     *
+     * @param request
+     * @return
+     */
+    @PatchMapping("/update/password")
+    @LoginCheck(type = LoginCheck.UserType.RIDER)
+    public CommonResponse updateMemberPassword(@Valid RiderDto.UpdatePasswordRequest request, HttpSession session){
+        var Command = request.toCommand(); // request Data Convert (Command)
+        var afterPassword = SHA256Util.encryptSHA256(request.getAfterPassword());           // AfterPassword Data Convert (String)
+        var riderInfo = riderFacade.updateRiderPassword(Command, afterPassword, session); // Rider 비밀번호 변경
+        var response = new RiderDto.response(riderInfo); // RiderInfo Data Convert (response)
         return CommonResponse.success(response);
     }
 }

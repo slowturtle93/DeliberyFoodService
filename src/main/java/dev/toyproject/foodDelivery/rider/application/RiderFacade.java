@@ -69,4 +69,16 @@ public class RiderFacade {
         var riderInfo = riderService.updateRider(command); // 사용자 정보 수정
         return riderInfo;
     }
+
+    /**
+     * 라이더 비밀번호 변경
+     *
+     * @param command
+     * @return
+     */
+    public RiderInfo updateRiderPassword(RiderCommand command, String afterPassword, HttpSession session){
+        var riderInfo = riderService.updateRiderPassword(command, afterPassword); // 비밀번호 변경
+        SessionUtil.removeLogoutRider(session); // 비밀번호 변경 후 재접속을 위해 session 값 삭제
+        return riderInfo;
+    }
 }

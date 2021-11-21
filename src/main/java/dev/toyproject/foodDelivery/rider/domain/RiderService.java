@@ -9,4 +9,6 @@ public interface RiderService {
     RiderInfo loginRiderInfo(String riderLoginId, String riderPwd);
 
     RiderInfo updateRider(RiderCommand command);
+
+    RiderInfo updateRiderPassword(RiderCommand command, String afterPassword);
 }

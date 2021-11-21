@@ -63,4 +63,19 @@ public class RiderServiceImpl implements RiderService{
         rider.updateRiderInfo(command); // MEMBER 정보 수정
         return new RiderInfo(rider);
     }
+
+    /**
+     * 라이더 비밀번호 변경
+     *
+     * @param command
+     * @param afterPassword
+     * @return
+     */
+    @Override
+    @Transactional
+    public RiderInfo updateRiderPassword(RiderCommand command, String afterPassword) {
+        Rider rider = riderReader.getRiderByTokenAndPwd(command.getRiderToken(), command.getRiderPwd()); // Token, Pwd 조건으로 MEMBER 정보 조회
+        rider.updateRiderPassword(afterPassword); // MEMBER 비밀번호 변경
+        return new RiderInfo(rider);
+    }
 }
