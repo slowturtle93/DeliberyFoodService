@@ -1,5 +1,6 @@
 package dev.toyproject.foodDelivery.rider.interfaces;
 
+import dev.toyproject.foodDelivery.common.aop.LoginCheck;
 import dev.toyproject.foodDelivery.common.response.CommonResponse;
 import dev.toyproject.foodDelivery.rider.application.RiderFacade;
 import lombok.RequiredArgsConstructor;
@@ -56,5 +57,18 @@ public class RiderController {
         var riderInfo = riderFacade.loginRider(Command, session); // Rider 로그인
         var response = new RiderDto.response(riderInfo);                   // RiderInfo Data Convert (response)
         return CommonResponse.success(response);
+    }
+
+    /**
+     * 라이더 로그아웃 진행
+     *
+     * @param session
+     * @return
+     */
+    @GetMapping("/logout")
+    @LoginCheck(type = LoginCheck.UserType.RIDER)
+    public CommonResponse logoutRider(HttpSession session){
+        riderFacade.logoutRider(session); // RIDER 로그아웃
+        return CommonResponse.success("OK");
     }
 }

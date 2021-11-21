@@ -49,4 +49,13 @@ public class RiderFacade {
         SessionUtil.setLoginRiderToken(session, riderInfo.getRiderToken()); // session 에 라이더 Token 정보 저장
         return riderInfo;
     }
+
+    /**
+     * 라이더 로그아웃 진행
+     *
+     * @param session
+     */
+    public void logoutRider(HttpSession session){
+        SessionUtil.removeLogoutRider(session); // session 에 라이더 Token 정보 삭제
+    }
 }
