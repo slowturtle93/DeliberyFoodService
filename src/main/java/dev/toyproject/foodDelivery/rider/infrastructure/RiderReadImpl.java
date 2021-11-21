@@ -1,6 +1,7 @@
 package dev.toyproject.foodDelivery.rider.infrastructure;
 
 import dev.toyproject.foodDelivery.common.exception.DuplicateKeyException;
+import dev.toyproject.foodDelivery.common.exception.EntityNotFoundException;
 import dev.toyproject.foodDelivery.rider.domain.Rider;
 import dev.toyproject.foodDelivery.rider.domain.RiderReader;
 import lombok.RequiredArgsConstructor;
@@ -25,5 +26,18 @@ public class RiderReadImpl implements RiderReader {
     public void DuplicateLoginId(String loginId) {
         Optional<Rider> riderInfo = riderRepository.findByRiderLoginId(loginId);
         if(!riderInfo.isEmpty()){ throw new DuplicateKeyException(); }
+    }
+
+    /**
+     * 라이더 로그인 진행
+     *
+     * @param riderLoginId
+     * @param riderPwd
+     * @return
+     */
+    @Override
+    public Rider getLoginRider(String riderLoginId, String riderPwd) {
+        return riderRepository.findByRiderLoginIdAndRiderPwdAndStatus(riderLoginId, riderPwd, Rider.Status.ENABLE)
+                .orElseThrow(EntityNotFoundException::new);
     }
 }

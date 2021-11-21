@@ -1,11 +1,14 @@
 package dev.toyproject.foodDelivery.rider.application;
 
+import dev.toyproject.foodDelivery.common.util.SessionUtil;
 import dev.toyproject.foodDelivery.rider.domain.RiderCommand;
 import dev.toyproject.foodDelivery.rider.domain.RiderInfo;
 import dev.toyproject.foodDelivery.rider.domain.RiderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Service
@@ -32,5 +35,18 @@ public class RiderFacade {
      */
     public void duplicateLoginId(String loginId){
         riderService.duplicateLoginId(loginId);
+    }
+
+    /**
+     * 라이더 로그인 진행
+     *
+     * @param command
+     * @param session
+     * @return
+     */
+    public RiderInfo loginRider(RiderCommand command, HttpSession session){
+        var riderInfo = riderService.loginRiderInfo(command.getRiderLoginId(), command.getRiderPwd()); // 로그인 정보 확인
+        SessionUtil.setLoginRiderToken(session, riderInfo.getRiderToken()); // session 에 라이더 Token 정보 저장
+        return riderInfo;
     }
 }

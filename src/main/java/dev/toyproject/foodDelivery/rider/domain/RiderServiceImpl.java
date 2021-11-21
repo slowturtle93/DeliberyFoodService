@@ -36,4 +36,17 @@ public class RiderServiceImpl implements RiderService{
     public void duplicateLoginId(String loginId) {
         riderReader.DuplicateLoginId(loginId);
     }
+
+    /**
+     * 라이더 로그인 진행
+     *
+     * @param riderLoginId
+     * @param riderPwd
+     * @return
+     */
+    @Override
+    public RiderInfo loginRiderInfo(String riderLoginId, String riderPwd) {
+        Rider rider = riderReader.getLoginRider(riderLoginId, riderPwd); // Mail, Pwd 조건으로 사용자 정보 조회
+        return new RiderInfo(rider);
+    }
 }

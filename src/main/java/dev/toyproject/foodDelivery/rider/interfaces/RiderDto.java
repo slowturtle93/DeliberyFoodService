@@ -53,6 +53,25 @@ public class RiderDto {
         }
     }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class LoginRequest{
+
+        @NotEmpty(message = "riderLoginId 는 필수값입니다.")
+        private String riderLoginId;
+
+        @NotEmpty(message = "riderPwd 는 필수값입니다.")
+        private String riderPwd;
+
+        public RiderCommand toCommand(){
+            return RiderCommand.builder()
+                    .riderLoginId(riderLoginId)
+                    .riderPwd(SHA256Util.encryptSHA256(riderPwd))
+                    .build();
+        }
+    }
+
     /******************************** response ********************************/
 
     @Getter
