@@ -24,4 +24,13 @@ public class RiderFacade {
         var riderInfo = riderService.registerRider(command);
         return riderInfo;
     }
+
+    /**
+     * 로그인 아이디 중복 확인
+     *
+     * @param loginId
+     */
+    public void duplicateLoginId(String loginId){
+        riderService.duplicateLoginId(loginId);
+    }
 }

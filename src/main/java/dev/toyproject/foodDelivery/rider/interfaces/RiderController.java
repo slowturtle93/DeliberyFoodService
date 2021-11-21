@@ -4,11 +4,10 @@ import dev.toyproject.foodDelivery.common.response.CommonResponse;
 import dev.toyproject.foodDelivery.rider.application.RiderFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @Slf4j
 @RestController
@@ -30,5 +29,17 @@ public class RiderController {
         var riderInfo = riderFacade.registerRider(Command); // Rider 정보 조회
         var response = new RiderDto.response(riderInfo);             // RiderInfo Data Convert (response)
         return CommonResponse.success(response);
+    }
+
+    /**
+     * 아이디 중복 확인
+     *
+     * @param loginId
+     * @return
+     */
+    @GetMapping("/duplicate/{loginId}")
+    public CommonResponse duplicateLoginId(@PathVariable("loginId") @NotNull String loginId){
+        riderFacade.duplicateLoginId(loginId); // 아이디 중복 확인
+        return CommonResponse.success("OK");
     }
 }

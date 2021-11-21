@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class RiderServiceImpl implements RiderService{
 
     private final RiderStore riderStore;
+    private final RiderReader riderReader;
 
     /**
      * 라이더 등록
@@ -24,5 +25,15 @@ public class RiderServiceImpl implements RiderService{
         var initRider = command.toEntity();
         Rider rider = riderStore.store(initRider);
         return new RiderInfo(rider);
+    }
+
+    /**
+     * 로그인 아이디 중복 확인
+     *
+     * @param loginId
+     */
+    @Override
+    public void duplicateLoginId(String loginId) {
+        riderReader.DuplicateLoginId(loginId);
     }
 }
