@@ -49,4 +49,18 @@ public class RiderServiceImpl implements RiderService{
         Rider rider = riderReader.getLoginRider(riderLoginId, riderPwd); // Mail, Pwd 조건으로 사용자 정보 조회
         return new RiderInfo(rider);
     }
+
+    /**
+     * 라이더 정보 수정
+     *
+     * @param command
+     * @return
+     */
+    @Override
+    @Transactional
+    public RiderInfo updateRider(RiderCommand command) {
+        Rider rider = riderReader.getRiderByToken(command.getRiderToken()); // MEMBER 정보 조회
+        rider.updateRiderInfo(command); // MEMBER 정보 수정
+        return new RiderInfo(rider);
+    }
 }

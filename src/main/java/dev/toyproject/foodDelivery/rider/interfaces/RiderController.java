@@ -71,4 +71,19 @@ public class RiderController {
         riderFacade.logoutRider(session); // RIDER 로그아웃
         return CommonResponse.success("OK");
     }
+
+    /**
+     * 라이더 정보 변경
+     *
+     * @param request
+     * @return
+     */
+    @PatchMapping("/update")
+    @LoginCheck(type = LoginCheck.UserType.RIDER)
+    public CommonResponse updateRider(@Valid RiderDto.UpdateRequest request){
+        var Command = request.toCommand();            // request Data Convert (Command)
+        var riderInfo = riderFacade.updateRider(Command); // Rider 정보 수정
+        var response = new RiderDto.response(riderInfo);           // RiderInfo Data Convert (response)
+        return CommonResponse.success(response);
+    }
 }

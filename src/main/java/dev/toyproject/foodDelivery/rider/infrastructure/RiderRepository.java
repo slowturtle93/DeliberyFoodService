@@ -10,4 +10,6 @@ public interface RiderRepository extends JpaRepository<Rider, String> {
     Optional<Rider> findByRiderLoginId(String loginId);
 
     Optional<Rider> findByRiderLoginIdAndRiderPwdAndStatus(String riderLoginId, String riderPWd, Rider.Status status);
+
+    Optional<Rider> findByRiderTokenAndStatus(String riderToken, Rider.Status status);
 }

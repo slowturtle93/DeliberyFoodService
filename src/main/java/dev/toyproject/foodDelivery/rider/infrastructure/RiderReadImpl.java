@@ -40,4 +40,16 @@ public class RiderReadImpl implements RiderReader {
         return riderRepository.findByRiderLoginIdAndRiderPwdAndStatus(riderLoginId, riderPwd, Rider.Status.ENABLE)
                 .orElseThrow(EntityNotFoundException::new);
     }
+
+    /**
+     * 라이더 정보 조회
+     *
+     * @param riderToken
+     * @return
+     */
+    @Override
+    public Rider getRiderByToken(String riderToken) {
+        return riderRepository.findByRiderTokenAndStatus(riderToken, Rider.Status.ENABLE)
+                .orElseThrow(EntityNotFoundException::new);
+    }
 }

@@ -5,4 +5,6 @@ public interface RiderReader {
     void DuplicateLoginId(String riderLoginId);
 
     Rider getLoginRider(String riderLoginId, String riderPwd);
+
+    Rider getRiderByToken(String riderToken);
 }

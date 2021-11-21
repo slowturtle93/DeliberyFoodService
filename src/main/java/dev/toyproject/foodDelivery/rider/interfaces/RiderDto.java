@@ -72,6 +72,40 @@ public class RiderDto {
         }
     }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class UpdateRequest{
+        @NotEmpty(message = "riderToken 는 필수값입니다.")
+        private String riderToken;
+
+        @NotEmpty(message = "riderName 는 필수값입니다.")
+        private String riderName;
+
+        @NotEmpty(message = "riderTel 는 필수값입니다.")
+        private String riderTel;
+
+        @NotEmpty(message = "residence 는 필수값입니다.")
+        private String residence;
+
+        @NotEmpty(message = "deliveryRegion 는 필수값입니다.")
+        private String deliveryRegion;
+
+        @NotEmpty(message = "deliveryMethod 는 필수값입니다.")
+        private String deliveryMethod;
+
+        public RiderCommand toCommand(){
+            return RiderCommand.builder()
+                    .riderToken(riderToken)
+                    .riderName(riderName)
+                    .riderTel(riderTel)
+                    .residence(residence)
+                    .deliveryRegion(deliveryRegion)
+                    .deliveryMethod(deliveryMethod)
+                    .build();
+        }
+    }
+
     /******************************** response ********************************/
 
     @Getter

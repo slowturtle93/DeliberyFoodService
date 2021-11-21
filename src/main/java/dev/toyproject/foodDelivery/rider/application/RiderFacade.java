@@ -58,4 +58,15 @@ public class RiderFacade {
     public void logoutRider(HttpSession session){
         SessionUtil.removeLogoutRider(session); // session 에 라이더 Token 정보 삭제
     }
+
+    /**
+     * 라이더 정보 수정
+     *
+     * @param command
+     * @return
+     */
+    public RiderInfo updateRider(RiderCommand command){
+        var riderInfo = riderService.updateRider(command); // 사용자 정보 수정
+        return riderInfo;
+    }
 }

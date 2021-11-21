@@ -7,4 +7,6 @@ public interface RiderService {
     void duplicateLoginId(String loginId);
 
     RiderInfo loginRiderInfo(String riderLoginId, String riderPwd);
+
+    RiderInfo updateRider(RiderCommand command);
 }
