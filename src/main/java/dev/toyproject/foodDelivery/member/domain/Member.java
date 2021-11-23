@@ -38,7 +38,7 @@ public class Member extends AbstracEntity {
     @RequiredArgsConstructor
     public enum Status{
         ENABLE("활성화"),
-        DISABALE("비활성화");
+        DISABLE("비활성화");
 
         private final String description;
     }
@@ -79,6 +79,6 @@ public class Member extends AbstracEntity {
     }
 
     // 사용자 상태 [DISABLE] 변경
-    public void disable() { this.status = Status.DISABALE; }
+    public void disable() { this.status = Status.DISABLE; }
 
 }
