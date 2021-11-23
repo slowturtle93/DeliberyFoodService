@@ -1,4 +1,4 @@
-package dev.toyproject.foodDelivery.common.util;
+package dev.toyproject.foodDelivery.common.util.redis;
 
 import javax.servlet.http.HttpSession;
 
