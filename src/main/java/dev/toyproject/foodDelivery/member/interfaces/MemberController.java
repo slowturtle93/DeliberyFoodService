@@ -28,7 +28,7 @@ public class MemberController {
      * @return
      */
     @PostMapping
-    public CommonResponse registerMember(@Valid MemberDto.RegisterRequest request){
+    public CommonResponse registerMember(@RequestBody @Valid MemberDto.RegisterRequest request){
         var Command = request.toCommand();                 // request Data Convert (Command)
         var memberInfo = memberFacade.registerMember(Command); // Member 정보 조회
         var response = new MemberDto.response(memberInfo);                // MemberInfo Data Convert (response)
@@ -42,7 +42,7 @@ public class MemberController {
      * @return
      */
     @PostMapping("/login")
-    public CommonResponse loginMember(@Valid MemberDto.LoginRequest request, HttpSession session){
+    public CommonResponse loginMember(@RequestBody @Valid MemberDto.LoginRequest request, HttpSession session){
         var Command = request.toCommand();                       // request Data Convert (Command)
         var memberInfo = memberFacade.loginMember(Command, session); // MEMBER 로그인
         var response = new MemberDto.response(memberInfo);                      // MemberInfo Data Convert (response)
@@ -82,7 +82,7 @@ public class MemberController {
      */
     @PatchMapping("/update")
     @LoginCheck(type = LoginCheck.UserType.MEMBER)
-    public CommonResponse updateMember(@Valid MemberDto.UpdateRequest request){
+    public CommonResponse updateMember(@RequestBody @Valid MemberDto.UpdateRequest request){
         var Command = request.toCommand();               // request Data Convert (Command)
         var memberInfo = memberFacade.updateMember(Command); // MEMBER 정보 수정
         var response = new MemberDto.response(memberInfo);              // MemberInfo Data Convert (response)
@@ -97,7 +97,7 @@ public class MemberController {
      */
     @PatchMapping("/update/password")
     @LoginCheck(type = LoginCheck.UserType.MEMBER)
-    public CommonResponse updateMemberPassword(@Valid MemberDto.UpdatePasswordRequest request, HttpSession session){
+    public CommonResponse updateMemberPassword(@RequestBody @Valid MemberDto.UpdatePasswordRequest request, HttpSession session){
         var Command = request.toCommand(); // request Data Convert (Command)
         var afterPassword = SHA256Util.encryptSHA256(request.getAfterPassword());                 // AfterPassword Data Convert (String)
         var memberInfo = memberFacade.updateMemberPassword(Command, afterPassword, session); // MEMBER 비밀번호 변경
