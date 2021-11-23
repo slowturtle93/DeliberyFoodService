@@ -22,7 +22,7 @@ public class Owner extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ownerId;               // 사장 시퀀스
+    private Long   Id;                  // 사장 시퀀스
     private String ownerLoginId;        // 사장 아이디
     private String ownerMail;           // 사장 이메일
     private String ownerToken;          // 사장 Token 정보
