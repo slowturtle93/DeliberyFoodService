@@ -39,6 +39,14 @@ dependencies {
 	// aop
 	implementation "org.springframework.boot:spring-boot-starter-aop"
 
+	// retrofit
+	implementation 'com.squareup.retrofit2:retrofit:2.9.0'          // 필수
+	implementation 'com.squareup.retrofit2:converter-gson:2.9.0'    // gson converter
+	implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0' // logging interceptor
+
+	// json-simple
+	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.projectlombok:lombok'
