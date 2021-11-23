@@ -104,4 +104,18 @@ public class MemberController {
         var response = new MemberDto.response(memberInfo); // MemberInfo Data Convert (response)
         return CommonResponse.success(response);
     }
+
+    /**
+     * 사용자 회원탈퇴
+     *
+     * @param request
+     * @return
+     */
+    @PatchMapping("/disable")
+    @LoginCheck(type = LoginCheck.UserType.MEMBER)
+    public CommonResponse disableMember(@Valid MemberDto.ChangeMemberRequest request, HttpSession session){
+        var memberToken = request.getMemberToken(); // request Data Convert (String)
+        memberFacade.disableMember(memberToken, session);  // 사용자 상태 [DISABLE] 변경
+        return CommonResponse.success("OK");
+    }
 }
