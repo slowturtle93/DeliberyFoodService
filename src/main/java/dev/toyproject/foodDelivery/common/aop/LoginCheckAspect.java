@@ -1,6 +1,6 @@
 package dev.toyproject.foodDelivery.common.aop;
 
-import dev.toyproject.foodDelivery.common.util.SessionUtil;
+import dev.toyproject.foodDelivery.common.util.redis.SessionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
