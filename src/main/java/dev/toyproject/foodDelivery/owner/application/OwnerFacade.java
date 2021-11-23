@@ -1,6 +1,6 @@
 package dev.toyproject.foodDelivery.owner.application;
 
-import dev.toyproject.foodDelivery.common.util.SessionUtil;
+import dev.toyproject.foodDelivery.common.util.redis.SessionUtil;
 import dev.toyproject.foodDelivery.owner.domain.OwnerCommand;
 import dev.toyproject.foodDelivery.owner.domain.OwnerInfo;
 import dev.toyproject.foodDelivery.owner.domain.OwnerService;

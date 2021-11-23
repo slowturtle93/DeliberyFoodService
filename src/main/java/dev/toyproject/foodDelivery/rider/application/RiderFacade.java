@@ -1,6 +1,6 @@
 package dev.toyproject.foodDelivery.rider.application;
 
-import dev.toyproject.foodDelivery.common.util.SessionUtil;
+import dev.toyproject.foodDelivery.common.util.redis.SessionUtil;
 import dev.toyproject.foodDelivery.rider.domain.RiderCommand;
 import dev.toyproject.foodDelivery.rider.domain.RiderInfo;
 import dev.toyproject.foodDelivery.rider.domain.RiderService;

@@ -1,6 +1,6 @@
 package dev.toyproject.foodDelivery.member.application;
 
-import dev.toyproject.foodDelivery.common.util.SessionUtil;
+import dev.toyproject.foodDelivery.common.util.redis.SessionUtil;
 import dev.toyproject.foodDelivery.member.domain.MemberCommand;
 import dev.toyproject.foodDelivery.member.domain.MemberInfo;
 import dev.toyproject.foodDelivery.member.domain.MemberService;
