@@ -27,7 +27,7 @@ public class OwnerController {
      * @return
      */
     @PostMapping
-    public CommonResponse registerOwner(@Valid OwnerDto.RegisterRequest request){
+    public CommonResponse registerOwner(@RequestBody @Valid OwnerDto.RegisterRequest request){
         var Command = request.toCommand();              // request Data Convert (Command)
         var ownerInfo = ownerFacade.registerOwner(Command);  // Owner 정보 조회
         var response = new OwnerDto.response(ownerInfo);                // OwnerInfo Data Convert (response)
@@ -53,7 +53,7 @@ public class OwnerController {
      * @return
      */
     @PostMapping("/login")
-    public CommonResponse loginOwner(@Valid OwnerDto.LoginRequest request, HttpSession session){
+    public CommonResponse loginOwner(@RequestBody @Valid OwnerDto.LoginRequest request, HttpSession session){
         var Command = request.toCommand();                       // request Data Convert (Command)
         var ownerInfo = ownerFacade.loginOwner(Command, session);     // OWNER 로그인
         var response = new OwnerDto.response(ownerInfo);                         // OwnerInfo Data Convert (response)
@@ -81,7 +81,7 @@ public class OwnerController {
      */
     @PatchMapping("/update")
     @LoginCheck(type = LoginCheck.UserType.OWNER)
-    public CommonResponse updateOwner(@Valid OwnerDto.UpdateRequest request){
+    public CommonResponse updateOwner(@RequestBody @Valid OwnerDto.UpdateRequest request){
         var Command = request.toCommand();              // request Data Convert (Command)
         var ownerInfo = ownerFacade.updateOwner(Command);   // OWNER 정보 수정
         var response = new OwnerDto.response(ownerInfo);               // OwnerInfo Data Convert (response)
@@ -96,7 +96,7 @@ public class OwnerController {
      */
     @PatchMapping("/update/password")
     @LoginCheck(type = LoginCheck.UserType.OWNER)
-    public CommonResponse updateOwnerPassword(@Valid OwnerDto.UpdatePasswordRequest request, HttpSession session){
+    public CommonResponse updateOwnerPassword(@RequestBody @Valid OwnerDto.UpdatePasswordRequest request, HttpSession session){
         var Command = request.toCommand();                                 // request Data Convert (Command)
         var afterPassword = SHA256Util.encryptSHA256(request.getAfterPassword());  // AfterPassword Data Convert (String)
         var ownerInfo = ownerFacade.updateOwnerPassword(Command, afterPassword, session); // OWNER 비밀번호 변경
@@ -111,7 +111,7 @@ public class OwnerController {
      * @return
      */
     @PostMapping("/disable")
-    public CommonResponse disableOwner(@Valid OwnerDto.ChangeOwnerRequest request, HttpSession session){
+    public CommonResponse disableOwner(@RequestBody @Valid OwnerDto.ChangeOwnerRequest request, HttpSession session){
         var ownerToken = request.getOwnerToken(); // request Data Convert (String)
         ownerFacade.disableOwner(ownerToken, session);   // 사장님 상태 [DISABLE] 변경
         return CommonResponse.success("OK");
