@@ -23,7 +23,7 @@ public class Member extends AbstracEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long memberId;               // 사용자 번호
+    private Long   Id;                   // 사용자 시퀀스
     private String memberMail;           // 사용자 이메일
     private String memberToken;          // 사용자 Token 정보
     private String memberPwd;            // 사용자 비밀번호
@@ -38,7 +38,7 @@ public class Member extends AbstracEntity {
     @RequiredArgsConstructor
     public enum Status{
         ENABLE("활성화"),
-        DISABALE("비활성화");
+        DISABLE("비활성화");
 
         private final String description;
     }
