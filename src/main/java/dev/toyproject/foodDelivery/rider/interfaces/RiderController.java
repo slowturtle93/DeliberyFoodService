@@ -27,7 +27,7 @@ public class RiderController {
      * @return
      */
     @PostMapping
-    public CommonResponse registerRider(@Valid RiderDto.RegisterRequest request){
+    public CommonResponse registerRider(@RequestBody @Valid RiderDto.RegisterRequest request){
         var Command = request.toCommand();              // request Data Convert (Command)
         var riderInfo = riderFacade.registerRider(Command); // Rider 정보 조회
         var response = new RiderDto.response(riderInfo);             // RiderInfo Data Convert (response)
@@ -53,7 +53,7 @@ public class RiderController {
      * @return
      */
     @PostMapping("/login")
-    public CommonResponse loginMember(@Valid RiderDto.LoginRequest request, HttpSession session){
+    public CommonResponse loginMember(@RequestBody @Valid RiderDto.LoginRequest request, HttpSession session){
         var Command = request.toCommand();                    // request Data Convert (Command)
         var riderInfo = riderFacade.loginRider(Command, session); // Rider 로그인
         var response = new RiderDto.response(riderInfo);                   // RiderInfo Data Convert (response)
@@ -81,7 +81,7 @@ public class RiderController {
      */
     @PatchMapping("/update")
     @LoginCheck(type = LoginCheck.UserType.RIDER)
-    public CommonResponse updateRider(@Valid RiderDto.UpdateRequest request){
+    public CommonResponse updateRider(@RequestBody @Valid RiderDto.UpdateRequest request){
         var Command = request.toCommand();            // request Data Convert (Command)
         var riderInfo = riderFacade.updateRider(Command); // Rider 정보 수정
         var response = new RiderDto.response(riderInfo);           // RiderInfo Data Convert (response)
@@ -96,7 +96,7 @@ public class RiderController {
      */
     @PatchMapping("/update/password")
     @LoginCheck(type = LoginCheck.UserType.RIDER)
-    public CommonResponse updateMemberPassword(@Valid RiderDto.UpdatePasswordRequest request, HttpSession session){
+    public CommonResponse updateMemberPassword(@RequestBody @Valid RiderDto.UpdatePasswordRequest request, HttpSession session){
         var Command = request.toCommand(); // request Data Convert (Command)
         var afterPassword = SHA256Util.encryptSHA256(request.getAfterPassword());           // AfterPassword Data Convert (String)
         var riderInfo = riderFacade.updateRiderPassword(Command, afterPassword, session); // Rider 비밀번호 변경
