@@ -14,4 +14,6 @@ public interface MemberService {
     MemberInfo updateMember(MemberCommand command);
 
     MemberInfo updateMemberPassword(MemberCommand command, String afterPassword);
+
+    MemberInfo disableMember(String memberToken);
 }

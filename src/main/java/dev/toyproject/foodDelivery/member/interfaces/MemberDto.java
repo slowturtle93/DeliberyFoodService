@@ -106,6 +106,13 @@ public class MemberDto {
         }
     }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class ChangeMemberRequest{
+        private String memberToken;
+    }
+
     /******************************** response ********************************/
 
     @Getter
