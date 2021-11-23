@@ -21,7 +21,7 @@ public class Rider extends AbstracEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long riderId;          // 라이더 시퀀스
+    private Long    Id;            // 라이더 시퀀스
     private String riderLoginId;   // 라이더 로그인 아이디
     private String riderToken;     // 라이더 토큰
     private String riderPwd;       // 라이더 비밀번호
@@ -38,7 +38,7 @@ public class Rider extends AbstracEntity {
     @RequiredArgsConstructor
     public enum Status{
         ENABLE("활성화"),
-        DISABALE("비활성화");
+        DISABLE("비활성화");
 
         private final String description;
     }
@@ -99,5 +99,5 @@ public class Rider extends AbstracEntity {
     public void enable() { this.status = Rider.Status.ENABLE; }
 
     // 라이더 상태 [DISABLE] 변경
-    public void disable() { this.status = Rider.Status.DISABALE; }
+    public void disable() { this.status = Status.DISABLE; }
 }
