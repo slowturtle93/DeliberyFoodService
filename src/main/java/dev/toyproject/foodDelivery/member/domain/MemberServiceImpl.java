@@ -81,4 +81,18 @@ public class MemberServiceImpl implements MemberService{
         member.updateMemberPassword(afterPassword); // MEMBER 비밀번호 변경
         return new MemberInfo(member);
     }
+
+    /**
+     * 사용자 회원탈퇴
+     *
+     * @param memberToken
+     * @return
+     */
+    @Override
+    @Transactional
+    public MemberInfo disableMember(String memberToken) {
+        Member member = memberReader.getMemberByToken(memberToken); // Token 조건으로 사용자 정보 조회
+        member.disable(); // 사용자 상태 [DISABLE] 변경
+        return new MemberInfo(member);
+    }
 }

@@ -81,4 +81,15 @@ public class MemberFacade {
         SessionUtil.removeLogoutMember(session); // 비밀번호 변경 후 재접속을 위해 session 값 삭제
         return MemberInfo;
     }
+
+    /**
+     * 회원 탈퇴 (사용자 DISABLE 상태 변경)
+     *
+     * @param memberToken
+     * @param session
+     */
+    public void disableMember(String memberToken, HttpSession session){
+        memberService.disableMember(memberToken); // 사용자 상태 [DISABLE] 변경
+        SessionUtil.removeLogoutMember(session);  // 회원 탈퇴 시 Session 정보 삭제
+    }
 }

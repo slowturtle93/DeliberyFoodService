@@ -78,4 +78,7 @@ public class Member extends AbstracEntity {
         this.memberPwd = memberPwd;
     }
 
+    // 사용자 상태 [DISABLE] 변경
+    public void disable() { this.status = Status.DISABLE; }
+
 }
