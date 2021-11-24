@@ -18,3 +18,14 @@ spring:
   redis:
     host: "127.0.0.1"
     port: 6379
+
+  ## NANVER SENS
+  sens-api:
+    url: https://sens.apigw.ntruss.com/
+    accessKey: BUw33p
+    secretKey: 6WxdRYGsWYqU7
+    from: "01011112222"
+    type: SMS
+    contentType: COMM
+    countryCode: 82
+    serviceId: ncp:sms:kr:26752:fooddelpjt
