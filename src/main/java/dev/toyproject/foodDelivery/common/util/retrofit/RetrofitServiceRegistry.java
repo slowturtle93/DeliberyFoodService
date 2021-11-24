@@ -13,8 +13,7 @@ public class RetrofitServiceRegistry {
     // Naver SENS API
     @Value("${spring.sens-api.url}")
     private String NaverSmsApi;
-
-
+    
     // Retrofit Bean 생성
     @Bean
     public RetrofitNaverSensApi retrofitNaverSensApi(){
