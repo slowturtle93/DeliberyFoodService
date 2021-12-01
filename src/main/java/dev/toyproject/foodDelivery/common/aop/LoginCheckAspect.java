@@ -24,7 +24,7 @@ public class LoginCheckAspect {
      * @param jp
      * @throws Throwable
      */
-    @Before("@annotation(dev.practice.toyproject.foodDelivery.common.aop.LoginCheck) && @annotation(loginCheck)")
+    @Before("@annotation(dev.toyproject.foodDelivery.common.aop.LoginCheck) && @annotation(loginCheck)")
     public void memberLoginCheck(JoinPoint jp, LoginCheck loginCheck) throws Throwable {
         log.debug("AOP - Member Login Check Started");
         HttpSession session = ((ServletRequestAttributes)(RequestContextHolder.currentRequestAttributes())).getRequest().getSession();
