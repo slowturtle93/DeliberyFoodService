@@ -65,4 +65,17 @@ public class MemberReadImpl implements MemberReader {
         return memberRepository.findByMemberTokenAndMemberPwdAndStatus(memberToken, memberPwd, Member.Status.ENABLE)
                 .orElseThrow(EntityNotFoundException::new);
     }
+
+    /**
+     * 본인인증
+     *
+     * @param memberMail
+     * @param memberTel
+     * @return
+     */
+    @Override
+    public Member authCheck(String memberMail, String memberTel) {
+        return memberRepository.findByMemberMailAndMemberTelAndStatus(memberMail, memberTel, Member.Status.ENABLE)
+                .orElseThrow(EntityNotFoundException::new);
+    }
 }
