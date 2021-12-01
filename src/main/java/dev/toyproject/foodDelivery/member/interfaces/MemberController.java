@@ -132,4 +132,16 @@ public class MemberController {
         var response = new MemberDto.response(memberInfo);
         return CommonResponse.success(response);
     }
+
+    /**
+     * 휴대폰 번호로 인증번호 발송
+     *
+     * @return
+     */
+    @PostMapping("/auth/number/sms")
+    public CommonResponse authNumberSms(@RequestBody @Valid MemberDto.authCheckRequest request){
+        var memberCommand = request.toCommand();
+        memberFacade.authNumberSms(memberCommand);
+        return CommonResponse.success("OK");
+    }
 }
