@@ -1,5 +1,7 @@
 package dev.toyproject.foodDelivery.member.domain;
 
+import dev.toyproject.foodDelivery.common.util.redis.RedisCacheUtil;
+import dev.toyproject.foodDelivery.common.util.redis.RedisKeyFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ public class MemberServiceImpl implements MemberService{
 
     private final MemberStore memberStore;
     private final MemberReader memberReader;
+
+    private final RedisCacheUtil redisCacheUtil;
 
     /**
      * 사용자 회원가입
@@ -106,5 +110,15 @@ public class MemberServiceImpl implements MemberService{
     public MemberInfo.Main authCheck(MemberCommand.Main command) {
         Member member = memberReader.authCheck(command.getMemberMail(), command.getMemberTel());
         return new MemberInfo.Main(member);
+    }
+
+    /**
+     * 인증번호 Redis 저장
+     * @param command
+     * @param authNumber
+     */
+    @Override
+    public void authNumberRegister(MemberCommand.Main command, String authNumber) {
+        redisCacheUtil.setRedisCacheAuthNumber(command.getMemberToken(), RedisKeyFactory.MEMBER_AUTH_NUMBER, authNumber);
     }
 }

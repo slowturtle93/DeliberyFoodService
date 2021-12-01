@@ -18,4 +18,6 @@ public interface MemberService {
     MemberInfo.Main disableMember(String memberToken);
 
     MemberInfo.Main authCheck(MemberCommand.Main command);
+
+    void authNumberRegister(MemberCommand.Main command, String authNumber);
 }
