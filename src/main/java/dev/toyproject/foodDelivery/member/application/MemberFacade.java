@@ -1,9 +1,12 @@
 package dev.toyproject.foodDelivery.member.application;
 
+import dev.toyproject.foodDelivery.common.util.RandomAccessGenerator;
 import dev.toyproject.foodDelivery.common.util.redis.SessionUtil;
 import dev.toyproject.foodDelivery.member.domain.MemberCommand;
 import dev.toyproject.foodDelivery.member.domain.MemberInfo;
 import dev.toyproject.foodDelivery.member.domain.MemberService;
+import dev.toyproject.foodDelivery.notification.sms.domain.NaverSensService;
+import dev.toyproject.foodDelivery.notification.sms.infrastructure.NaverSensRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpSession;
 public class MemberFacade {
 
     private final MemberService memberService;
+    private final NaverSensService naverSensService;
 
     /**
      * 회원가입 진행
@@ -99,5 +103,16 @@ public class MemberFacade {
     public MemberInfo.Main authCheck(MemberCommand.Main command){
         var memberInfo = memberService.authCheck(command);
         return memberInfo;
+    }
+
+    /**
+     * 휴대폰 번호로 인증번호 발송
+     *
+     * @param command
+     */
+    public void authNumberSms(MemberCommand.Main command){
+        String randomNumber = RandomAccessGenerator.authNumberGenerator();
+        memberService.authNumberRegister(command, randomNumber);
+        naverSensService.sendNaverSens(NaverSensRequest.toAuthNumberInfo(command.getMemberTel(), randomNumber));
     }
 }
