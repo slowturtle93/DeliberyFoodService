@@ -33,8 +33,8 @@ public class MemberDto {
         @NotEmpty(message = "memberNickname 는 필수값입니다.")
         private String memberNickname;
 
-        public MemberCommand toCommand(){
-            return MemberCommand.builder()
+        public MemberCommand.Main toCommand(){
+            return MemberCommand.Main.builder()
                     .memberMail(memberMail)
                     .memberPwd(SHA256Util.encryptSHA256(memberPwd))
                     .memberTel(memberTel)
@@ -55,8 +55,8 @@ public class MemberDto {
         @NotEmpty(message = "memberPassword 는 필수값입니다.")
         private String memberPwd;
 
-        public MemberCommand toCommand(){
-            return MemberCommand.builder()
+        public MemberCommand.Main toCommand(){
+            return MemberCommand.Main.builder()
                     .memberMail(memberMail)
                     .memberPwd(SHA256Util.encryptSHA256(memberPwd))
                     .build();
@@ -76,8 +76,8 @@ public class MemberDto {
         @NotEmpty(message = "memberNickname 는 필수값입니다.")
         private String memberNickname;
 
-        public MemberCommand toCommand(){
-            return MemberCommand.builder()
+        public MemberCommand.Main toCommand(){
+            return MemberCommand.Main.builder()
                     .memberToken(memberToken)
                     .memberTel(memberTel)
                     .memberNickname(memberNickname)
@@ -98,8 +98,8 @@ public class MemberDto {
         @NotEmpty(message = "afterPassword 는 필수값입니다.")
         private String afterPassword;
 
-        public MemberCommand toCommand(){
-            return MemberCommand.builder()
+        public MemberCommand.Main toCommand(){
+            return MemberCommand.Main.builder()
                     .memberToken(memberToken)
                     .memberPwd(SHA256Util.encryptSHA256(beforePassword))
                     .build();
@@ -111,6 +111,23 @@ public class MemberDto {
     @ToString
     public static class ChangeMemberRequest{
         private String memberToken;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class authCheckRequest{
+        private String memberToken;
+        private String memberMail;
+        private String memberTel;
+
+        public MemberCommand.Main toCommand(){
+            return MemberCommand.Main.builder()
+                    .memberToken(memberToken)
+                    .memberMail(memberMail)
+                    .memberTel(memberTel)
+                    .build();
+        }
     }
 
     /******************************** response ********************************/
@@ -125,7 +142,7 @@ public class MemberDto {
         private final String addressCode;
         private final Member.Status status;
 
-        public response(MemberInfo memberInfo){
+        public response(MemberInfo.Main memberInfo){
             this.memberMail     = memberInfo.getMemberMail();
             this.memberToken    = memberInfo.getMemberToken();
             this.memberNickname = memberInfo.getMemberNickname();
