@@ -118,4 +118,18 @@ public class MemberController {
         memberFacade.disableMember(memberToken, session);  // 사용자 상태 [DISABLE] 변경
         return CommonResponse.success("OK");
     }
+
+    /**
+     * 이메일, 휴대폰 본인인증
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/auth/check")
+    public CommonResponse authCheck(@RequestBody @Valid MemberDto.authCheckRequest request){
+        var memberCommand = request.toCommand();
+        var memberInfo = memberFacade.authCheck(memberCommand);
+        var response = new MemberDto.response(memberInfo);
+        return CommonResponse.success(response);
+    }
 }
