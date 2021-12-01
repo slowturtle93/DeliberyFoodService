@@ -5,15 +5,17 @@ package dev.toyproject.foodDelivery.member.domain;
  */
 public interface MemberService {
 
-    MemberInfo registerMember(MemberCommand command);
+    MemberInfo.Main registerMember(MemberCommand.Main command);
 
-    MemberInfo loginMemberInfo(String memberMail, String memberPwd);
+    MemberInfo.Main loginMemberInfo(String memberMail, String memberPwd);
 
     void duplicateMemberMail(String memberMail);
 
-    MemberInfo updateMember(MemberCommand command);
+    MemberInfo.Main updateMember(MemberCommand.Main command);
 
-    MemberInfo updateMemberPassword(MemberCommand command, String afterPassword);
+    MemberInfo.Main updateMemberPassword(MemberCommand.Main command, String afterPassword);
 
-    MemberInfo disableMember(String memberToken);
+    MemberInfo.Main disableMember(String memberToken);
+
+    MemberInfo.Main authCheck(MemberCommand.Main command);
 }

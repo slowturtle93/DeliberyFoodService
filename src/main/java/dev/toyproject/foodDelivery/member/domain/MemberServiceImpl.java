@@ -24,10 +24,10 @@ public class MemberServiceImpl implements MemberService{
      */
     @Override
     @Transactional
-    public MemberInfo registerMember(MemberCommand command) {
+    public MemberInfo.Main registerMember(MemberCommand.Main command) {
         var initMember = command.toEntity();  // command convert to initMember
         Member member = memberStore.store(initMember); // initMember register
-        return new MemberInfo(member);
+        return new MemberInfo.Main(member);
     }
 
     /**
@@ -38,9 +38,9 @@ public class MemberServiceImpl implements MemberService{
      * @return
      */
     @Override
-    public MemberInfo loginMemberInfo(String memberMail, String memberPwd) {
+    public MemberInfo.Main loginMemberInfo(String memberMail, String memberPwd) {
         Member member = memberReader.getLoginMember(memberMail, memberPwd); // Mail, Pwd 조건으로 사용자 정보 조회
-        return new MemberInfo(member);
+        return new MemberInfo.Main(member);
     }
 
     /**
@@ -62,10 +62,10 @@ public class MemberServiceImpl implements MemberService{
      */
     @Override
     @Transactional
-    public MemberInfo updateMember(MemberCommand command) {
+    public MemberInfo.Main updateMember(MemberCommand.Main command) {
         Member member = memberReader.getMemberByToken(command.getMemberToken());      // MEMBER 정보 조회
         member.updateMemberInfo(command.getMemberTel(), command.getMemberNickname()); // MEMBER 정보 수정
-        return new MemberInfo(member);
+        return new MemberInfo.Main(member);
     }
 
     /**
@@ -76,10 +76,10 @@ public class MemberServiceImpl implements MemberService{
      */
     @Override
     @Transactional
-    public MemberInfo updateMemberPassword(MemberCommand command, String afterPassword) {
+    public MemberInfo.Main updateMemberPassword(MemberCommand.Main command, String afterPassword) {
         Member member = memberReader.getMemberByTokenAndPwd(command.getMemberToken(), command.getMemberPwd()); // Token, Pwd 조건으로 MEMBER 정보 조회
         member.updateMemberPassword(afterPassword); // MEMBER 비밀번호 변경
-        return new MemberInfo(member);
+        return new MemberInfo.Main(member);
     }
 
     /**
@@ -90,9 +90,21 @@ public class MemberServiceImpl implements MemberService{
      */
     @Override
     @Transactional
-    public MemberInfo disableMember(String memberToken) {
+    public MemberInfo.Main disableMember(String memberToken) {
         Member member = memberReader.getMemberByToken(memberToken); // Token 조건으로 사용자 정보 조회
         member.disable(); // 사용자 상태 [DISABLE] 변경
-        return new MemberInfo(member);
+        return new MemberInfo.Main(member);
+    }
+
+    /**
+     * 본인인증
+     *
+     * @param command
+     * @return
+     */
+    @Override
+    public MemberInfo.Main authCheck(MemberCommand.Main command) {
+        Member member = memberReader.authCheck(command.getMemberMail(), command.getMemberTel());
+        return new MemberInfo.Main(member);
     }
 }
