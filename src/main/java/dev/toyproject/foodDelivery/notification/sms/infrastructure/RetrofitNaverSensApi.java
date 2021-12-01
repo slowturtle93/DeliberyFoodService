@@ -1,6 +1,6 @@
 package dev.toyproject.foodDelivery.notification.sms.infrastructure;
 
-import okhttp3.MediaType;
+import org.springframework.http.MediaType;
 import org.json.simple.JSONObject;
 import retrofit2.Call;
 import retrofit2.http.Body;
