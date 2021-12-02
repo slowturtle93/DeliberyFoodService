@@ -169,4 +169,16 @@ public class MemberController {
         memberFacade.authNumberCheck(memberToken, authNumber);
         return CommonResponse.success("OK");
     }
+
+    /**
+     * 신규 비밀번호 업데이트
+     *
+     * @param request
+     */
+    @PatchMapping("/new/password")
+    public CommonResponse newPasswordUpdate(@RequestBody @Valid MemberDto.NewPasswordRequest request){
+        var memberCommand = request.toCommand();
+        memberFacade.newPasswordUpdate(memberCommand);
+        return CommonResponse.success("OK");
+    }
 }
