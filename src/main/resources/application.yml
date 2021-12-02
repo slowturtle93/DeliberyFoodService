@@ -29,3 +29,16 @@ spring:
     contentType: COMM
     countryCode: 82
     serviceId: ncp:sms:kr:26752:fooddelpjt
+
+  ## java mail
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: 이메일
+    password: 비밀번호
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
