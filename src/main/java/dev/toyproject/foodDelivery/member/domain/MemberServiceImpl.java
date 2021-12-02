@@ -139,4 +139,16 @@ public class MemberServiceImpl implements MemberService{
             redisCacheUtil.removeAuthNumber(memberToken, RedisKeyFactory.MEMBER_AUTH_NUMBER);
         }
     }
+
+    /**
+     * 신규 비밀번호 업데이트
+     *
+     * @param command
+     */
+    @Override
+    @Transactional
+    public void newPasswordUpdate(MemberCommand.Main command) {
+        Member member = memberReader.getMemberByToken(command.getMemberToken());
+        member.updateMemberPassword(command.getMemberPwd());
+    }
 }

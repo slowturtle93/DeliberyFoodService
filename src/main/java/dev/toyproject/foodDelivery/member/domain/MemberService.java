@@ -22,4 +22,6 @@ public interface MemberService {
     void authNumberRegister(MemberCommand.Main command, String authNumber);
 
     void authNumberCheck(String memberToken, String authNumber);
+
+    void newPasswordUpdate(MemberCommand.Main command);
 }
