@@ -130,6 +130,14 @@ public class MemberDto {
         }
     }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class authCheckNumberRequest{
+        private String memberToken;
+        private String authNumber;
+    }
+
     /******************************** response ********************************/
 
     @Getter
