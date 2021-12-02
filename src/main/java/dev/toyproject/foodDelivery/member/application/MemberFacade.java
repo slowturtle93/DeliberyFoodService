@@ -139,4 +139,13 @@ public class MemberFacade {
     public void authNumberCheck(String memberToken, String authNumber){
         memberService.authNumberCheck(memberToken, authNumber);
     }
+
+    /**
+     * 신규 비밀번호 업데이트
+     *
+     * @param command
+     */
+    public void newPasswordUpdate(MemberCommand.Main command){
+        memberService.newPasswordUpdate(command);
+    }
 }
