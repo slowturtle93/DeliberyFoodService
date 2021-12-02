@@ -157,4 +157,16 @@ public class MemberController {
         return CommonResponse.success("OK");
     }
 
+    /**
+     * 인증번호 확인
+     *
+     * @param request
+     */
+    @PostMapping("/auth/number/check")
+    public CommonResponse authNumberCheck(@RequestBody @Valid MemberDto.authCheckNumberRequest request){
+        String memberToken = request.getMemberToken();
+        String authNumber  = request.getAuthNumber();
+        memberFacade.authNumberCheck(memberToken, authNumber);
+        return CommonResponse.success("OK");
+    }
 }
