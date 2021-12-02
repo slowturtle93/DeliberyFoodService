@@ -138,6 +138,21 @@ public class MemberDto {
         private String authNumber;
     }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class NewPasswordRequest{
+        private String memberToken;
+        private String memberPwd;
+
+        public MemberCommand.Main toCommand(){
+            return MemberCommand.Main.builder()
+                    .memberToken(memberToken)
+                    .memberPwd(SHA256Util.encryptSHA256(memberPwd))
+                    .build();
+        }
+    }
+
     /******************************** response ********************************/
 
     @Getter
