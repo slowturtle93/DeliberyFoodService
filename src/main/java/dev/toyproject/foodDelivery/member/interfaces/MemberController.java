@@ -144,4 +144,17 @@ public class MemberController {
         memberFacade.authNumberSms(memberCommand);
         return CommonResponse.success("OK");
     }
+
+    /**
+     * 메일로 인증번호 발송
+     *
+     * @return
+     */
+    @PostMapping("/auth/number/mail")
+    public CommonResponse authNumberMail(@RequestBody @Valid MemberDto.authCheckRequest request){
+        var memberCommand = request.toCommand();
+        memberFacade.authNumberMail(memberCommand);
+        return CommonResponse.success("OK");
+    }
+
 }

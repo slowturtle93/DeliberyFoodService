@@ -5,6 +5,8 @@ import dev.toyproject.foodDelivery.common.util.redis.SessionUtil;
 import dev.toyproject.foodDelivery.member.domain.MemberCommand;
 import dev.toyproject.foodDelivery.member.domain.MemberInfo;
 import dev.toyproject.foodDelivery.member.domain.MemberService;
+import dev.toyproject.foodDelivery.notification.email.domain.MailService;
+import dev.toyproject.foodDelivery.notification.email.infrastructure.MailAuthNumberRequest;
 import dev.toyproject.foodDelivery.notification.sms.domain.NaverSensService;
 import dev.toyproject.foodDelivery.notification.sms.infrastructure.NaverSensRequest;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ public class MemberFacade {
 
     private final MemberService memberService;
     private final NaverSensService naverSensService;
+    private final MailService mailService;
 
     /**
      * 회원가입 진행
@@ -114,5 +117,16 @@ public class MemberFacade {
         String randomNumber = RandomAccessGenerator.authNumberGenerator();
         memberService.authNumberRegister(command, randomNumber);
         naverSensService.sendNaverSens(NaverSensRequest.toAuthNumberInfo(command.getMemberTel(), randomNumber));
+    }
+
+    /**
+     * 이메일로 인증번호 발송
+     *
+     * @param command
+     */
+    public void authNumberMail(MemberCommand.Main command){
+        String randomNumber = RandomAccessGenerator.authNumberGenerator();
+        memberService.authNumberRegister(command, randomNumber);
+        mailService.sendMail(new MailAuthNumberRequest(command.getMemberMail(), randomNumber));
     }
 }
