@@ -129,4 +129,14 @@ public class MemberFacade {
         memberService.authNumberRegister(command, randomNumber);
         mailService.sendMail(new MailAuthNumberRequest(command.getMemberMail(), randomNumber));
     }
+
+    /**
+     * 인증번호 확인
+     *
+     * @param memberToken
+     * @param authNumber
+     */
+    public void authNumberCheck(String memberToken, String authNumber){
+        memberService.authNumberCheck(memberToken, authNumber);
+    }
 }
