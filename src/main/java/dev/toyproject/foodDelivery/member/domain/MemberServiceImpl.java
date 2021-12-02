@@ -1,5 +1,6 @@
 package dev.toyproject.foodDelivery.member.domain;
 
+import dev.toyproject.foodDelivery.common.exception.IllegalStatusException;
 import dev.toyproject.foodDelivery.common.util.redis.RedisCacheUtil;
 import dev.toyproject.foodDelivery.common.util.redis.RedisKeyFactory;
 import lombok.RequiredArgsConstructor;
@@ -120,5 +121,22 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public void authNumberRegister(MemberCommand.Main command, String authNumber) {
         redisCacheUtil.setRedisCacheAuthNumber(command.getMemberToken(), RedisKeyFactory.MEMBER_AUTH_NUMBER, authNumber);
+    }
+
+    /**
+     * 인증번호 확인
+     *
+     * @param memberToken
+     * @param authNumber
+     */
+    @Override
+    public void authNumberCheck(String memberToken, String authNumber) {
+        String value = redisCacheUtil.getAuthNumber(memberToken, RedisKeyFactory.MEMBER_AUTH_NUMBER);
+
+        if(!authNumber.equals(value)) {
+            throw new IllegalStatusException("인증번호가 일치하지 않습니다.");
+        } else {
+            redisCacheUtil.removeAuthNumber(memberToken, RedisKeyFactory.MEMBER_AUTH_NUMBER);
+        }
     }
 }
