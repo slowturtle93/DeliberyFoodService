@@ -117,4 +117,17 @@ public class RiderController {
         var response = new RiderDto.response(riderInfo);
         return CommonResponse.success(response);
     }
+
+    /**
+     * 신규 비밀번호 업데이트
+     *
+     * @param request
+     * @return
+     */
+    @PatchMapping("/new/password")
+    public CommonResponse newPasswordUpdate(@RequestBody @Valid RiderDto.NewPasswordUpdateRequest request){
+        var riderCommand = request.toCommand();
+        riderFacade.newPasswordUpdate(riderCommand);
+        return CommonResponse.success("OK");
+    }
 }

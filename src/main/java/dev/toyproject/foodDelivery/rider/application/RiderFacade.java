@@ -92,4 +92,13 @@ public class RiderFacade {
         var riderInfo = riderService.authCheck(command);
         return riderInfo;
     }
+
+    /**
+     * 신규 비밀번호 업데이트
+     *
+     * @param command
+     */
+    public void newPasswordUpdate(RiderCommand command){
+        riderService.newPasswordUpdate(command);
+    }
 }

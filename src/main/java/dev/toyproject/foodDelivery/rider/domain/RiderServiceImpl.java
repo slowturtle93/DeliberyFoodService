@@ -90,4 +90,16 @@ public class RiderServiceImpl implements RiderService{
         Rider rider = riderReader.authCheck(command.getRiderLoginId(), command.getRiderTel());
         return new RiderInfo(rider);
     }
+
+    /**
+     * 신규 비밀번호 업데이트
+     *
+     * @param command
+     */
+    @Override
+    @Transactional
+    public void newPasswordUpdate(RiderCommand command) {
+        Rider rider = riderReader.getRiderByToken(command.getRiderToken());
+        rider.updateRiderPassword(command.getRiderPwd());
+    }
 }

@@ -140,7 +140,21 @@ public class RiderDto {
                     .riderTel(riderTel)
                     .build();
         }
+    }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class NewPasswordUpdateRequest{
+        private String riderToken;
+        private String riderPwd;
+
+        public RiderCommand toCommand(){
+            return RiderCommand.builder()
+                    .riderToken(riderToken)
+                    .riderPwd(SHA256Util.encryptSHA256(riderPwd))
+                    .build();
+        }
     }
 
     /******************************** response ********************************/
