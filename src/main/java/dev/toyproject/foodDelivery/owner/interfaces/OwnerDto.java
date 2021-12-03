@@ -174,6 +174,21 @@ public class OwnerDto {
         }
     }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class NewPasswordUpdateRequest{
+        private String ownerToken;
+        private String ownerPwd;
+
+        public OwnerCommand toCommand(){
+            return OwnerCommand.builder()
+                    .ownerToken(ownerToken)
+                    .ownerPwd(SHA256Util.encryptSHA256(ownerPwd))
+                    .build();
+        }
+    }
+
     /******************************** response ********************************/
 
     @Getter

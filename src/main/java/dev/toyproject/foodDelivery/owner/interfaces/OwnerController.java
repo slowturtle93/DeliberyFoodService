@@ -154,4 +154,17 @@ public class OwnerController {
         ownerFacade.passwordLindSendToMail(ownerCommand);
         return CommonResponse.success("OK");
     }
+
+    /**
+     * 신규 비밀번호 업데이트
+     *
+     * @param request
+     * @return
+     */
+    @PatchMapping("/new/password")
+    public CommonResponse newPasswordUpdate(@RequestBody @Valid OwnerDto.NewPasswordUpdateRequest request){
+        var ownerCommand = request.toCommand();
+        ownerFacade.newPasswordUpdate(ownerCommand);
+        return CommonResponse.success("OK");
+    }
 }

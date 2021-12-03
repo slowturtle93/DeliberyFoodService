@@ -103,4 +103,16 @@ public class OwnerServiceImpl implements OwnerService {
         Owner owner = ownerReader.authCheck(command.getOwnerLoginId(), command.getOwnerTel());
         return new OwnerInfo(owner);
     }
+
+    /**
+     * 신규 비밀번호 업데이트트
+     *
+     * @param command
+     */
+    @Override
+    @Transactional
+    public void newPasswordUpdate(OwnerCommand command) {
+        Owner owner = ownerReader.getOwnerByToken(command.getOwnerToken());
+        owner.updateOwnerPassword(command.getOwnerPwd());
+    }
 }

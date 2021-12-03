@@ -130,4 +130,13 @@ public class OwnerFacade {
         MailSendRequest mailAuthNumberRequest = new MailPasswordLinkRequest(command.getOwnerMail() ,command.getOwnerToken());
         mailService.sendMail(mailAuthNumberRequest);
     }
+
+    /**
+     * 신규 비밀번호 업데이트
+     *
+     * @param command
+     */
+    public void newPasswordUpdate(OwnerCommand command){
+        ownerService.newPasswordUpdate(command);
+    }
 }
