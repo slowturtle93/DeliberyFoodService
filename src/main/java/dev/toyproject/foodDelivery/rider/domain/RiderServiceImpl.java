@@ -78,4 +78,16 @@ public class RiderServiceImpl implements RiderService{
         rider.updateRiderPassword(afterPassword); // MEMBER 비밀번호 변경
         return new RiderInfo(rider);
     }
+
+    /**
+     * 비밀번호 찾기 본인인증
+     *
+     * @param command
+     * @return
+     */
+    @Override
+    public RiderInfo authCheck(RiderCommand command) {
+        Rider rider = riderReader.authCheck(command.getRiderLoginId(), command.getRiderTel());
+        return new RiderInfo(rider);
+    }
 }

@@ -103,4 +103,18 @@ public class RiderController {
         var response = new RiderDto.response(riderInfo); // RiderInfo Data Convert (response)
         return CommonResponse.success(response);
     }
+
+    /**
+     * 비밀번호 찾기 본인인증
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/auth/check")
+    public CommonResponse authCheck(@RequestBody @Valid RiderDto.AuthCheckRequest request){
+        var riderCommand = request.toCommand();
+        var riderInfo = riderFacade.authCheck(riderCommand);
+        var response = new RiderDto.response(riderInfo);
+        return CommonResponse.success(response);
+    }
 }

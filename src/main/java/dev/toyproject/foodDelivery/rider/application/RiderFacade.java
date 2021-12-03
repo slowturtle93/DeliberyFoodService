@@ -81,4 +81,15 @@ public class RiderFacade {
         SessionUtil.removeLogoutRider(session); // 비밀번호 변경 후 재접속을 위해 session 값 삭제
         return riderInfo;
     }
+
+    /**
+     * 비밀번호 찾기 본인인증
+     *
+     * @param command
+     * @return
+     */
+    public RiderInfo authCheck(RiderCommand command){
+        var riderInfo = riderService.authCheck(command);
+        return riderInfo;
+    }
 }

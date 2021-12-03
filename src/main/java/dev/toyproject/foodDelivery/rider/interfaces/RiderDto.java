@@ -127,6 +127,22 @@ public class RiderDto {
         }
     }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class AuthCheckRequest{
+        private String riderLoginId;
+        private String riderTel;
+
+        public RiderCommand toCommand(){
+            return RiderCommand.builder()
+                    .riderLoginId(riderLoginId)
+                    .riderTel(riderTel)
+                    .build();
+        }
+
+    }
+
     /******************************** response ********************************/
 
     @Getter

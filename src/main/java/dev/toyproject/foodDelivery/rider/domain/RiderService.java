@@ -11,4 +11,6 @@ public interface RiderService {
     RiderInfo updateRider(RiderCommand command);
 
     RiderInfo updateRiderPassword(RiderCommand command, String afterPassword);
+
+    RiderInfo authCheck(RiderCommand command);
 }
