@@ -116,4 +116,18 @@ public class OwnerController {
         ownerFacade.disableOwner(ownerToken, session);   // 사장님 상태 [DISABLE] 변경
         return CommonResponse.success("OK");
     }
+
+    /**
+     * 로그인 아이디, 휴대폰 번호로 본인인증
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/auth/check")
+    public CommonResponse authCheck(@RequestBody @Valid OwnerDto.AuthCheckRequest request){
+        var ownerCommand = request.toCommand();
+        var ownerInfo = ownerFacade.authCheck(ownerCommand);
+        var response = new OwnerDto.response(ownerInfo);
+        return CommonResponse.success(response);
+    }
 }
