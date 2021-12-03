@@ -1,6 +1,9 @@
 package dev.toyproject.foodDelivery.owner.application;
 
 import dev.toyproject.foodDelivery.common.util.redis.SessionUtil;
+import dev.toyproject.foodDelivery.notification.email.domain.MailSendRequest;
+import dev.toyproject.foodDelivery.notification.email.domain.MailService;
+import dev.toyproject.foodDelivery.notification.email.infrastructure.MailPasswordLinkRequest;
 import dev.toyproject.foodDelivery.notification.sms.domain.NaverSensService;
 import dev.toyproject.foodDelivery.notification.sms.infrastructure.NaverSensRequest;
 import dev.toyproject.foodDelivery.owner.domain.OwnerCommand;
@@ -20,6 +23,7 @@ public class OwnerFacade {
     private final OwnerService ownerService;
 
     private final NaverSensService naverSensService;
+    private final MailService mailService;
 
     /**
      * 회원가입 진행
@@ -115,5 +119,15 @@ public class OwnerFacade {
      */
     public void passwordLindSendToSms(OwnerCommand command){
         naverSensService.sendNaverSens(NaverSensRequest.toPwdLinkInfo(command.getOwnerTel(), command.getOwnerToken()));
+    }
+
+    /**
+     * 이메일로 비밀번호 변경 링크 발송
+     *
+     * @param command
+     */
+    public void passwordLindSendToMail(OwnerCommand command){
+        MailSendRequest mailAuthNumberRequest = new MailPasswordLinkRequest(command.getOwnerMail() ,command.getOwnerToken());
+        mailService.sendMail(mailAuthNumberRequest);
     }
 }

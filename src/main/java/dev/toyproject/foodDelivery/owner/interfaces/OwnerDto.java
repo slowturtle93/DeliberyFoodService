@@ -159,6 +159,21 @@ public class OwnerDto {
         }
     }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class OwnerInfoToMailRequest{
+        private String ownerToken;
+        private String ownerMail;
+
+        public OwnerCommand toCommand(){
+            return OwnerCommand.builder()
+                    .ownerToken(ownerToken)
+                    .ownerMail(ownerMail)
+                    .build();
+        }
+    }
+
     /******************************** response ********************************/
 
     @Getter

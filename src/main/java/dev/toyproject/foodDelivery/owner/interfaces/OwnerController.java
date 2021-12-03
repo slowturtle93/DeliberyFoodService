@@ -142,4 +142,16 @@ public class OwnerController {
         ownerFacade.passwordLindSendToSms(ownerCommand);
         return CommonResponse.success("OK");
     }
+
+    /**
+     * 비밀번호 변경 링크 mail 발송
+     *
+     * @return
+     */
+    @PostMapping("/password/link/mail")
+    public CommonResponse sendPasswordLinkToMail(@RequestBody @Valid OwnerDto.OwnerInfoToMailRequest request){
+        var ownerCommand = request.toCommand();
+        ownerFacade.passwordLindSendToMail(ownerCommand);
+        return CommonResponse.success("OK");
+    }
 }
