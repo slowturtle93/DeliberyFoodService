@@ -92,4 +92,15 @@ public class OwnerFacade {
         ownerService.disableOwner(ownerToken); // 사장 상태 [DISABLE] 변경
         SessionUtil.removeLogoutOwner(session);  // 회원 탈퇴 시 Session 정보 삭제
     }
+
+    /**
+     * 본인인증
+     *
+     * @param command
+     * @return
+     */
+    public OwnerInfo authCheck(OwnerCommand command){
+        var ownerInfo = ownerService.authCheck(command);
+        return ownerInfo;
+    }
 }
