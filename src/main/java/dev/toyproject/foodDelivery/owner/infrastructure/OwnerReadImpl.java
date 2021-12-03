@@ -65,4 +65,17 @@ public class OwnerReadImpl implements OwnerReader {
         return ownerRepository.findByOwnerTokenAndOwnerPwdAndStatus(ownerToken, ownerPwd, Owner.Status.ENABLE)
                 .orElseThrow(EntityNotFoundException::new);
     }
+
+    /**
+     * 로그인 아이디, 휴대폰 번호로 본인인증
+     *
+     * @param ownerLoginId
+     * @param ownerTel
+     * @return
+     */
+    @Override
+    public Owner authCheck(String ownerLoginId, String ownerTel) {
+        return ownerRepository.findByOwnerLoginIdAndOwnerTelAndStatus(ownerLoginId, ownerTel, Owner.Status.ENABLE)
+                .orElseThrow(EntityNotFoundException::new);
+    }
 }
