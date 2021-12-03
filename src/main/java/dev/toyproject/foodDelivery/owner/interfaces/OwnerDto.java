@@ -128,6 +128,22 @@ public class OwnerDto {
     public static class ChangeOwnerRequest{
         private String ownerToken;
     }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class AuthCheckRequest{
+        private String ownerLoginId;
+        private String ownerTel;
+
+        public OwnerCommand toCommand(){
+            return OwnerCommand.builder()
+                    .ownerLoginId(ownerLoginId)
+                    .ownerTel(ownerTel)
+                    .build();
+        }
+    }
+
     /******************************** response ********************************/
 
     @Getter
