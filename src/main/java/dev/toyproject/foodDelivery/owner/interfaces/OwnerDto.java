@@ -144,6 +144,21 @@ public class OwnerDto {
         }
     }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class OwnerInfoToSmsRequest{
+        private String ownerToken;
+        private String ownerTel;
+
+        public OwnerCommand toCommand(){
+            return OwnerCommand.builder()
+                    .ownerToken(ownerToken)
+                    .ownerTel(ownerTel)
+                    .build();
+        }
+    }
+
     /******************************** response ********************************/
 
     @Getter

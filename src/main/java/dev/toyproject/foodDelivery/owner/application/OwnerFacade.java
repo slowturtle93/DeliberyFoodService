@@ -1,6 +1,8 @@
 package dev.toyproject.foodDelivery.owner.application;
 
 import dev.toyproject.foodDelivery.common.util.redis.SessionUtil;
+import dev.toyproject.foodDelivery.notification.sms.domain.NaverSensService;
+import dev.toyproject.foodDelivery.notification.sms.infrastructure.NaverSensRequest;
 import dev.toyproject.foodDelivery.owner.domain.OwnerCommand;
 import dev.toyproject.foodDelivery.owner.domain.OwnerInfo;
 import dev.toyproject.foodDelivery.owner.domain.OwnerService;
@@ -16,6 +18,8 @@ import javax.servlet.http.HttpSession;
 public class OwnerFacade {
 
     private final OwnerService ownerService;
+
+    private final NaverSensService naverSensService;
 
     /**
      * 회원가입 진행
@@ -102,5 +106,14 @@ public class OwnerFacade {
     public OwnerInfo authCheck(OwnerCommand command){
         var ownerInfo = ownerService.authCheck(command);
         return ownerInfo;
+    }
+
+    /**
+     * 휴대폰번호로 비밀번호 변경 링크 발송
+     *
+     * @param command
+     */
+    public void passwordLindSendToSms(OwnerCommand command){
+        naverSensService.sendNaverSens(NaverSensRequest.toPwdLinkInfo(command.getOwnerTel(), command.getOwnerToken()));
     }
 }

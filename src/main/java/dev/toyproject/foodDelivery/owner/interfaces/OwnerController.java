@@ -130,4 +130,16 @@ public class OwnerController {
         var response = new OwnerDto.response(ownerInfo);
         return CommonResponse.success(response);
     }
+
+    /**
+     * 비밀번호 변경 링크 sms 발송
+     *
+     * @return
+     */
+    @PostMapping("/password/link/sms")
+    public CommonResponse sendPasswordLinkToSms(@RequestBody @Valid OwnerDto.OwnerInfoToSmsRequest request){
+        var ownerCommand = request.toCommand();
+        ownerFacade.passwordLindSendToSms(ownerCommand);
+        return CommonResponse.success("OK");
+    }
 }
