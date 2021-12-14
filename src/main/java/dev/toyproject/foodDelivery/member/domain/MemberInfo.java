@@ -1,5 +1,7 @@
 package dev.toyproject.foodDelivery.member.domain;
 
+import dev.toyproject.foodDelivery.address.domain.AddressFragment;
+import dev.toyproject.foodDelivery.member.domain.address.MemberAddress;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -28,6 +30,24 @@ public class MemberInfo {
             this.memberNickname = member.getMemberNickname();
             this.addressCode    = member.getAddressCode();
             this.status         = member.getStatus();
+        }
+    }
+
+    @Getter
+    @ToString
+    public static class Address {
+        private String memberToken;
+        private String memberAddressToken;
+        private String detail;
+        private MemberAddress.Status status;
+        private AddressFragment addressFragment;
+
+        public Address(MemberAddress memberAddress) {
+            this.memberToken = memberAddress.getMemberToken();
+            this.memberAddressToken = memberAddress.getMemberAddressToken();
+            this.detail = memberAddress.getDetail();
+            this.status = memberAddress.getStatus();
+            this.addressFragment = memberAddress.getAddressFragment();
         }
     }
 }

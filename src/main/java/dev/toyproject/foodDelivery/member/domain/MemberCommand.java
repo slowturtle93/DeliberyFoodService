@@ -1,5 +1,7 @@
 package dev.toyproject.foodDelivery.member.domain;
 
+import dev.toyproject.foodDelivery.address.domain.AddressFragment;
+import dev.toyproject.foodDelivery.member.domain.address.MemberAddress;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -26,6 +28,23 @@ public class MemberCommand {
                     .memberPwd(memberPwd)
                     .memberTel(memberTel)
                     .memberNickname(memberNickname)
+                    .build();
+        }
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class Address{
+        private String memberToken;
+        private String detail;
+        private AddressFragment addressFragment;
+
+        public MemberAddress toEntity(){
+            return MemberAddress.builder()
+                    .memberToken(memberToken)
+                    .detail(detail)
+                    .addressFragment(addressFragment)
                     .build();
         }
     }
