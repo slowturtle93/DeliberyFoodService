@@ -1,5 +1,6 @@
 package dev.toyproject.foodDelivery.member.interfaces;
 
+import dev.toyproject.foodDelivery.address.domain.AddressFragment;
 import dev.toyproject.foodDelivery.common.util.SHA256Util;
 import dev.toyproject.foodDelivery.member.domain.Member;
 import dev.toyproject.foodDelivery.member.domain.MemberCommand;
@@ -149,6 +150,23 @@ public class MemberDto {
             return MemberCommand.Main.builder()
                     .memberToken(memberToken)
                     .memberPwd(SHA256Util.encryptSHA256(memberPwd))
+                    .build();
+        }
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class MemberAddressRequest{
+        private String memberToken;
+        private String detail;
+        private AddressFragment addressFragment;
+
+        public MemberCommand.Address toCommand(){
+            return MemberCommand.Address.builder()
+                    .memberToken(memberToken)
+                    .detail(detail)
+                    .addressFragment(addressFragment)
                     .build();
         }
     }
