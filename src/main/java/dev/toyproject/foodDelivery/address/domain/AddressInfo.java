@@ -76,8 +76,8 @@ public class AddressInfo {
 
         @SerializedName("zone_no")
         private final String zoneNo;	            // 우편번호(5자리)
-        private final String x;	                    // X 좌표값, 경위도인 경우 longitude (경도)
-        private final String y;	                    // Y 좌표값, 경위도인 경우 latitude(위도)
+        private final Double x;	                    // X 좌표값, 경위도인 경우 longitude (경도)
+        private final Double y;	                    // Y 좌표값, 경위도인 경우 latitude(위도)
     }
 
     @Getter
@@ -116,7 +116,7 @@ public class AddressInfo {
 
         @SerializedName("zip_code")
         private final String zipCode;           // Deprecated 우편번호(6자리)
-        private final String x;                 // x 좌표값, 경도위도인 경우 longitude(경도)
-        private final String y;                 // Y 좌표값, 경도위도인 경우 latitude(위도)
+        private final Double x;                 // x 좌표값, 경도위도인 경우 longitude(경도)
+        private final Double y;                 // Y 좌표값, 경도위도인 경우 latitude(위도)
     }
 }

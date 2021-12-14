@@ -21,8 +21,8 @@ public class AddressFragment {
     private String subBuildingNo;	 // 건물 부번. 없을 경우 ""
     private String buildingName;	 // 건물 이름
     private String zoneNo;	         // 우편번호(5자리)
-    private String x;	             // X 좌표값, 경위도인 경우 longitude (경도)
-    private String y;	             // Y 좌표값, 경위도인 경우 latitude(위도)
+    private Double x;	             // X 좌표값, 경위도인 경우 longitude (경도)
+    private Double y;	             // Y 좌표값, 경위도인 경우 latitude(위도)
 
     @Builder
     public AddressFragment(AddressInfo.RoadAddress roadAddress){
