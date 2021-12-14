@@ -26,4 +26,6 @@ public interface MemberService {
     void newPasswordUpdate(MemberCommand.Main command);
 
     MemberInfo.Address registerAddress(MemberCommand.Address command);
+
+    MemberInfo.Address updateAddress(String memberAddressToken, MemberCommand.Address command);
 }

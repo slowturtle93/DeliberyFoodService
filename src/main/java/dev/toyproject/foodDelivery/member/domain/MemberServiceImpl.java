@@ -175,4 +175,19 @@ public class MemberServiceImpl implements MemberService{
         var memberInfo = memberAddressStore.store(initMemberAddress);
         return new MemberInfo.Address(memberInfo);
     }
+
+    /**
+     * 사용자 배달 상세 주소 수정
+     *
+     * @param memberAddressToken
+     * @param command
+     * @return
+     */
+    @Override
+    @Transactional
+    public MemberInfo.Address updateAddress(String memberAddressToken, MemberCommand.Address command) {
+        MemberAddress memberAddress = memberAddressReader.getMemberAddressByMemberAddressToken(memberAddressToken);
+        memberAddress.updateAddress(command.getDetail());
+        return new MemberInfo.Address(memberAddress);
+    }
 }

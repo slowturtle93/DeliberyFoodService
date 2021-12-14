@@ -1,5 +1,6 @@
 package dev.toyproject.foodDelivery.member.infrastructure.address;
 
+import dev.toyproject.foodDelivery.common.exception.EntityNotFoundException;
 import dev.toyproject.foodDelivery.member.domain.address.MemberAddress;
 import dev.toyproject.foodDelivery.member.domain.address.MemberAddressReader;
 import lombok.RequiredArgsConstructor;
@@ -24,5 +25,17 @@ public class MemberAddressReadImpl implements MemberAddressReader {
     @Override
     public List<MemberAddress> getMemberAddressByMemberTokenAndStatus(String memberToken, MemberAddress.Status status) {
         return memberAddressRepository.findByMemberTokenAndStatus(memberToken, status);
+    }
+
+    /**
+     * 특정 주소 검색
+     *
+     * @param memberAddressToken
+     * @return
+     */
+    @Override
+    public MemberAddress getMemberAddressByMemberAddressToken(String memberAddressToken) {
+        return memberAddressRepository.findByMemberAddressToken(memberAddressToken)
+                .orElseThrow(EntityNotFoundException::new);
     }
 }

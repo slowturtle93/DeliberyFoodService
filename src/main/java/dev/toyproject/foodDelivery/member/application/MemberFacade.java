@@ -159,4 +159,16 @@ public class MemberFacade {
         var memberAddressInfo = memberService.registerAddress(command);
         return memberAddressInfo;
     }
+
+    /**
+     * 사용자 배달 주소 수정
+     *
+     * @param memberAddressToken
+     * @param command
+     * @return
+     */
+    public MemberInfo.Address updateAddress(String memberAddressToken, MemberCommand.Address command){
+        var memberAddressInfo = memberService.updateAddress(memberAddressToken, command);
+        return memberAddressInfo;
+    }
 }

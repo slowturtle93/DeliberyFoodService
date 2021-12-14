@@ -195,4 +195,18 @@ public class MemberController {
         var response = memberFacade.registerAddress(command);
         return CommonResponse.success(response);
     }
+
+    /**
+     * 사용자 배달 주소 수정
+     *
+     * @param memberAddressToken
+     * @return
+     */
+    @PostMapping("/address/update/{addressToken}")
+    public CommonResponse updateAddress(@PathVariable("addressToken") String memberAddressToken,
+                                        @RequestBody @Valid MemberDto.MemberAddressRequest request){
+        var command = request.toCommand();
+        var response = memberFacade.updateAddress(memberAddressToken, command);
+        return CommonResponse.success("OK");
+    }
 }
