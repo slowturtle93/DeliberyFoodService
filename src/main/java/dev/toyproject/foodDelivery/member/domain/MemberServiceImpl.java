@@ -190,4 +190,17 @@ public class MemberServiceImpl implements MemberService{
         memberAddress.updateAddress(command.getDetail());
         return new MemberInfo.Address(memberAddress);
     }
+
+    /**
+     * 사용자 배달 주소 상태 [DELETE] 변경
+     *
+     * @param memberAddressToken
+     */
+    @Override
+    @Transactional
+    public void deleteAddress(String memberAddressToken) {
+        MemberAddress memberAddress = memberAddressReader.getMemberAddressByMemberAddressToken(memberAddressToken);
+        memberAddress.delete();
+    }
+
 }

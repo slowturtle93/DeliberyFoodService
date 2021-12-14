@@ -171,4 +171,13 @@ public class MemberFacade {
         var memberAddressInfo = memberService.updateAddress(memberAddressToken, command);
         return memberAddressInfo;
     }
+
+    /**
+     * 사용자 배달 주소 삭제
+     *
+     * @param memberAddressToken
+     */
+    public void deleteAddress(String memberAddressToken){
+        memberService.deleteAddress(memberAddressToken);
+    }
 }

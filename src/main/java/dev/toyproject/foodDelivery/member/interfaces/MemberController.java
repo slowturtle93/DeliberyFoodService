@@ -209,4 +209,16 @@ public class MemberController {
         var response = memberFacade.updateAddress(memberAddressToken, command);
         return CommonResponse.success("OK");
     }
+
+    /**
+     * 사용자 배달 주소 삭제
+     *
+     * @param memberAddressToken
+     * @return
+     */
+    @PostMapping("/address/delete/{addressToken}")
+    public CommonResponse deleteAddress(@PathVariable("addressToken") String memberAddressToken){
+        memberFacade.deleteAddress(memberAddressToken);
+        return CommonResponse.success("OK");
+    }
 }

@@ -28,4 +28,6 @@ public interface MemberService {
     MemberInfo.Address registerAddress(MemberCommand.Address command);
 
     MemberInfo.Address updateAddress(String memberAddressToken, MemberCommand.Address command);
+
+    void deleteAddress(String memberAddressToken);
 }
