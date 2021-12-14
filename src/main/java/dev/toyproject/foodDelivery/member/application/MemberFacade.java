@@ -148,4 +148,15 @@ public class MemberFacade {
     public void newPasswordUpdate(MemberCommand.Main command){
         memberService.newPasswordUpdate(command);
     }
+
+    /**
+     * 사용자 배달 주소 저장
+     *
+     * @param command
+     * @return
+     */
+    public MemberInfo.Address registerAddress(MemberCommand.Address command){
+        var memberAddressInfo = memberService.registerAddress(command);
+        return memberAddressInfo;
+    }
 }
