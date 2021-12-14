@@ -12,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * MEMBER 도메인 요구사항 구현체
  */
@@ -201,6 +203,19 @@ public class MemberServiceImpl implements MemberService{
     public void deleteAddress(String memberAddressToken) {
         MemberAddress memberAddress = memberAddressReader.getMemberAddressByMemberAddressToken(memberAddressToken);
         memberAddress.delete();
+    }
+
+    /**
+     * 사용자 배달 주소 list 조회
+     *
+     * @param memberToken
+     * @return
+     */
+    @Override
+    public List<MemberInfo.Address> retrieveAddressList(String memberToken) {
+        var memberAddressList = memberAddressReader.getMemberAddressByMemberToken(memberToken);
+        var memberAddressInfoList = memberAddressReader.getMemberAddressSeries(memberAddressList);
+        return memberAddressInfoList;
     }
 
 }

@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -179,5 +180,16 @@ public class MemberFacade {
      */
     public void deleteAddress(String memberAddressToken){
         memberService.deleteAddress(memberAddressToken);
+    }
+
+    /**
+     * 사용자 배달 주소 검색
+     *
+     * @param memberToken
+     * @return
+     */
+    public List<MemberInfo.Address> retrieveAddressList(String memberToken){
+        var memberAddressList = memberService.retrieveAddressList(memberToken);
+        return memberAddressList;
     }
 }

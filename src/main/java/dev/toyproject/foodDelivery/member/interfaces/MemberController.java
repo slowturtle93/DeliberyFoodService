@@ -221,4 +221,16 @@ public class MemberController {
         memberFacade.deleteAddress(memberAddressToken);
         return CommonResponse.success("OK");
     }
+
+    /**
+     * 사용자 배달 주소 list 조회
+     *
+     * @param memberToken
+     * @return
+     */
+    @GetMapping("/address/list/{memberToken}")
+    public CommonResponse retrieveAddress(@PathVariable("memberToken") String memberToken){
+        var response = memberFacade.retrieveAddressList(memberToken);
+        return CommonResponse.success(response);
+    }
 }

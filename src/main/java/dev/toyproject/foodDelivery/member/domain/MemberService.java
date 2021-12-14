@@ -1,5 +1,7 @@
 package dev.toyproject.foodDelivery.member.domain;
 
+import java.util.List;
+
 /**
  * MEMBER 도메인 요구사항
  */
@@ -30,4 +32,6 @@ public interface MemberService {
     MemberInfo.Address updateAddress(String memberAddressToken, MemberCommand.Address command);
 
     void deleteAddress(String memberAddressToken);
+
+    List<MemberInfo.Address> retrieveAddressList(String memberToken);
 }

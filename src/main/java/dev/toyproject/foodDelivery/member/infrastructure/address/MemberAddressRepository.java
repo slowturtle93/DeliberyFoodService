@@ -7,7 +7,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MemberAddressRepository extends JpaRepository<MemberAddress, Long> {
+
     List<MemberAddress> findByMemberTokenAndStatus(String memberToken, MemberAddress.Status status);
 
     Optional<MemberAddress> findByMemberAddressToken(String memberAddressToken);
+
+    List<MemberAddress> findByMemberTokenAndStatusNot(String memberToken, MemberAddress.Status status);
 }
