@@ -181,4 +181,18 @@ public class MemberController {
         memberFacade.newPasswordUpdate(memberCommand);
         return CommonResponse.success("OK");
     }
+
+    /**
+     * 사용자 배달 주소 저장
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/address")
+    @LoginCheck(type = LoginCheck.UserType.MEMBER)
+    public CommonResponse registerAddress(@RequestBody @Valid MemberDto.MemberAddressRequest request){
+        var command = request.toCommand();
+        var response = memberFacade.registerAddress(command);
+        return CommonResponse.success(response);
+    }
 }
