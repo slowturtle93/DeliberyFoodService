@@ -3,6 +3,10 @@ package dev.toyproject.foodDelivery.member.domain;
 import dev.toyproject.foodDelivery.common.exception.IllegalStatusException;
 import dev.toyproject.foodDelivery.common.util.redis.RedisCacheUtil;
 import dev.toyproject.foodDelivery.common.util.redis.RedisKeyFactory;
+import dev.toyproject.foodDelivery.member.domain.address.MemberAddress;
+import dev.toyproject.foodDelivery.member.domain.address.MemberAddressFactory;
+import dev.toyproject.foodDelivery.member.domain.address.MemberAddressReader;
+import dev.toyproject.foodDelivery.member.domain.address.MemberAddressStore;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,6 +24,10 @@ public class MemberServiceImpl implements MemberService{
     private final MemberReader memberReader;
 
     private final RedisCacheUtil redisCacheUtil;
+
+    private final MemberAddressReader memberAddressReader;
+    private final MemberAddressFactory memberAddressFactory;
+    private final MemberAddressStore memberAddressStore;
 
     /**
      * 사용자 회원가입
@@ -150,5 +158,21 @@ public class MemberServiceImpl implements MemberService{
     public void newPasswordUpdate(MemberCommand.Main command) {
         Member member = memberReader.getMemberByToken(command.getMemberToken());
         member.updateMemberPassword(command.getMemberPwd());
+    }
+
+    /**
+     * 사용자 배달 주소 저장
+     *
+     * @param command
+     * @return
+     */
+    @Override
+    @Transactional
+    public MemberInfo.Address registerAddress(MemberCommand.Address command) {
+        var memberAddressList = memberAddressReader.getMemberAddressByMemberTokenAndStatus(command.getMemberToken(), MemberAddress.Status.ENABLE);
+        memberAddressFactory.memberAddressListDisable(memberAddressList);
+        var initMemberAddress = command.toEntity();
+        var memberInfo = memberAddressStore.store(initMemberAddress);
+        return new MemberInfo.Address(memberInfo);
     }
 }
