@@ -41,4 +41,17 @@ public class ShopController {
         shopFacade.disableShop(shopToken);
         return CommonResponse.success("OK");
     }
+
+    /**
+     * 사장님 가게 정보 수정
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/update/{shopToken}")
+    public CommonResponse updateShop(@PathVariable("shopToken") String shopToken, @RequestBody @Valid ShopDto.ShopRequest request){
+        var command = shopDtoMapper.of(request);
+        var shopInfo = shopFacade.updateShop(shopToken, command);
+        return CommonResponse.success(shopInfo);
+    }
 }
