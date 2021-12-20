@@ -1,11 +1,18 @@
 package dev.toyproject.foodDelivery.shop.domain;
 
 import dev.toyproject.foodDelivery.address.domain.AddressFragment;
+import dev.toyproject.foodDelivery.shop.domain.menu.Menu;
+import dev.toyproject.foodDelivery.shop.domain.menuGroup.MenuGroup;
+import dev.toyproject.foodDelivery.shop.domain.menuOption.MenuOption;
+import dev.toyproject.foodDelivery.shop.domain.menuOptionGroup.MenuOptionGroup;
 import dev.toyproject.foodDelivery.shop.domain.shopAddress.ShopAddress;
 import dev.toyproject.foodDelivery.shop.domain.shopBusiness.ShopBusiness;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
+
+import java.util.List;
 
 public class ShopCommand {
 
@@ -88,6 +95,91 @@ public class ShopCommand {
                     .shop(shop)
                     .detail(detail)
                     .addressFragment(addressFragment)
+                    .build();
+        }
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class MenuGroupRequest{
+        private Long id;
+        private String menuGroupName;
+        private Long ordering;
+        private List<MenuRequest> menuList;
+
+        public MenuGroup toEntity(Shop shop){
+            return MenuGroup.builder()
+                    .shop(shop)
+                    .id(id)
+                    .menuGroupName(menuGroupName)
+                    .ordering(ordering)
+                    .build();
+        }
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class MenuRequest{
+        private Long id;
+        private String menuName;
+        private String menuPriceName;
+        private Long menuPrice;
+        private String menuPhoto;
+        private String content;
+        private Long ordering;
+        private List<MenuOptionGroupRequest> menuOptionGroupList;
+
+        public Menu toEntity(MenuGroup menuGroup){
+            return Menu.builder()
+                    .menuGroup(menuGroup)
+                    .id(id)
+                    .menuName(menuName)
+                    .menuPriceName(menuPriceName)
+                    .menuPrice(menuPrice)
+                    .menuPhoto(menuPhoto)
+                    .content(content)
+                    .ordering(ordering)
+                    .build();
+        }
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class MenuOptionGroupRequest{
+        private Long id;
+        private String menuOptionGroupName;
+        private Long ordering;
+        private List<MenuOptionRequest> menuOptionList;
+
+        public MenuOptionGroup toEntity(Menu menu){
+            return MenuOptionGroup.builder()
+                    .menu(menu)
+                    .id(id)
+                    .menuOptionGroupName(menuOptionGroupName)
+                    .ordering(ordering)
+                    .build();
+        }
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class MenuOptionRequest{
+        private Long id;
+        private String menuOptionName;
+        private Long menuOptionPrice;
+        private Long ordering;
+
+        public MenuOption toEntity(MenuOptionGroup menuOptionGroup){
+            return MenuOption.builder()
+                    .menuOptionGroup(menuOptionGroup)
+                    .id(id)
+                    .menuOptionName(menuOptionName)
+                    .menuOptionPrice(menuOptionPrice)
+                    .ordering(ordering)
                     .build();
         }
     }
