@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.List;
+
 public class ShopDto {
 
     @Getter
@@ -53,5 +55,57 @@ public class ShopDto {
         private final String detail;                   // 가게 상세 주소
         private final String regDate;
         private final String modDate;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class MenuGroupRequest{
+        private Long id;
+        private String menuGroupName;
+        private Long ordering;
+        private String regDate;
+        private String modDate;
+        private List<MenuRequest> menuList;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class MenuRequest{
+        private Long id;
+        private String menuName;
+        private String menuPriceName;
+        private Long menuPrice;
+        private String menuPhoto;
+        private String content;
+        private Long ordering;
+        private String regDate;
+        private String modDate;
+        private List<MenuOptionGroupRequest> menuOptionGroupList;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class MenuOptionGroupRequest{
+        private Long id;
+        private String menuOptionGroupName;
+        private Long ordering;
+        private String regDate;
+        private String modDate;
+        private List<MenuOptionRequest> menuOptionList;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class MenuOptionRequest{
+        private Long id;
+        private String menuOptionName;
+        private Long menuOptionPrice;
+        private Long ordering;
+        private String regDate;
+        private String modDate;
     }
 }
