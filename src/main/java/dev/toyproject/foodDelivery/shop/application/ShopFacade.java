@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -43,5 +45,16 @@ public class ShopFacade {
     public ShopInfo.Main updateShop(String shopToken, ShopCommand.ShopRequest command){
         var shopInfo = shopService.updateShop(shopToken, command);
         return shopInfo;
+    }
+
+    /**
+     * 메뉴 등록
+     *
+     * @param shopToken
+     * @param command
+     * @return
+     */
+    public String registerMenu(String shopToken, List<ShopCommand.MenuGroupRequest> command){
+        return shopService.registerMenu(shopToken, command);
     }
 }
