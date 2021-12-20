@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -53,5 +54,19 @@ public class ShopController {
         var command = shopDtoMapper.of(request);
         var shopInfo = shopFacade.updateShop(shopToken, command);
         return CommonResponse.success(shopInfo);
+    }
+
+    /**
+     * 메뉴 등록
+     *
+     * @param shopToken
+     * @param request
+     * @return
+     */
+    @PostMapping("/menu/{shopToken}")
+    public CommonResponse registerMenu(@PathVariable("shopToken") String shopToken, @RequestBody @Valid List<ShopDto.MenuGroupRequest> request){
+        var command = shopDtoMapper.toMenuList(request);
+        var shopTokenInfo = shopFacade.registerMenu(shopToken, command);
+        return CommonResponse.success(shopTokenInfo);
     }
 }
