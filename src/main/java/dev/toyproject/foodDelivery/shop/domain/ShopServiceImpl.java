@@ -6,6 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -14,6 +16,7 @@ public class ShopServiceImpl implements ShopService{
     private final ShopStore shopStore;
     private final ShopFactory shopFactory;
     private final ShopReader shopReader;
+    private final ShopMenuFactory shopMenuFactory;
 
     /**
      * 사장님 가게 등록
@@ -57,5 +60,20 @@ public class ShopServiceImpl implements ShopService{
         shop.updateShopInfo(command);
         shopAddress.updateAddress(command.getShopAddressInfoRequest().getAddressFragment(), command.getShopAddressInfoRequest().getDetail());
         return shopReader.getShopSeries(shop);
+    }
+
+    /**
+     * 메뉴 등록
+     *
+     * @param shopToken
+     * @param command
+     * @return
+     */
+    @Override
+    @Transactional
+    public String registerMenu(String shopToken, List<ShopCommand.MenuGroupRequest> command) {
+        Shop shop = shopReader.getShopByToken(shopToken);
+        shopMenuFactory.shopMenuStore(shop, command);
+        return shop.getShopToken();
     }
 }
