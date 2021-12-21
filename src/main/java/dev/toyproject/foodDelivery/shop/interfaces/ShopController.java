@@ -69,4 +69,17 @@ public class ShopController {
         var shopTokenInfo = shopFacade.registerMenu(shopToken, command);
         return CommonResponse.success(shopTokenInfo);
     }
+
+    /**
+     * 메뉴 수정
+     *
+     * @param request
+     * @return
+     */
+    @PatchMapping("/menu/update")
+    public CommonResponse updateMenu(@RequestBody @Valid List<ShopDto.MenuGroupRequest> request){
+        var command = shopDtoMapper.toMenuList(request);
+        shopFacade.updateMenu(command);
+        return CommonResponse.success("OK");
+    }
 }
