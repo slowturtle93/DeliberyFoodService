@@ -76,4 +76,15 @@ public class ShopServiceImpl implements ShopService{
         shopMenuFactory.shopMenuStore(shop, command);
         return shop.getShopToken();
     }
+
+    /**
+     * 메뉴 수정
+     *
+     * @param command
+     */
+    @Override
+    @Transactional
+    public void updateMenu(List<ShopCommand.MenuGroupRequest> command) {
+        shopMenuFactory.updateMenu(command);
+    }
 }

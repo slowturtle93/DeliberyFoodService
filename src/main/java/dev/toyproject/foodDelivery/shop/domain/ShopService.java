@@ -11,4 +11,6 @@ public interface ShopService {
     public ShopInfo.Main updateShop(String shopToken, ShopCommand.ShopRequest command);
 
     public String registerMenu(String shopToken, List<ShopCommand.MenuGroupRequest> command);
+
+    public void updateMenu(List<ShopCommand.MenuGroupRequest> command);
 }
