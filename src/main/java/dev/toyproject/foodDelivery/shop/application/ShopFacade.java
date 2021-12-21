@@ -57,4 +57,13 @@ public class ShopFacade {
     public String registerMenu(String shopToken, List<ShopCommand.MenuGroupRequest> command){
         return shopService.registerMenu(shopToken, command);
     }
+
+    /**
+     * 메뉴 수정
+     *
+     * @param command
+     */
+    public void updateMenu(List<ShopCommand.MenuGroupRequest> command){
+        shopService.updateMenu(command);
+    }
 }
