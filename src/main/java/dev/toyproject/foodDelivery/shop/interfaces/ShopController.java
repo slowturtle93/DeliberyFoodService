@@ -82,4 +82,17 @@ public class ShopController {
         shopFacade.updateMenu(command);
         return CommonResponse.success("OK");
     }
+
+    /**
+     * 메뉴 그룹 삭제
+     *
+     * @param request
+     * @return
+     */
+    @DeleteMapping("/delete/menuGroup")
+    public CommonResponse deleteMenuGroup(@RequestBody @Valid ShopDto.MenuGroupRequest request){
+        var command = shopDtoMapper.of(request);
+        shopFacade.deleteMenuGroup(command);
+        return CommonResponse.success("OK");
+    }
 }
