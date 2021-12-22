@@ -112,4 +112,34 @@ public class ShopMenuFactoryImpl implements ShopMenuFactory {
         });
     }
 
+    /**
+     * 메뉴 그룹 삭제
+     *
+     * @param command
+     */
+    @Override
+    public void deleteMenuGroup(ShopCommand.MenuGroupRequest command) {
+        MenuGroup menuGroup = menuGroupRead.getMenuGroupById(command.getId());
+
+        var menuInfo = menuGroup.getMenuList();
+
+        // menu delete
+        menuInfo.forEach(menu -> {
+
+            // menu Option Group delete
+            var menuOptionGroupInfo = menu.getMenuOptionGroupList();
+            menuOptionGroupInfo.forEach(menuOptionGroup -> {
+
+                // menu Option delete
+                var menuOptionInfo = menuOptionGroup.getMenuOptionList();
+                menuOptionInfo.forEach(menuOption -> {
+                    menuOptionStore.delete(menuOption);
+                });
+                menuOptionGroupStore.delete(menuOptionGroup);
+            });
+            menuStore.delete(menu);
+        });
+        menuGroupStore.delete(menuGroup);
+    }
+
 }

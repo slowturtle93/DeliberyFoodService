@@ -8,4 +8,6 @@ public interface ShopMenuFactory {
     public List<MenuGroup> shopMenuStore(Shop shop, List<ShopCommand.MenuGroupRequest> command);
 
     public void updateMenu(List<ShopCommand.MenuGroupRequest> command);
+
+    public void deleteMenuGroup(ShopCommand.MenuGroupRequest command);
 }
