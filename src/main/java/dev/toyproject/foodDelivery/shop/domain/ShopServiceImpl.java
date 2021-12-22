@@ -87,4 +87,15 @@ public class ShopServiceImpl implements ShopService{
     public void updateMenu(List<ShopCommand.MenuGroupRequest> command) {
         shopMenuFactory.updateMenu(command);
     }
+
+    /**
+     * 메뉴 그룹 삭제
+     *
+     * @param command
+     */
+    @Override
+    @Transactional
+    public void deleteMenuGroup(ShopCommand.MenuGroupRequest command) {
+        shopMenuFactory.deleteMenuGroup(command);
+    }
 }

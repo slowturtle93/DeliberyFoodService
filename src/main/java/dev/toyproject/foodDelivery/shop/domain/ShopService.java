@@ -13,4 +13,6 @@ public interface ShopService {
     public String registerMenu(String shopToken, List<ShopCommand.MenuGroupRequest> command);
 
     public void updateMenu(List<ShopCommand.MenuGroupRequest> command);
+
+    public void deleteMenuGroup(ShopCommand.MenuGroupRequest command);
 }
