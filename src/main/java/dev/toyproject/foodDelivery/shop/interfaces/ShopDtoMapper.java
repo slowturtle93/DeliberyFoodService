@@ -19,4 +19,6 @@ public interface ShopDtoMapper {
     ShopCommand.ShopRequest of(ShopDto.ShopRequest request);
 
     List<ShopCommand.MenuGroupRequest> toMenuList(List<ShopDto.MenuGroupRequest> menuGroupRequestList);
+
+    ShopCommand.MenuGroupRequest of(ShopDto.MenuGroupRequest request);
 }
