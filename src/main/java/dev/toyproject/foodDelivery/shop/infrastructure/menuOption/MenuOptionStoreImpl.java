@@ -23,4 +23,14 @@ public class MenuOptionStoreImpl implements MenuOptionStore {
     public MenuOption store(MenuOption menuOption) {
         return menuOptionRepository.save(menuOption);
     }
+
+    /**
+     * 메뉴 옵션 삭제
+     *
+     * @param menuOption
+     */
+    @Override
+    public void delete(MenuOption menuOption) {
+        menuOptionRepository.delete(menuOption);
+    }
 }
