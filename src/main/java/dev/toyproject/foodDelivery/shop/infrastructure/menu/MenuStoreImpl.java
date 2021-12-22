@@ -23,4 +23,14 @@ public class MenuStoreImpl implements MenuStore {
     public Menu store(Menu menu) {
         return menuRepository.save(menu);
     }
+
+    /**
+     * 메뉴 삭제
+     *
+     * @param menu
+     */
+    @Override
+    public void delete(Menu menu) {
+        menuRepository.delete(menu);
+    }
 }
