@@ -23,4 +23,15 @@ public class MenuGroupStoreImpl implements MenuGroupStore {
     public MenuGroup store(MenuGroup menuGroup) {
         return menuGroupRepository.save(menuGroup);
     }
+
+    /**
+     * 메뉴 그룹 삭제
+     *
+     * @param menuGroup
+     * @return
+     */
+    @Override
+    public void delete(MenuGroup menuGroup) {
+        menuGroupRepository.delete(menuGroup);
+    }
 }
