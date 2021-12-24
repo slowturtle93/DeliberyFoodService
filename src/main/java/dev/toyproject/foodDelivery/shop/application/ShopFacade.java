@@ -75,4 +75,13 @@ public class ShopFacade {
     public void deleteMenuGroup(ShopCommand.MenuGroupRequest command){
         shopService.deleteMenuGroup(command);
     }
+
+    /**
+     * 메뉴 삭제
+     *
+     * @param command
+     */
+    public void deleteMenu(ShopCommand.MenuRequest command){
+        shopService.deleteMenu(command);
+    }
 }

@@ -142,4 +142,28 @@ public class ShopMenuFactoryImpl implements ShopMenuFactory {
         menuGroupStore.delete(menuGroup);
     }
 
+    /**
+     * 메뉴 삭제
+     *
+     * @param command
+     */
+    @Override
+    public void deleteMenu(ShopCommand.MenuRequest command) {
+        Menu menu = menuRead.getMenuById(command.getId());
+
+        var menuOptionGroupInfo = menu.getMenuOptionGroupList();
+
+        // menu Option Group delete
+        menuOptionGroupInfo.forEach(menuOptionGroup -> {
+
+            // menu Option delete
+            var menuOptionInfo = menuOptionGroup.getMenuOptionList();
+            menuOptionInfo.forEach(menuOption -> {
+                menuOptionStore.delete(menuOption);
+            });
+            menuOptionGroupStore.delete(menuOptionGroup);
+        });
+        menuStore.delete(menu);
+    }
+
 }
