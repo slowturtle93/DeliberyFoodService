@@ -121,4 +121,17 @@ public class ShopController {
         shopFacade.deleteMenuOptionGroup(command);
         return CommonResponse.success("OK");
     }
+
+    /**
+     * 메뉴 옵션 삭제
+     *
+     * @param request
+     * @return
+     */
+    @DeleteMapping("/delete/menuOption")
+    public CommonResponse deleteMenuOption(@RequestBody @Valid ShopDto.MenuOptionRequest request){
+        var command = shopDtoMapper.of(request);
+        shopFacade.deleteMenuOption(command);
+        return CommonResponse.success("OK");
+    }
 }
