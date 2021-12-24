@@ -17,4 +17,6 @@ public interface ShopService {
     public void deleteMenuGroup(ShopCommand.MenuGroupRequest command);
 
     public void deleteMenu(ShopCommand.MenuRequest command);
+
+    public void deleteMenuOptionGroup(ShopCommand.MenuOptionGroupRequest command);
 }
