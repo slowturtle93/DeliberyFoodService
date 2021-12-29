@@ -131,4 +131,18 @@ public class ShopServiceImpl implements ShopService{
     public void deleteMenuOption(ShopCommand.MenuOptionRequest command) {
         shopMenuFactory.deleteMenuOption(command);
     }
+
+    /**
+     * 사장님 가게 단건 조회
+     *
+     * @param shopToken
+     * @return
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public ShopInfo.Main retrieveShopInfo(String shopToken) {
+        var shop = shopReader.getShopByToken(shopToken);
+        var shopInfo = shopReader.getShopSeries(shop);
+        return shopInfo;
+    }
 }

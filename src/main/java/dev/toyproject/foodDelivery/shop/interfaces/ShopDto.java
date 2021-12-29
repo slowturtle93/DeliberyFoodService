@@ -1,6 +1,7 @@
 package dev.toyproject.foodDelivery.shop.interfaces;
 
 import dev.toyproject.foodDelivery.address.domain.AddressFragment;
+import dev.toyproject.foodDelivery.shop.domain.Shop;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,6 +10,32 @@ import lombok.ToString;
 import java.util.List;
 
 public class ShopDto {
+
+    @Getter
+    @Builder
+    @ToString
+    public static class Main{
+        private final String ownerToken;         // 사장님 정보
+        private final String shopToken;          // 가게 토큰
+        private final String shopBuildingInfoId; // 가게 건물 정보
+        private final String shopCategoryId;     // 가게 카테고리 정보
+        private final String shopNm;             // 가게명
+        private final String shopDeliveryRegion; // 가게 배달 지역
+        private final String shopTel;            // 가게 전화번호
+        private final String shopInfo;           // 가게 소개
+        private final Long   shopMinOrdPrice;    // 최소 주문금액
+        private final String shopNotice;         // 가게 공지사항
+        private final String shopOperatingTime;  // 가게 운영시간
+        private final String shopClosedDate;     // 가게 휴무일
+        private final String shopOrderType;      // 주문타입
+        private final String shopOriginInfo;     // 원산지 정보
+        private final Shop.Status status;        // 상태
+        private final String regDate;
+        private final String modDate;
+        private final ShopBusinessInfoRequest shopBusiness;    // 사업자 정보
+        private final ShopAddressInfoRequest shopAddress;      // 가게 주소 정보
+        private final List<MenuGroupRequest> menuGroupList; // 메뉴 정보
+    }
 
     @Getter
     @Setter

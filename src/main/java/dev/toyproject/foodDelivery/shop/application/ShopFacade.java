@@ -102,4 +102,15 @@ public class ShopFacade {
     public void deleteMenuOption(ShopCommand.MenuOptionRequest command){
         shopService.deleteMenuOption(command);
     }
+
+    /**
+     * 사장님 가게 단건 조회
+     *
+     * @param ownerToken
+     * @return
+     */
+    public ShopInfo.Main retrieveShopInfo(String ownerToken){
+        var shopInfo = shopService.retrieveShopInfo(ownerToken);
+        return shopInfo;
+    }
 }

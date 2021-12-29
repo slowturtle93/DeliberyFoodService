@@ -21,4 +21,6 @@ public interface ShopService {
     public void deleteMenuOptionGroup(ShopCommand.MenuOptionGroupRequest command);
 
     public void deleteMenuOption(ShopCommand.MenuOptionRequest command);
+
+    public ShopInfo.Main retrieveShopInfo(String shopToken);
 }

@@ -134,4 +134,17 @@ public class ShopController {
         shopFacade.deleteMenuOption(command);
         return CommonResponse.success("OK");
     }
+
+    /**
+     * 사장님 특정 가게 조회
+     *
+     * @param shopToken
+     * @return
+     */
+    @GetMapping("/{shopToken}")
+    public CommonResponse retrieveShop(@PathVariable("shopToken") String shopToken){
+        var shopInfo = shopFacade.retrieveShopInfo(shopToken);
+        var response = shopDtoMapper.of(shopInfo);
+        return CommonResponse.success(response);
+    }
 }

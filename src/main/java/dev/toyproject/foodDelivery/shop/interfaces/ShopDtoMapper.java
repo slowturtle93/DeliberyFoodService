@@ -1,6 +1,7 @@
 package dev.toyproject.foodDelivery.shop.interfaces;
 
 import dev.toyproject.foodDelivery.shop.domain.ShopCommand;
+import dev.toyproject.foodDelivery.shop.domain.ShopInfo;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -27,4 +28,7 @@ public interface ShopDtoMapper {
     ShopCommand.MenuOptionGroupRequest of(ShopDto.MenuOptionGroupRequest request);
 
     ShopCommand.MenuOptionRequest of(ShopDto.MenuOptionRequest request);
+
+    /******************* response  *********************/
+    ShopDto.Main of(ShopInfo.Main main);
 }
