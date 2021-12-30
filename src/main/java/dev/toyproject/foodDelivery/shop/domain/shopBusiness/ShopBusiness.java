@@ -1,5 +1,6 @@
 package dev.toyproject.foodDelivery.shop.domain.shopBusiness;
 
+import dev.toyproject.foodDelivery.AbstracEntity;
 import dev.toyproject.foodDelivery.common.exception.InvalidParamException;
 import dev.toyproject.foodDelivery.shop.domain.Shop;
 import lombok.Builder;
@@ -7,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.dom4j.tree.AbstractEntity;
 
 import javax.persistence.*;
 
@@ -16,7 +16,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @Table(name = "shop_business")
-public class ShopBusiness extends AbstractEntity {
+public class ShopBusiness extends AbstracEntity {
 
     @Id
     private String shopBusinessId;                 // 사업자등록번호

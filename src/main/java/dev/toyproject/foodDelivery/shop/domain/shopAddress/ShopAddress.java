@@ -1,5 +1,6 @@
 package dev.toyproject.foodDelivery.shop.domain.shopAddress;
 
+import dev.toyproject.foodDelivery.AbstracEntity;
 import dev.toyproject.foodDelivery.address.domain.AddressFragment;
 import dev.toyproject.foodDelivery.common.exception.InvalidParamException;
 import dev.toyproject.foodDelivery.shop.domain.Shop;
@@ -8,7 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-import org.dom4j.tree.AbstractEntity;
 
 import javax.persistence.*;
 
@@ -18,7 +18,7 @@ import javax.persistence.*;
 @ToString
 @NoArgsConstructor
 @Table(name = "shop_building_info")
-public class ShopAddress extends AbstractEntity {
+public class ShopAddress extends AbstracEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
