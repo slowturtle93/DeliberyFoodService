@@ -1,6 +1,7 @@
 plugins {
 	id 'org.springframework.boot' version '2.5.5'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10" // querydsl
 	id 'java'
 }
 
@@ -58,6 +59,9 @@ dependencies {
 			'org.projectlombok:lombok-mapstruct-binding:0.1.0'
 	)
 
+	// QueryDsl
+	implementation 'com.querydsl:querydsl-jpa'
+
 	implementation 'com.google.guava:guava:28.2-jre'
 
 	compileOnly 'org.projectlombok:lombok'
@@ -68,6 +72,22 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+def querydslDir = "$buildDir/generated/querydsl" // (3)
+
+querydsl { // (4)
+	jpa = true
+	querydslSourcesDir = querydslDir
+}
+sourceSets { // (5)
+	main.java.srcDir querydslDir
+}
+configurations { // (6)
+	querydsl.extendsFrom compileClasspath
+}
+compileQuerydsl { // (7)
+	options.annotationProcessorPath = configurations.querydsl
 }
 
 bootRun {
