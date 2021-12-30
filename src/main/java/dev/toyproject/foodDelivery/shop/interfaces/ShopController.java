@@ -147,4 +147,18 @@ public class ShopController {
         var response = shopDtoMapper.of(shopInfo);
         return CommonResponse.success(response);
     }
+
+    /**
+     * 사용자의 위치 기반으로 반경 2km 이내의 가게 조회
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/search")
+    public CommonResponse searchShop(@RequestBody @Valid ShopDto.MemberLocationRequest request){
+        var memberLocationInfo = shopDtoMapper.of(request);
+        var shopInfo = shopFacade.searchShop(memberLocationInfo);
+        var response = shopDtoMapper.of(shopInfo);
+        return CommonResponse.success(response);
+    }
 }
