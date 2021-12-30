@@ -145,4 +145,17 @@ public class ShopServiceImpl implements ShopService{
         var shopInfo = shopReader.getShopSeries(shop);
         return shopInfo;
     }
+
+    /**
+     * 특정 좌표 위치 기반으로 반경 2km 이내의 가게 조회
+     *
+     * @param request
+     * @return
+     */
+    @Override
+    public List<ShopInfo.ShopMain> searchShop(ShopCommand.MemberLocationRequest request) {
+        var shopInfo = shopReader.searchShop(request);
+        var shopMainList = shopReader.getShopListSeries(shopInfo);
+        return shopMainList;
+    }
 }

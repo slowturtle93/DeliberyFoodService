@@ -23,4 +23,6 @@ public interface ShopService {
     public void deleteMenuOption(ShopCommand.MenuOptionRequest command);
 
     public ShopInfo.Main retrieveShopInfo(String shopToken);
+
+    public List<ShopInfo.ShopMain> searchShop(ShopCommand.MemberLocationRequest request);
 }
