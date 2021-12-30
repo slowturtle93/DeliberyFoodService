@@ -1,7 +1,10 @@
 package dev.toyproject.foodDelivery.shop.domain;
 
+import com.google.common.collect.Lists;
+import dev.toyproject.foodDelivery.AbstracEntity;
 import dev.toyproject.foodDelivery.common.exception.InvalidParamException;
 import dev.toyproject.foodDelivery.common.util.TokenGenerator;
+import dev.toyproject.foodDelivery.shop.domain.menuGroup.MenuGroup;
 import dev.toyproject.foodDelivery.shop.domain.shopAddress.ShopAddress;
 import dev.toyproject.foodDelivery.shop.domain.shopBusiness.ShopBusiness;
 import lombok.Builder;
@@ -10,16 +13,16 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.dom4j.tree.AbstractEntity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Slf4j
 @Getter
 @Entity
 @NoArgsConstructor
 @Table(name = "shop")
-public class Shop extends AbstractEntity {
+public class Shop extends AbstracEntity {
 
     private final static String SHOP_PREFIX = "shp_";
 
@@ -50,6 +53,9 @@ public class Shop extends AbstractEntity {
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "shop", cascade = CascadeType.PERSIST)
     private ShopAddress shopAddress;   // 가게 주소
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "shop", cascade = CascadeType.PERSIST)
+    private List<MenuGroup> menuGroupList = Lists.newArrayList();
 
     @Getter
     @RequiredArgsConstructor
