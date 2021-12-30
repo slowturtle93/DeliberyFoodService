@@ -1,5 +1,6 @@
 package dev.toyproject.foodDelivery.shop.domain.menuOption;
 
+import dev.toyproject.foodDelivery.AbstracEntity;
 import dev.toyproject.foodDelivery.common.exception.InvalidParamException;
 import dev.toyproject.foodDelivery.shop.domain.ShopCommand;
 import dev.toyproject.foodDelivery.shop.domain.menuOptionGroup.MenuOptionGroup;
@@ -8,7 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.dom4j.tree.AbstractEntity;
 
 import javax.persistence.*;
 
@@ -17,7 +17,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @Table(name = "menu_option")
-public class MenuOption extends AbstractEntity {
+public class MenuOption extends AbstracEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

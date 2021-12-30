@@ -1,6 +1,7 @@
 package dev.toyproject.foodDelivery.shop.domain.menu;
 
 import com.google.common.collect.Lists;
+import dev.toyproject.foodDelivery.AbstracEntity;
 import dev.toyproject.foodDelivery.common.exception.InvalidParamException;
 import dev.toyproject.foodDelivery.shop.domain.ShopCommand;
 import dev.toyproject.foodDelivery.shop.domain.menuGroup.MenuGroup;
@@ -11,7 +12,6 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.dom4j.tree.AbstractEntity;
 
 import javax.persistence.*;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @Table(name = "menu")
-public class Menu extends AbstractEntity {
+public class Menu extends AbstracEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
