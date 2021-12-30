@@ -183,4 +183,12 @@ public class ShopCommand {
                     .build();
         }
     }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class MemberLocationRequest{
+        private final Double x;
+        private final Double y;
+    }
 }
