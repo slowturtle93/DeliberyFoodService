@@ -8,7 +8,9 @@ import dev.toyproject.foodDelivery.common.util.TokenGenerator;
 import dev.toyproject.foodDelivery.order.domain.menu.OrderMenu;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
@@ -16,6 +18,11 @@ import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
+@Getter
+@Entity
+@NoArgsConstructor
+@Table(name = "orders")
 public class Order extends AbstracEntity {
 
     private final static String ORDER_PREFIX = "odr_";
