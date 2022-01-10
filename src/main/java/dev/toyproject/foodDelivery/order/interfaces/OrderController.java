@@ -29,7 +29,7 @@ public class OrderController {
     @PostMapping("/basket")
     public CommonResponse registerMenuBasket(@RequestBody @Valid OrderDto.OrderBasketRequest request){
         var command = orderDtoMapper.of(request);
-        orderFacade.registerMenuBasket(command);
-        return CommonResponse.success("OK");
+        var orderMenuBasketList = orderFacade.registerMenuBasket(command);
+        return CommonResponse.success(orderMenuBasketList);
     }
 }
