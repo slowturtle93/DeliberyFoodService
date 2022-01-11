@@ -2,7 +2,6 @@ package dev.toyproject.foodDelivery.order.infrastructure;
 
 import dev.toyproject.foodDelivery.common.exception.InvalidParamException;
 import dev.toyproject.foodDelivery.common.util.redis.RedisCacheUtil;
-import dev.toyproject.foodDelivery.common.util.redis.RedisKeyFactory;
 import dev.toyproject.foodDelivery.order.domain.OrderCommand;
 import dev.toyproject.foodDelivery.order.domain.OrderFactory;
 import lombok.RequiredArgsConstructor;
@@ -47,7 +46,7 @@ public class OrderFactoryImpl implements OrderFactory {
      */
     @Override
     public void orderBasketShopCheck(OrderCommand.OrderBasketRequest command) {
-        List<OrderCommand.OrderBasketRequest> orderBasketList = redisCacheUtil.getMenuBasketList(command.getMemberToken(), RedisKeyFactory.MENU_SHOPPING_BASKET);
+        List<OrderCommand.OrderBasketRequest> orderBasketList = redisCacheUtil.getMenuBasketList(command.getMemberToken());
 
         if (orderBasketList == null) { return; } // 해당 사용자가 장바구니 내역이 없을 경우 정상적인 flow 진행
 
@@ -68,7 +67,7 @@ public class OrderFactoryImpl implements OrderFactory {
     @Override
     public OrderCommand.OrderBasketRequest duplicationMenu(OrderCommand.OrderBasketRequest command, String hashKey) {
 
-        OrderCommand.OrderBasketRequest orderBasketInfo = redisCacheUtil.getMenuBasketHashKey(command.getMemberToken(), RedisKeyFactory.MENU_SHOPPING_BASKET, hashKey);
+        OrderCommand.OrderBasketRequest orderBasketInfo = redisCacheUtil.getMenuBasketHashKey(command.getMemberToken(), hashKey);
 
         // 동일한 메뉴, 메뉴 옵션이 존재할 경우
         if (orderBasketInfo != null){
@@ -77,5 +76,40 @@ public class OrderFactoryImpl implements OrderFactory {
         }
 
         return command;
+    }
+
+    /**
+     *
+     * Redis 장바구니 메뉴 조회
+     *
+     * @param memberToken
+     * @return
+     */
+    @Override
+    public List<OrderCommand.OrderBasketRequest> retrieveMenuBasket(String memberToken) {
+        return redisCacheUtil.getMenuBasketList(memberToken);
+    }
+
+    /**
+     * Redis 장바구니 메뉴 등록
+     * @param memberToken
+     * @param Key
+     * @param hashKey
+     * @param command
+     */
+    @Override
+    public void registerCacheMenuBasket(String memberToken, String hashKey, OrderCommand.OrderBasketRequest command) {
+        redisCacheUtil.setRedisCacheMenuBasket(memberToken, hashKey, command);
+    }
+
+    /**
+     * Redis 특정 메뉴 삭제
+     *
+     * @param memberToken
+     * @param hashKey
+     */
+    @Override
+    public void removeMenuBasket(String memberToken, String hashKey) {
+        redisCacheUtil.removeMenuBasket(memberToken, hashKey);
     }
 }
