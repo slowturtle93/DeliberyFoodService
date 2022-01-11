@@ -28,4 +28,13 @@ public class OrderFacade {
     public List<OrderCommand.OrderBasketRequest> registerMenuBasket(OrderCommand.OrderBasketRequest command){
         return orderService.registerMenuBasket(command);
     }
+
+    /**
+     * 장바구니에서 특정 메뉴 삭제
+     *
+     * @param command
+     */
+    public List<OrderCommand.OrderBasketRequest> deleteMenuBasket(OrderCommand.OrderBasketRequest command){
+        return orderService.deleteMenuBasket(command);
+    }
 }
