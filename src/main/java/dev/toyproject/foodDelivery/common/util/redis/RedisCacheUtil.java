@@ -80,11 +80,10 @@ public class RedisCacheUtil {
      * 장바구니에 적재된 메뉴 리스트 조회
      *
      * @param Token
-     * @param Key
      * @return
      */
-    public List<OrderCommand.OrderBasketRequest> getMenuBasketList(String Token, String Key){
-        String redisKey = RedisKeyFactory.generateKey(Token, Key);
+    public List<OrderCommand.OrderBasketRequest> getMenuBasketList(String Token){
+        String redisKey = RedisKeyFactory.generateKey(Token, RedisKeyFactory.MENU_SHOPPING_BASKET);
 
         var menuBasket = redisTemplate.opsForHash().entries(redisKey);
 
@@ -96,7 +95,7 @@ public class RedisCacheUtil {
         List<OrderCommand.OrderBasketRequest> menuBasketList = new ArrayList<OrderCommand.OrderBasketRequest>();
 
         for(String hashKey : keys){
-            menuBasketList.add(getMenuBasketHashKey(Token, Key, hashKey));
+            menuBasketList.add(getMenuBasketHashKey(Token, hashKey));
         }
 
         return menuBasketList;
@@ -106,17 +105,27 @@ public class RedisCacheUtil {
      * 장바구니에 적재된 단일 메뉴 조회
      *
      * @param Token
-     * @param Key
      * @param hashKey
      * @return
      */
-    public OrderCommand.OrderBasketRequest getMenuBasketHashKey(String Token, String Key, String hashKey) {
-        String redisKey = RedisKeyFactory.generateKey(Token, Key);
+    public OrderCommand.OrderBasketRequest getMenuBasketHashKey(String Token, String hashKey) {
+        String redisKey = RedisKeyFactory.generateKey(Token, RedisKeyFactory.MENU_SHOPPING_BASKET);
 
         var orderBasket = redisTemplate.opsForHash().get(redisKey, hashKey);
         OrderCommand.OrderBasketRequest orderBasketInfo = objectMapper.convertValue(orderBasket, OrderCommand.OrderBasketRequest.class);
 
         return orderBasketInfo;
+    }
+
+    /**
+     * 장바구니에 적재된 특정 메뉴 삭제
+     *
+     * @param Token
+     * @param hashKey
+     */
+    public void removeMenuBasket(String Token, String hashKey){
+        var redisKey = RedisKeyFactory.generateKey(Token, RedisKeyFactory.MENU_SHOPPING_BASKET);
+        redisTemplate.opsForHash().delete(redisKey, hashKey);
     }
 
 }
