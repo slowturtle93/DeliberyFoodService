@@ -4,10 +4,7 @@ import dev.toyproject.foodDelivery.common.response.CommonResponse;
 import dev.toyproject.foodDelivery.order.application.OrderFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -31,5 +28,18 @@ public class OrderController {
         var command = orderDtoMapper.of(request);
         var orderMenuBasketList = orderFacade.registerMenuBasket(command);
         return CommonResponse.success(orderMenuBasketList);
+    }
+
+    /**
+     * 장바구니 특정 메뉴 삭제
+     *
+     * @param request
+     * @return
+     */
+    @DeleteMapping("/basket")
+    public CommonResponse deleteMenuBasket(@RequestBody @Valid OrderDto.OrderBasketRequest request){
+        var command = orderDtoMapper.of(request);
+        var menuBasketInfoList = orderFacade.deleteMenuBasket(command);
+        return CommonResponse.success(menuBasketInfoList);
     }
 }
