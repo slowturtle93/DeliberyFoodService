@@ -37,4 +37,13 @@ public class OrderFacade {
     public List<OrderCommand.OrderBasketRequest> deleteMenuBasket(OrderCommand.OrderBasketRequest command){
         return orderService.deleteMenuBasket(command);
     }
+
+    /**
+     * 장바구니 메뉴 전체 삭제
+     *
+     * @param command
+     */
+    public void deleteMenuBasketAll(OrderCommand.OrderBasketRequest command){
+
+    }
 }
