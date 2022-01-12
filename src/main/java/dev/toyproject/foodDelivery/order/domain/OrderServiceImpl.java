@@ -28,7 +28,7 @@ public class OrderServiceImpl implements OrderService{
         orderFactory.orderBasketShopCheck(command);                                                                               // 같은 가게 확인
         orderFactory.duplicationMenu(command,hashKey);                                                                            // 메뉴 & 옵션 동일 여부 확인
         orderFactory.registerCacheMenuBasket(command.getMemberToken(), hashKey, command);   // Redis 등록
-        return orderFactory.retrieveMenuBasket(command.getMemberToken());               // 등록된 장바구니 메뉴 조회
+        return orderFactory.retrieveMenuBasket(command.getMemberToken());                   // 등록된 장바구니 메뉴 조회
     }
 
     /**
@@ -41,5 +41,15 @@ public class OrderServiceImpl implements OrderService{
         String hashKey = orderFactory.makeHashKey(command);
         orderFactory.removeMenuBasket(command.getMemberToken(), hashKey);
         return orderFactory.retrieveMenuBasket(command.getMemberToken());
+    }
+
+    /**
+     * Redis 장바구니 메뉴 전체 삭제
+     *
+     * @param memberToken
+     */
+    @Override
+    public void deleteMenuBasketAll(String memberToken) {
+        redisCacheUtil.removeMenuBasketAll(memberToken);
     }
 }

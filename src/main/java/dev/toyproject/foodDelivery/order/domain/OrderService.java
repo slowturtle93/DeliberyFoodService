@@ -7,4 +7,6 @@ public interface OrderService {
     public List<OrderCommand.OrderBasketRequest> registerMenuBasket(OrderCommand.OrderBasketRequest command);
 
     public List<OrderCommand.OrderBasketRequest> deleteMenuBasket(OrderCommand.OrderBasketRequest command);
+
+    public void deleteMenuBasketAll(String memberToken);
 }
