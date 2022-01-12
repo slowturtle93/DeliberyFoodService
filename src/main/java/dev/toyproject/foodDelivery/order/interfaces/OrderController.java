@@ -54,4 +54,16 @@ public class OrderController {
         orderFacade.deleteMenuBasketAll(memberToken);
         return CommonResponse.success("OK");
     }
+
+    /**
+     * 장바구니 메뉴 전체 조회
+     *
+     * @param memberToken
+     * @return
+     */
+    @GetMapping("/basket/{memberToken}")
+    public CommonResponse retrieveMenuBasket(@PathVariable("memberToken") String memberToken){
+        var menuBasketInfoList = orderFacade.retrieveMenuBasket(memberToken);
+        return CommonResponse.success("OK");
+    }
 }

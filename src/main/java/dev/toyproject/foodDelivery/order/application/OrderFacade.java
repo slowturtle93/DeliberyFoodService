@@ -46,4 +46,13 @@ public class OrderFacade {
     public void deleteMenuBasketAll(String memberToken){
         orderService.deleteMenuBasketAll(memberToken);
     }
+
+    /**
+     * 장바구니 메뉴 조회
+     *
+     * @param memberToken
+     */
+    public List<OrderCommand.OrderBasketRequest> retrieveMenuBasket(String memberToken){
+        return null;
+    }
 }
