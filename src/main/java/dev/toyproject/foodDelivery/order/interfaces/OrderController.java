@@ -46,13 +46,12 @@ public class OrderController {
     /**
      * 장바구니 메뉴 전체 삭제
      *
-     * @param request
+     * @param memberToken
      * @return
      */
-    @DeleteMapping("/basket/all")
-    public CommonResponse deleteMenuBasketAll(@RequestBody @Valid OrderDto.OrderBasketRequest request){
-        var command = orderDtoMapper.of(request);
-        orderFacade.deleteMenuBasketAll(command);
+    @DeleteMapping("/basket/all/{memberToken}")
+    public CommonResponse deleteMenuBasketAll(@PathVariable("memberToken") String memberToken){
+        orderFacade.deleteMenuBasketAll(memberToken);
         return CommonResponse.success("OK");
     }
 }
