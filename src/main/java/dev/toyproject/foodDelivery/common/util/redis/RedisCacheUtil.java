@@ -127,4 +127,20 @@ public class RedisCacheUtil {
         redisTemplate.opsForHash().delete(redisKey, hashKey);
     }
 
+    /**
+     * 장바구니 전체 삭제
+     *
+     * @param Token
+     */
+    public void removeMenuBasketAll(String Token){
+        var redisKey = RedisKeyFactory.generateKey(Token, RedisKeyFactory.MENU_SHOPPING_BASKET);
+
+        var menuBasket = redisTemplate.opsForHash().entries(redisKey);
+        var hashKeys = menuBasket.keySet().toArray(new String[menuBasket.size()]);
+
+        for(String hashKey : hashKeys){
+            redisTemplate.opsForHash().delete(redisKey, hashKey);
+        }
+    }
+
 }
