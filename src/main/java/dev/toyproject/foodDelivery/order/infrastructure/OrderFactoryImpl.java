@@ -4,6 +4,7 @@ import dev.toyproject.foodDelivery.common.exception.InvalidParamException;
 import dev.toyproject.foodDelivery.common.util.redis.RedisCacheUtil;
 import dev.toyproject.foodDelivery.order.domain.OrderCommand;
 import dev.toyproject.foodDelivery.order.domain.OrderFactory;
+import dev.toyproject.foodDelivery.order.domain.OrderInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -46,7 +47,7 @@ public class OrderFactoryImpl implements OrderFactory {
      */
     @Override
     public void orderBasketShopCheck(OrderCommand.OrderBasketRequest command) {
-        List<OrderCommand.OrderBasketRequest> orderBasketList = redisCacheUtil.getMenuBasketList(command.getMemberToken());
+        List<OrderInfo.OrderBasketInfo> orderBasketList = redisCacheUtil.getMenuBasketList(command.getMemberToken());
 
         if (orderBasketList == null) { return; } // 해당 사용자가 장바구니 내역이 없을 경우 정상적인 flow 진행
 
@@ -65,17 +66,17 @@ public class OrderFactoryImpl implements OrderFactory {
      * @return
      */
     @Override
-    public OrderCommand.OrderBasketRequest duplicationMenu(OrderCommand.OrderBasketRequest command, String hashKey) {
+    public OrderInfo.OrderBasketInfo duplicationMenu(OrderCommand.OrderBasketRequest command, String hashKey) {
 
-        OrderCommand.OrderBasketRequest orderBasketInfo = redisCacheUtil.getMenuBasketHashKey(command.getMemberToken(), hashKey);
+        OrderInfo.OrderBasketInfo orderBasketInfo = redisCacheUtil.getMenuBasketHashKey(command.getMemberToken(), hashKey);
 
         // 동일한 메뉴, 메뉴 옵션이 존재할 경우
         if (orderBasketInfo != null){
             Long MenuOptionCount = orderBasketInfo.getOrderBasketMenu().getOrderMenuCount();
-            command.getOrderBasketMenu().setOrderMenuCount(MenuOptionCount + 1);
+            orderBasketInfo.getOrderBasketMenu().setOrderMenuCount(MenuOptionCount + 1);
         }
 
-        return command;
+        return orderBasketInfo;
     }
 
     /**
@@ -86,14 +87,13 @@ public class OrderFactoryImpl implements OrderFactory {
      * @return
      */
     @Override
-    public List<OrderCommand.OrderBasketRequest> retrieveMenuBasket(String memberToken) {
+    public List<OrderInfo.OrderBasketInfo> retrieveMenuBasket(String memberToken) {
         return redisCacheUtil.getMenuBasketList(memberToken);
     }
 
     /**
      * Redis 장바구니 메뉴 등록
      * @param memberToken
-     * @param Key
      * @param hashKey
      * @param command
      */

@@ -4,6 +4,7 @@ import dev.toyproject.foodDelivery.common.util.redis.RedisCacheUtil;
 import dev.toyproject.foodDelivery.common.util.redis.RedisKeyFactory;
 import dev.toyproject.foodDelivery.order.domain.OrderCommand;
 import dev.toyproject.foodDelivery.order.domain.OrderFactory;
+import dev.toyproject.foodDelivery.order.domain.OrderInfo;
 import dev.toyproject.foodDelivery.order.domain.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +26,7 @@ public class OrderFacade {
      *
      * @param command
      */
-    public List<OrderCommand.OrderBasketRequest> registerMenuBasket(OrderCommand.OrderBasketRequest command){
+    public List<OrderInfo.OrderBasketInfo> registerMenuBasket(OrderCommand.OrderBasketRequest command){
         return orderService.registerMenuBasket(command);
     }
 
@@ -34,7 +35,7 @@ public class OrderFacade {
      *
      * @param command
      */
-    public List<OrderCommand.OrderBasketRequest> deleteMenuBasket(OrderCommand.OrderBasketRequest command){
+    public List<OrderInfo.OrderBasketInfo> deleteMenuBasket(OrderCommand.OrderBasketRequest command){
         return orderService.deleteMenuBasket(command);
     }
 
@@ -52,7 +53,7 @@ public class OrderFacade {
      *
      * @param memberToken
      */
-    public List<OrderCommand.OrderBasketRequest> retrieveMenuBasket(String memberToken){
+    public List<OrderInfo.OrderBasketInfo> retrieveMenuBasket(String memberToken){
         return orderService.retrieveMenuBasket(memberToken);
     }
 }

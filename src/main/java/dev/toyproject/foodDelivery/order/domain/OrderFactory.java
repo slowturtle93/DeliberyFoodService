@@ -8,9 +8,9 @@ public interface OrderFactory {
 
     public void orderBasketShopCheck(OrderCommand.OrderBasketRequest command);
 
-    public OrderCommand.OrderBasketRequest duplicationMenu(OrderCommand.OrderBasketRequest command, String hashKey);
+    public OrderInfo.OrderBasketInfo duplicationMenu(OrderCommand.OrderBasketRequest command, String hashKey);
 
-    public List<OrderCommand.OrderBasketRequest> retrieveMenuBasket(String memberToken);
+    public List<OrderInfo.OrderBasketInfo> retrieveMenuBasket(String memberToken);
 
     public void registerCacheMenuBasket(String memberToken, String hashKey, OrderCommand.OrderBasketRequest command);
 

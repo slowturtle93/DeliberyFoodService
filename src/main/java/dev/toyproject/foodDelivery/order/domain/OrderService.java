@@ -4,11 +4,11 @@ import java.util.List;
 
 public interface OrderService {
 
-    public List<OrderCommand.OrderBasketRequest> registerMenuBasket(OrderCommand.OrderBasketRequest command);
+    public List<OrderInfo.OrderBasketInfo> registerMenuBasket(OrderCommand.OrderBasketRequest command);
 
-    public List<OrderCommand.OrderBasketRequest> deleteMenuBasket(OrderCommand.OrderBasketRequest command);
+    public List<OrderInfo.OrderBasketInfo> deleteMenuBasket(OrderCommand.OrderBasketRequest command);
 
     public void deleteMenuBasketAll(String memberToken);
 
-    public List<OrderCommand.OrderBasketRequest> retrieveMenuBasket(String memberToken);
+    public List<OrderInfo.OrderBasketInfo> retrieveMenuBasket(String memberToken);
 }

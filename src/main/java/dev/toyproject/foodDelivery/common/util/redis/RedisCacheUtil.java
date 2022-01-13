@@ -2,6 +2,7 @@ package dev.toyproject.foodDelivery.common.util.redis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.toyproject.foodDelivery.order.domain.OrderCommand;
+import dev.toyproject.foodDelivery.order.domain.OrderInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -81,7 +82,7 @@ public class RedisCacheUtil {
      * @param Token
      * @return
      */
-    public List<OrderCommand.OrderBasketRequest> getMenuBasketList(String Token){
+    public List<OrderInfo.OrderBasketInfo> getMenuBasketList(String Token){
         String redisKey = RedisKeyFactory.generateKey(Token, RedisKeyFactory.MENU_SHOPPING_BASKET);
 
         var menuBasket = redisTemplate.opsForHash().entries(redisKey);
@@ -91,7 +92,7 @@ public class RedisCacheUtil {
         }
 
         var keys = menuBasket.keySet().toArray(new String[menuBasket.size()]);
-        List<OrderCommand.OrderBasketRequest> menuBasketList = new ArrayList<OrderCommand.OrderBasketRequest>();
+        List<OrderInfo.OrderBasketInfo> menuBasketList = new ArrayList<OrderInfo.OrderBasketInfo>();
 
         for(String hashKey : keys){
             menuBasketList.add(getMenuBasketHashKey(Token, hashKey));
@@ -107,11 +108,11 @@ public class RedisCacheUtil {
      * @param hashKey
      * @return
      */
-    public OrderCommand.OrderBasketRequest getMenuBasketHashKey(String Token, String hashKey) {
+    public OrderInfo.OrderBasketInfo getMenuBasketHashKey(String Token, String hashKey) {
         String redisKey = RedisKeyFactory.generateKey(Token, RedisKeyFactory.MENU_SHOPPING_BASKET);
 
         var orderBasket = redisTemplate.opsForHash().get(redisKey, hashKey);
-        OrderCommand.OrderBasketRequest orderBasketInfo = objectMapper.convertValue(orderBasket, OrderCommand.OrderBasketRequest.class);
+        OrderInfo.OrderBasketInfo orderBasketInfo = objectMapper.convertValue(orderBasket, OrderInfo.OrderBasketInfo.class);
 
         return orderBasketInfo;
     }

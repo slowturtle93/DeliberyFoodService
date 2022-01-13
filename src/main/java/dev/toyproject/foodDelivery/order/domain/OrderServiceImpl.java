@@ -21,7 +21,7 @@ public class OrderServiceImpl implements OrderService{
      * @param command
      */
     @Override
-    public List<OrderCommand.OrderBasketRequest> registerMenuBasket(OrderCommand.OrderBasketRequest command) {
+    public List<OrderInfo.OrderBasketInfo> registerMenuBasket(OrderCommand.OrderBasketRequest command) {
         String hashKey = orderFactory.makeHashKey(command);
         orderFactory.orderBasketShopCheck(command);                                                                               // 같은 가게 확인
         orderFactory.duplicationMenu(command,hashKey);                                                                            // 메뉴 & 옵션 동일 여부 확인
@@ -35,7 +35,7 @@ public class OrderServiceImpl implements OrderService{
      * @param command
      */
     @Override
-    public List<OrderCommand.OrderBasketRequest> deleteMenuBasket(OrderCommand.OrderBasketRequest command) {
+    public List<OrderInfo.OrderBasketInfo> deleteMenuBasket(OrderCommand.OrderBasketRequest command) {
         String hashKey = orderFactory.makeHashKey(command);
         orderFactory.removeMenuBasket(command.getMemberToken(), hashKey);
         return orderFactory.retrieveMenuBasket(command.getMemberToken());
@@ -58,7 +58,7 @@ public class OrderServiceImpl implements OrderService{
      * @return
      */
     @Override
-    public List<OrderCommand.OrderBasketRequest> retrieveMenuBasket(String memberToken) {
+    public List<OrderInfo.OrderBasketInfo> retrieveMenuBasket(String memberToken) {
         return orderFactory.retrieveMenuBasket(memberToken);
     }
 }
