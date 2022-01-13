@@ -56,4 +56,14 @@ public class OrderFacade {
     public List<OrderInfo.OrderBasketInfo> retrieveMenuBasket(String memberToken){
         return orderService.retrieveMenuBasket(memberToken);
     }
+
+    /**
+     * Redis 장바구니 메뉴 수량 변경
+     *
+     * @param command
+     * @return
+     */
+    public List<OrderInfo.OrderBasketInfo> updateMenuBasketAmount(OrderCommand.OrderBasketRequest command){
+        return null;
+    }
 }

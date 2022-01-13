@@ -66,4 +66,17 @@ public class OrderController {
         var menuBasketInfoList = orderFacade.retrieveMenuBasket(memberToken);
         return CommonResponse.success(menuBasketInfoList);
     }
+
+    /**
+     * Redis 장바구니 메뉴 수량 변경
+     *
+     * @param request
+     * @return
+     */
+    @PatchMapping("basket/amount_update")
+    public CommonResponse updateMenuBasketAmount(@RequestBody @Valid OrderDto.OrderBasketRequest request){
+        var command = orderDtoMapper.of(request);
+        var response = orderFacade.updateMenuBasketAmount(command);
+        return CommonResponse.success(response);
+    }
 }
