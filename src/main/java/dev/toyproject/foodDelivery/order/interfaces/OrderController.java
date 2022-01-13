@@ -64,6 +64,6 @@ public class OrderController {
     @GetMapping("/basket/{memberToken}")
     public CommonResponse retrieveMenuBasket(@PathVariable("memberToken") String memberToken){
         var menuBasketInfoList = orderFacade.retrieveMenuBasket(memberToken);
-        return CommonResponse.success("OK");
+        return CommonResponse.success(menuBasketInfoList);
     }
 }

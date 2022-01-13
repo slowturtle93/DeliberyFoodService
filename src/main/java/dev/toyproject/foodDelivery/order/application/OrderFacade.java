@@ -53,6 +53,6 @@ public class OrderFacade {
      * @param memberToken
      */
     public List<OrderCommand.OrderBasketRequest> retrieveMenuBasket(String memberToken){
-        return null;
+        return orderService.retrieveMenuBasket(memberToken);
     }
 }
