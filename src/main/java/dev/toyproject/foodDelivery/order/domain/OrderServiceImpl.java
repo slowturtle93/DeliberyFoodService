@@ -1,11 +1,9 @@
 package dev.toyproject.foodDelivery.order.domain;
 
 import dev.toyproject.foodDelivery.common.util.redis.RedisCacheUtil;
-import dev.toyproject.foodDelivery.common.util.redis.RedisKeyFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -51,5 +49,16 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public void deleteMenuBasketAll(String memberToken) {
         redisCacheUtil.removeMenuBasketAll(memberToken);
+    }
+
+    /**
+     * Redis 장바구니 메뉴 조회
+     *
+     * @param memberToken
+     * @return
+     */
+    @Override
+    public List<OrderCommand.OrderBasketRequest> retrieveMenuBasket(String memberToken) {
+        return orderFactory.retrieveMenuBasket(memberToken);
     }
 }
