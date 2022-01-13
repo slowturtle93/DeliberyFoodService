@@ -10,8 +10,6 @@ public class OrderCommand {
     @Setter
     @Builder
     @ToString
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class OrderBasketRequest{
         private String memberToken;
         private String shopToken;
@@ -22,8 +20,6 @@ public class OrderCommand {
     @Setter
     @Builder
     @ToString
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class OrderBasketMenuRequest{
         private Long id;
         private String orderMenuName;
@@ -36,8 +32,6 @@ public class OrderCommand {
     @Setter
     @Builder
     @ToString
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class OrderBasketMenuOptionRequest{
         private Long id;
         private String orderMenuOptionName;
