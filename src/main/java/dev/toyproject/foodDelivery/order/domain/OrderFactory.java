@@ -8,11 +8,13 @@ public interface OrderFactory {
 
     public void orderBasketShopCheck(OrderCommand.OrderBasketRequest command);
 
-    public OrderInfo.OrderBasketInfo duplicationMenu(OrderCommand.OrderBasketRequest command, String hashKey);
+    public OrderCommand.OrderBasketRequest duplicationMenu(OrderCommand.OrderBasketRequest command, String hashKey);
 
     public List<OrderInfo.OrderBasketInfo> retrieveMenuBasket(String memberToken);
 
-    public void registerCacheMenuBasket(String memberToken, String hashKey, OrderCommand.OrderBasketRequest command);
+    public void registerCacheMenuBasket(OrderCommand.OrderBasketRequest command, String hashKey);
 
     public void removeMenuBasket(String memberToken, String hashKey);
+
+    public List<OrderInfo.OrderBasketInfo> updateMenuBasketAmount(OrderCommand.OrderBasketRequest command, String hashKey);
 }

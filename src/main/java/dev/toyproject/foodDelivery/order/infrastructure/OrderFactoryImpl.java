@@ -66,17 +66,17 @@ public class OrderFactoryImpl implements OrderFactory {
      * @return
      */
     @Override
-    public OrderInfo.OrderBasketInfo duplicationMenu(OrderCommand.OrderBasketRequest command, String hashKey) {
+    public OrderCommand.OrderBasketRequest duplicationMenu(OrderCommand.OrderBasketRequest command, String hashKey) {
 
         OrderInfo.OrderBasketInfo orderBasketInfo = redisCacheUtil.getMenuBasketHashKey(command.getMemberToken(), hashKey);
 
         // 동일한 메뉴, 메뉴 옵션이 존재할 경우
         if (orderBasketInfo != null){
             Long MenuOptionCount = orderBasketInfo.getOrderBasketMenu().getOrderMenuCount();
-            orderBasketInfo.getOrderBasketMenu().setOrderMenuCount(MenuOptionCount + 1);
+            command.getOrderBasketMenu().setOrderMenuCount(MenuOptionCount + 1);
         }
 
-        return orderBasketInfo;
+        return command;
     }
 
     /**
@@ -93,13 +93,13 @@ public class OrderFactoryImpl implements OrderFactory {
 
     /**
      * Redis 장바구니 메뉴 등록
-     * @param memberToken
+     *
      * @param hashKey
      * @param command
      */
     @Override
-    public void registerCacheMenuBasket(String memberToken, String hashKey, OrderCommand.OrderBasketRequest command) {
-        redisCacheUtil.setRedisCacheMenuBasket(memberToken, hashKey, command);
+    public void registerCacheMenuBasket(OrderCommand.OrderBasketRequest command, String hashKey) {
+        redisCacheUtil.setRedisCacheMenuBasket(command, hashKey);
     }
 
     /**
@@ -111,5 +111,17 @@ public class OrderFactoryImpl implements OrderFactory {
     @Override
     public void removeMenuBasket(String memberToken, String hashKey) {
         redisCacheUtil.removeMenuBasket(memberToken, hashKey);
+    }
+
+    /**
+     * Redis 장바구니 메뉴 수량 변경
+     *
+     * @param command
+     * @return
+     */
+    @Override
+    public List<OrderInfo.OrderBasketInfo> updateMenuBasketAmount(OrderCommand.OrderBasketRequest command, String hashKey) {
+        redisCacheUtil.setRedisCacheMenuBasket(command, hashKey);
+        return redisCacheUtil.getMenuBasketList(command.getMemberToken());
     }
 }
