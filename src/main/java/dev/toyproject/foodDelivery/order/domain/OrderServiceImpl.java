@@ -23,10 +23,10 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public List<OrderInfo.OrderBasketInfo> registerMenuBasket(OrderCommand.OrderBasketRequest command) {
         String hashKey = orderFactory.makeHashKey(command);
-        orderFactory.orderBasketShopCheck(command);                                                                               // 같은 가게 확인
-        orderFactory.duplicationMenu(command,hashKey);                                                                            // 메뉴 & 옵션 동일 여부 확인
-        orderFactory.registerCacheMenuBasket(command.getMemberToken(), hashKey, command);   // Redis 등록
-        return orderFactory.retrieveMenuBasket(command.getMemberToken());                   // 등록된 장바구니 메뉴 조회
+        orderFactory.orderBasketShopCheck(command);                       // 같은 가게 확인
+        orderFactory.duplicationMenu(command,hashKey);                    // 메뉴 & 옵션 동일 여부 확인
+        orderFactory.registerCacheMenuBasket(command, hashKey);           // Redis 등록
+        return orderFactory.retrieveMenuBasket(command.getMemberToken()); // 등록된 장바구니 메뉴 조회
     }
 
     /**
@@ -60,5 +60,17 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public List<OrderInfo.OrderBasketInfo> retrieveMenuBasket(String memberToken) {
         return orderFactory.retrieveMenuBasket(memberToken);
+    }
+
+    /**
+     * Redis 장바구니 메뉴 수량 변경
+     *
+     * @param command
+     * @return
+     */
+    @Override
+    public List<OrderInfo.OrderBasketInfo> updateMenuBasketAmount(OrderCommand.OrderBasketRequest command) {
+        String hashKey = orderFactory.makeHashKey(command);
+        return orderFactory.updateMenuBasketAmount(command, hashKey);
     }
 }

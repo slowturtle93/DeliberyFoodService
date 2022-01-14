@@ -11,4 +11,6 @@ public interface OrderService {
     public void deleteMenuBasketAll(String memberToken);
 
     public List<OrderInfo.OrderBasketInfo> retrieveMenuBasket(String memberToken);
+
+    public List<OrderInfo.OrderBasketInfo> updateMenuBasketAmount (OrderCommand.OrderBasketRequest command);
 }
