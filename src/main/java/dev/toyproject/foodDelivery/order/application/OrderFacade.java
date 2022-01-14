@@ -64,6 +64,6 @@ public class OrderFacade {
      * @return
      */
     public List<OrderInfo.OrderBasketInfo> updateMenuBasketAmount(OrderCommand.OrderBasketRequest command){
-        return null;
+        return orderService.updateMenuBasketAmount(command);
     }
 }
