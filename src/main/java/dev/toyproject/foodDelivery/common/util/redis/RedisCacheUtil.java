@@ -56,13 +56,12 @@ public class RedisCacheUtil {
     /**
      * Redis 장바구니 메뉴 등록
      *
-     * @param Token
-     * @param hashKey
      * @param orderBasketRequest
+     * @param hashKey
      */
-    public void setRedisCacheMenuBasket(String Token, String hashKey, OrderCommand.OrderBasketRequest orderBasketRequest){
+    public void setRedisCacheMenuBasket(OrderCommand.OrderBasketRequest orderBasketRequest, String hashKey){
 
-        String redisKey = RedisKeyFactory.generateKey(Token, RedisKeyFactory.MENU_SHOPPING_BASKET);
+        String redisKey = RedisKeyFactory.generateKey(orderBasketRequest.getMemberToken(), RedisKeyFactory.MENU_SHOPPING_BASKET);
 
         redisTemplate.watch(redisKey);
 
