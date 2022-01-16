@@ -14,6 +14,8 @@ public class OrderServiceImpl implements OrderService{
 
     private final RedisCacheUtil redisCacheUtil;
     private final OrderFactory orderFactory;
+    private final OrderStore orderStore;
+    private final OrderMenuSeriesFactory orderMenuSeriesFactory;
 
     /**
      * 장바구니 메뉴 등록
@@ -72,5 +74,18 @@ public class OrderServiceImpl implements OrderService{
     public List<OrderInfo.OrderBasketInfo> updateMenuBasketAmount(OrderCommand.OrderBasketRequest command) {
         String hashKey = orderFactory.makeHashKey(command);
         return orderFactory.updateMenuBasketAmount(command, hashKey);
+    }
+
+    /**
+     * 주문 정보 등록
+     *
+     * @param registerOrder
+     * @return
+     */
+    @Override
+    public String registerOrder(OrderCommand.RegisterOrder registerOrder) {
+        Order order = orderStore.store(registerOrder.toEntity()); // 주문 정보 저장
+        orderMenuSeriesFactory.store(order, registerOrder);       // 주문 정보 하위 객체 저장
+        return order.getOrderToken();
     }
 }
