@@ -19,7 +19,11 @@ public interface OrderDtoMapper {
 
     OrderCommand.OrderBasketRequest of(OrderDto.OrderBasketRequest request);
 
+    OrderCommand.RegisterOrder of(OrderDto.RegisterOrderRequest request);
+
     /******************************** response ********************************/
 
     List<OrderDto.OrderBasketResponse> orderMenuListResponse(List<OrderInfo.OrderBasketInfo> response);
+
+    OrderDto.RegisterResponse of(String orderToken);
 }
