@@ -66,4 +66,14 @@ public class OrderFacade {
     public List<OrderInfo.OrderBasketInfo> updateMenuBasketAmount(OrderCommand.OrderBasketRequest command){
         return orderService.updateMenuBasketAmount(command);
     }
+
+    /**
+     * 주문 정보 등록
+     *
+     * @param registerOrder
+     * @return
+     */
+    public String registerOrder(OrderCommand.RegisterOrder registerOrder){
+        return "orderToken";
+    }
 }
