@@ -84,20 +84,45 @@ public class Order extends AbstracEntity {
         this.status          = Status.INIT;
     }
 
+    /**
+     * 주문 가격 = 주문 상품의 총 가격
+     * 주문 하나의 상품의 가격 = (메뉴 가격 + 메뉴 옵션 가격) * 주문 갯수
+     */
+    public Long calculateTotalAmount() {
+        return orderMenuList.stream()
+                .mapToLong(OrderMenu::calculateTotalAmount)
+                .sum();
+    }
 
+    /**
+     *  주문 완료 상태변경 (INIT 인 경우 예외)
+     */
     public void orderComplete() {
         if (this.status != Status.INIT) throw new IllegalStatusException();
         this.status = Status.ORDER_COMPLETE;
     }
 
+    /**
+     * 주문 상태 [배송준비] 변경
+     */
+    public void deliveryPrepare() {
+        if (this.status != Status.ORDER_COMPLETE) throw new IllegalStatusException();
+        this.status = Status.DELIVERY_PREPARE;
+    }
+
+    /**
+     * 주문 상태 [배송완료] 변경
+     */
+    public void deliveryComplete() {
+        if (this.status != Status.IN_DELIVERY) throw new IllegalStatusException();
+        this.status = Status.DELIVERY_COMPLETE;
+    }
+
+    /**
+     * 주문 상태 변경 준비 확인
+     * @return
+     */
     public boolean isAlreadyPaymentComplete() {
-        switch (this.status) {
-            case ORDER_COMPLETE:
-            case DELIVERY_PREPARE:
-            case IN_DELIVERY:
-            case DELIVERY_COMPLETE:
-                return true;
-        }
-        return false;
+        return this.status != Status.INIT;
     }
 }
