@@ -38,4 +38,36 @@ public class OrderDto {
         private String orderMenuOptionName;
         private Long orderMenuOptionPrice;
     }
+
+    /******************************** response ********************************/
+
+    @Getter
+    @Setter
+    @ToString
+    public static class OrderBasketResponse{
+        private String memberToken;
+        private String shopToken;
+        private OrderBasketMenuResponse orderBasketMenu;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class OrderBasketMenuResponse{
+        private Long id;
+        private String orderMenuName;
+        private Long orderMenuCount;
+        private Long orderMenuPrice;
+        private List<OrderBasketMenuOptionResponse> orderBasketMenuOptionList;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class OrderBasketMenuOptionResponse{
+        private Long id;
+        private String orderMenuOptionName;
+        private Long orderMenuOptionPrice;
+    }
+
 }
