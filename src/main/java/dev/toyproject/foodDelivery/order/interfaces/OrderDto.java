@@ -1,5 +1,7 @@
 package dev.toyproject.foodDelivery.order.interfaces;
 
+import dev.toyproject.foodDelivery.address.domain.AddressFragment;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -9,6 +11,36 @@ import java.util.List;
 public class OrderDto {
 
     /******************************** request ********************************/
+
+    @Getter
+    @Setter
+    @ToString
+    public static class RegisterOrderRequest{
+        private String memberToken;
+        private String shopToken;
+        private String paymentMethod;
+        private Long totalAmount;
+        private AddressFragment addressFragment;
+        private List<RegisterOrderMenuRequest> orderMenuList;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class RegisterOrderMenuRequest{
+        private String orderMenuName;
+        private Long orderMenuCount;
+        private Long orderMenuPrice;
+        private List<RegisterOrderMenuOptionRequest> orderMenuOptionList;
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class RegisterOrderMenuOptionRequest{
+        private String orderMenuOptionName;
+        private Long orderMenuOptionPrice;
+    }
 
     @Getter
     @Setter
@@ -40,6 +72,13 @@ public class OrderDto {
     }
 
     /******************************** response ********************************/
+
+    @Getter
+    @Builder
+    @ToString
+    public static class RegisterResponse {
+        private final String orderToken;
+    }
 
     @Getter
     @Setter
