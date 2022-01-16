@@ -83,4 +83,18 @@ public class OrderController {
         var response = orderDtoMapper.orderMenuListResponse(menuBasketInfoList);
         return CommonResponse.success(response);
     }
+
+    /**
+     * 주문 정보 저장
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/init")
+    public CommonResponse registerOrder(@RequestBody @Valid OrderDto.RegisterOrderRequest request){
+        var orderCommand = orderDtoMapper.of(request);
+        var orderToken = orderFacade.registerOrder(orderCommand);
+        var response = orderDtoMapper.of(orderToken);
+        return CommonResponse.success(response);
+    }
 }
