@@ -27,7 +27,8 @@ public class OrderController {
     public CommonResponse registerMenuBasket(@RequestBody @Valid OrderDto.OrderBasketRequest request){
         var command = orderDtoMapper.of(request);
         var orderMenuBasketList = orderFacade.registerMenuBasket(command);
-        return CommonResponse.success(orderMenuBasketList);
+        var response = orderDtoMapper.orderMenuListResponse(orderMenuBasketList);
+        return CommonResponse.success(response);
     }
 
     /**
@@ -40,6 +41,7 @@ public class OrderController {
     public CommonResponse deleteMenuBasket(@RequestBody @Valid OrderDto.OrderBasketRequest request){
         var command = orderDtoMapper.of(request);
         var menuBasketInfoList = orderFacade.deleteMenuBasket(command);
+        var response = orderDtoMapper.orderMenuListResponse(menuBasketInfoList);
         return CommonResponse.success(menuBasketInfoList);
     }
 
@@ -64,6 +66,7 @@ public class OrderController {
     @GetMapping("/basket/{memberToken}")
     public CommonResponse retrieveMenuBasket(@PathVariable("memberToken") String memberToken){
         var menuBasketInfoList = orderFacade.retrieveMenuBasket(memberToken);
+        var response = orderDtoMapper.orderMenuListResponse(menuBasketInfoList);
         return CommonResponse.success(menuBasketInfoList);
     }
 
@@ -76,7 +79,8 @@ public class OrderController {
     @PatchMapping("basket/amount_update")
     public CommonResponse updateMenuBasketAmount(@RequestBody @Valid OrderDto.OrderBasketRequest request){
         var command = orderDtoMapper.of(request);
-        var response = orderFacade.updateMenuBasketAmount(command);
+        var menuBasketInfoList = orderFacade.updateMenuBasketAmount(command);
+        var response = orderDtoMapper.orderMenuListResponse(menuBasketInfoList);
         return CommonResponse.success(response);
     }
 }
