@@ -32,10 +32,13 @@ public class OrderFactoryImpl implements OrderFactory {
         var menuBasketId = menuBasket.getId();
         StringBuilder menuOptionBasketId = new StringBuilder();
 
-        menuBasket.getOrderBasketMenuOptionList()
-                .forEach(menuOptionBasketList -> {
-                    menuOptionBasketId.append(menuOptionBasketList.getId());
-                });
+        menuBasket.getOrderBasketMenuOptionGroupList().forEach(orderBasketMenuOptionGroup -> {
+            menuOptionBasketId.append(orderBasketMenuOptionGroup.getId());
+
+            orderBasketMenuOptionGroup.getOrderBasketMenuOptionList().forEach(orderBasketMenuOption ->{
+                menuOptionBasketId.append(orderBasketMenuOption.getId());
+            });
+        });
 
         return menuBasketId + menuOptionBasketId.toString();
     }
