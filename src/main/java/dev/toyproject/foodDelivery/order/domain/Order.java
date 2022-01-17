@@ -36,7 +36,7 @@ public class Order extends AbstracEntity {
     private String shopToken;                // 가게 토큰 정보
     private String paymentMethod;            // 결제 방식
     private Long totalAmount;                // 주문 총 가격
-    private Integer ordering;
+    private Integer ordering;                // 정렬 순서
 
     @Embedded
     private AddressFragment addressFragment; // 배달 주소
