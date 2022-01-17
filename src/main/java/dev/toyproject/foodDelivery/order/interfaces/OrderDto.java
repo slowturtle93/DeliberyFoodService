@@ -20,6 +20,7 @@ public class OrderDto {
         private String shopToken;
         private String paymentMethod;
         private Long totalAmount;
+        private Integer ordering;
         private AddressFragment addressFragment;
         private List<RegisterOrderMenuRequest> orderMenuList;
     }
@@ -31,6 +32,16 @@ public class OrderDto {
         private String orderMenuName;
         private Long orderMenuCount;
         private Long orderMenuPrice;
+        private Integer ordering;
+        private List<RegisterOrderMenuOptionGroupRequest> orderMenuOptionGroupList;
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class RegisterOrderMenuOptionGroupRequest{
+        private String orderMenuOptionGroupName;
+        private Integer ordering;
         private List<RegisterOrderMenuOptionRequest> orderMenuOptionList;
     }
 
@@ -40,6 +51,7 @@ public class OrderDto {
     public static class RegisterOrderMenuOptionRequest{
         private String orderMenuOptionName;
         private Long orderMenuOptionPrice;
+        private Integer ordering;
     }
 
     @Getter
