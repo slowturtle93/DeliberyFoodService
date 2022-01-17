@@ -3,6 +3,7 @@ package dev.toyproject.foodDelivery.order.domain;
 import dev.toyproject.foodDelivery.address.domain.AddressFragment;
 import dev.toyproject.foodDelivery.order.domain.menu.OrderMenu;
 import dev.toyproject.foodDelivery.order.domain.menu.OrderMenuOption;
+import dev.toyproject.foodDelivery.order.domain.menu.OrderMenuOptionGroup;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,6 +42,7 @@ public class OrderCommand {
         private String orderMenuName;
         private Long orderMenuCount;
         private Long orderMenuPrice;
+        private Integer ordering;
 
         public OrderMenu toEntity(Order order){
             return OrderMenu.builder()
@@ -48,6 +50,23 @@ public class OrderCommand {
                     .orderMenuName(orderMenuName)
                     .orderMenuCount(orderMenuCount)
                     .orderMenuPrice(orderMenuPrice)
+                    .ordering(ordering)
+                    .build();
+        }
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class RegisterOrderMenuGroupOption{
+        private String orderMenuOptionGroupName;
+        private Integer ordering;
+
+        public OrderMenuOptionGroup toEntity(OrderMenu orderMenu){
+            return OrderMenuOptionGroup.builder()
+                    .orderMenu(orderMenu)
+                    .orderMenuOptionGroupName(orderMenuOptionGroupName)
+                    .ordering(ordering)
                     .build();
         }
     }
@@ -58,12 +77,14 @@ public class OrderCommand {
     public static class RegisterOrderMenuOption{
         private String orderMenuOptionName;
         private Long orderMenuOptionPrice;
+        private Integer ordering;
 
-        public OrderMenuOption toEntity(OrderMenu orderMenu){
+        public OrderMenuOption toEntity(OrderMenuOptionGroup orderMenuOptionGroup){
             return OrderMenuOption.builder()
-                    .orderMenu(orderMenu)
+                    .orderMenuOptionGroup(orderMenuOptionGroup)
                     .orderMenuOptionName(orderMenuOptionName)
                     .orderMenuOptionPrice(orderMenuOptionPrice)
+                    .ordering(ordering)
                     .build();
         }
     }
