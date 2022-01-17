@@ -21,7 +21,10 @@ public class OrderCommand {
         private String shopToken;
         private String paymentMethod;
         private Long totalAmount;
-        private AddressFragment addressFragment;
+        private String region1DepthName;
+        private String region2DepthName;
+        private String region3DepthName;
+        private String detail;
         private List<OrderCommand.RegisterOrderMenu> orderMenuList;
 
         public Order toEntity(){
@@ -29,8 +32,11 @@ public class OrderCommand {
                     .memberToken(memberToken)
                     .shopToken(shopToken)
                     .paymentMethod(paymentMethod)
+                    .detail(detail)
                     .totalAmount(totalAmount)
-                    .addressFragment(addressFragment)
+                    .region1DepthName(region1DepthName)
+                    .region2DepthName(region2DepthName)
+                    .region3DepthName(region3DepthName)
                     .build();
         }
     }
@@ -43,6 +49,7 @@ public class OrderCommand {
         private Long orderMenuCount;
         private Long orderMenuPrice;
         private Integer ordering;
+        private List<OrderCommand.RegisterOrderMenuOptionGroup> orderMenuOptionGroupList;
 
         public OrderMenu toEntity(Order order){
             return OrderMenu.builder()
@@ -58,9 +65,10 @@ public class OrderCommand {
     @Getter
     @Builder
     @ToString
-    public static class RegisterOrderMenuGroupOption{
+    public static class RegisterOrderMenuOptionGroup{
         private String orderMenuOptionGroupName;
         private Integer ordering;
+        private List<OrderCommand.RegisterOrderMenuOption> orderMenuOptionList;
 
         public OrderMenuOptionGroup toEntity(OrderMenu orderMenu){
             return OrderMenuOptionGroup.builder()
