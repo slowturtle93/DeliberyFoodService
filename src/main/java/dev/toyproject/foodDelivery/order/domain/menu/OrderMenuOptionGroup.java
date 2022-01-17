@@ -26,6 +26,7 @@ public class OrderMenuOptionGroup {
     @JoinColumn(name = "order_menu_id")
     private OrderMenu orderMenu;
     private String    orderMenuOptionGroupName;
+    private Integer   ordering;
 
     // 주문 상품의 옵션 리스트
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderMenuOptionGroup", cascade = CascadeType.PERSIST)
@@ -34,12 +35,15 @@ public class OrderMenuOptionGroup {
     @Builder
     public OrderMenuOptionGroup(
             OrderMenu orderMenu,
-            String orderMenuOptionGroupName
+            String orderMenuOptionGroupName,
+            Integer ordering
     ) {
         if (orderMenu == null) throw new InvalidParamException();
         if (StringUtils.isEmpty(orderMenuOptionGroupName)) throw new InvalidParamException();
+        if (ordering == null) throw new InvalidParamException();
 
         this.orderMenu = orderMenu;
         this.orderMenuOptionGroupName = orderMenuOptionGroupName;
+        this.ordering = ordering;
     }
 }
