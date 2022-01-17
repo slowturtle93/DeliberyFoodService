@@ -36,6 +36,7 @@ public class Order extends AbstracEntity {
     private String shopToken;                // 가게 토큰 정보
     private String paymentMethod;            // 결제 방식
     private Long totalAmount;                // 주문 총 가격
+    private Integer ordering;
 
     @Embedded
     private AddressFragment addressFragment; // 배달 주소
@@ -66,12 +67,14 @@ public class Order extends AbstracEntity {
             String shopToken,
             String paymentMethod,
             Long totalAmount,
+            Integer ordering,
             AddressFragment addressFragment
     ){
         if (StringUtils.isEmpty(memberToken))   throw new InvalidParamException("order.memberToken");
         if (StringUtils.isEmpty(shopToken))     throw new InvalidParamException("order.shopToken");
         if (StringUtils.isEmpty(paymentMethod)) throw new InvalidParamException("order.paymentMethod");
         if (totalAmount == null)                throw new InvalidParamException("order.totalAmount");
+        if (ordering == null)                   throw new InvalidParamException("order.ordering");
         if (addressFragment == null)            throw new InvalidParamException("order.addressFragment");
 
         this.orderToken      = TokenGenerator.randomCharacterWithPrefix(ORDER_PREFIX);
@@ -79,6 +82,7 @@ public class Order extends AbstracEntity {
         this.shopToken       = shopToken;
         this.paymentMethod   = paymentMethod;
         this.totalAmount     = totalAmount;
+        this.ordering        = ordering;
         this.addressFragment = addressFragment;
         this.orderDate       = ZonedDateTime.now();
         this.status          = Status.INIT;
