@@ -69,7 +69,7 @@ public class OrderDto {
     public static class OrderBasketMenuOptionGroupRequest{
         private Long id;
         private Integer ordering;
-        private String menuOptionGroupName;
+        private String orderMenuOptionGroupName;
         private List<OrderBasketMenuOptionRequest> orderBasketMenuOptionList;
     }
 
