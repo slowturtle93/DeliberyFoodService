@@ -56,13 +56,4 @@ public class OrderMenu extends AbstracEntity {
         this.ordering       = ordering;
         this.order          = order;
     }
-
-    // 주문 상품 가격 계산(상품의 옵션 가격 포함)
-    // (상품 가격 + 상품 옵션 가격) * 주문수량
-    public Long calculateTotalAmount(){
-        var itemOptionTotalAmount = orderMenuOptionList.stream()
-                .mapToLong(OrderMenuOption::getOrderMenuOptionPrice)
-                .sum();
-        return (orderMenuPrice + itemOptionTotalAmount) * orderMenuCount;
-    }
 }
