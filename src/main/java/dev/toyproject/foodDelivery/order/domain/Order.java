@@ -36,10 +36,13 @@ public class Order extends AbstracEntity {
     private String shopToken;                // 가게 토큰 정보
     private String paymentMethod;            // 결제 방식
     private Long totalAmount;                // 주문 총 가격
-    private Integer ordering;                // 정렬 순서
-
-    @Embedded
-    private AddressFragment addressFragment; // 배달 주소
+    private String detail;                   // 주소 상세
+    @Column(name = "region_1depth_name")
+    private String region1DepthName;
+    @Column(name = "region_2depth_name")
+    private String region2DepthName;
+    @Column(name = "region_3depth_name")
+    private String region3DepthName;
 
     private ZonedDateTime orderDate;         // 주문 일시
 
@@ -67,37 +70,34 @@ public class Order extends AbstracEntity {
             String shopToken,
             String paymentMethod,
             Long totalAmount,
-            Integer ordering,
-            AddressFragment addressFragment
+            String detail,
+            String region1DepthName,
+            String region2DepthName,
+            String region3DepthName
     ){
-        if (StringUtils.isEmpty(memberToken))   throw new InvalidParamException("order.memberToken");
-        if (StringUtils.isEmpty(shopToken))     throw new InvalidParamException("order.shopToken");
-        if (StringUtils.isEmpty(paymentMethod)) throw new InvalidParamException("order.paymentMethod");
-        if (totalAmount == null)                throw new InvalidParamException("order.totalAmount");
-        if (ordering == null)                   throw new InvalidParamException("order.ordering");
-        if (addressFragment == null)            throw new InvalidParamException("order.addressFragment");
+        if (StringUtils.isEmpty(memberToken))      throw new InvalidParamException("order.memberToken");
+        if (StringUtils.isEmpty(shopToken))        throw new InvalidParamException("order.shopToken");
+        if (StringUtils.isEmpty(paymentMethod))    throw new InvalidParamException("order.paymentMethod");
+        if (StringUtils.isEmpty(detail))           throw new InvalidParamException("order.detail");
+        if (StringUtils.isEmpty(region1DepthName)) throw new InvalidParamException("order.region1DepthName");
+        if (StringUtils.isEmpty(region1DepthName)) throw new InvalidParamException("order.region2DepthName");
+        if (StringUtils.isEmpty(region1DepthName)) throw new InvalidParamException("order.region3DepthName");
+        if (totalAmount == null)                   throw new InvalidParamException("order.totalAmount");
 
-        this.orderToken      = TokenGenerator.randomCharacterWithPrefix(ORDER_PREFIX);
-        this.memberToken     = memberToken;
-        this.shopToken       = shopToken;
-        this.paymentMethod   = paymentMethod;
-        this.totalAmount     = totalAmount;
-        this.ordering        = ordering;
-        this.addressFragment = addressFragment;
-        this.orderDate       = ZonedDateTime.now();
-        this.status          = Status.INIT;
+
+        this.orderToken       = TokenGenerator.randomCharacterWithPrefix(ORDER_PREFIX);
+        this.memberToken      = memberToken;
+        this.shopToken        = shopToken;
+        this.paymentMethod    = paymentMethod;
+        this.detail           = detail;
+        this.totalAmount      = totalAmount;
+        this.region1DepthName = region1DepthName;
+        this.region2DepthName = region2DepthName;
+        this.region3DepthName = region3DepthName;
+        this.orderDate        = ZonedDateTime.now();
+        this.status           = Status.INIT;
     }
-
-    /**
-     * 주문 가격 = 주문 상품의 총 가격
-     * 주문 하나의 상품의 가격 = (메뉴 가격 + 메뉴 옵션 가격) * 주문 갯수
-     */
-    public Long calculateTotalAmount() {
-        return orderMenuList.stream()
-                .mapToLong(OrderMenu::calculateTotalAmount)
-                .sum();
-    }
-
+    
     /**
      *  주문 완료 상태변경 (INIT 인 경우 예외)
      */
