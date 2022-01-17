@@ -72,7 +72,7 @@ public class OrderDto {
         private String orderMenuName;
         private Long orderMenuCount;
         private Long orderMenuPrice;
-        private List<OrderBasketMenuOptionGroupRequest> orderBasketMenuOptionList;
+        private List<OrderBasketMenuOptionGroupRequest> orderBasketMenuOptionGroupList;
     }
 
     @Getter
@@ -121,6 +121,17 @@ public class OrderDto {
         private String orderMenuName;
         private Long orderMenuCount;
         private Long orderMenuPrice;
+        private Integer ordering;
+        private List<OrderBasketMenuOptionGroupResponse> orderBasketMenuOptionGroupList;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class OrderBasketMenuOptionGroupResponse{
+        private Long id;
+        private String orderMenuOptionGroupName;
+        private Integer ordering;
         private List<OrderBasketMenuOptionResponse> orderBasketMenuOptionList;
     }
 
@@ -131,6 +142,7 @@ public class OrderDto {
         private Long id;
         private String orderMenuOptionName;
         private Long orderMenuOptionPrice;
+        private Integer ordering;
     }
 
 }
