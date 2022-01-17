@@ -42,7 +42,7 @@ public class OrderInfo {
     public static class OrderBasketMenuOptionGroupInfo{
         private Long id;
         private Integer ordering;
-        private String menuOptionGroupName;
+        private String orderMenuOptionGroupName;
         List<OrderBasketMenuOptionInfo> orderBasketMenuOptionList;
     }
 

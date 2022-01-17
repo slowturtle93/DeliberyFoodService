@@ -25,7 +25,7 @@ public class OrderMenuOptionGroup {
     @ManyToOne
     @JoinColumn(name = "order_menu_id")
     private OrderMenu orderMenu;
-    private String    menuOptionGroupName;
+    private String    orderMenuOptionGroupName;
 
     // 주문 상품의 옵션 리스트
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderMenuOptionGroup", cascade = CascadeType.PERSIST)
@@ -34,12 +34,12 @@ public class OrderMenuOptionGroup {
     @Builder
     public OrderMenuOptionGroup(
             OrderMenu orderMenu,
-            String menuOptionGroupName
+            String orderMenuOptionGroupName
     ) {
         if (orderMenu == null) throw new InvalidParamException();
-        if (StringUtils.isEmpty(menuOptionGroupName)) throw new InvalidParamException();
+        if (StringUtils.isEmpty(orderMenuOptionGroupName)) throw new InvalidParamException();
 
         this.orderMenu = orderMenu;
-        this.menuOptionGroupName = menuOptionGroupName;
+        this.orderMenuOptionGroupName = orderMenuOptionGroupName;
     }
 }
