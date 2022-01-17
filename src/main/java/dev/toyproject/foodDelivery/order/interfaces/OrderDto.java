@@ -24,9 +24,20 @@ public class OrderDto {
     @ToString
     public static class OrderBasketMenuRequest{
         private Long id;
+        private Integer ordering;
         private String orderMenuName;
         private Long orderMenuCount;
         private Long orderMenuPrice;
+        private List<OrderBasketMenuOptionGroupRequest> orderBasketMenuOptionList;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class OrderBasketMenuOptionGroupRequest{
+        private Long id;
+        private Integer ordering;
+        private String menuOptionGroupName;
         private List<OrderBasketMenuOptionRequest> orderBasketMenuOptionList;
     }
 
@@ -35,6 +46,7 @@ public class OrderDto {
     @ToString
     public static class OrderBasketMenuOptionRequest{
         private Long id;
+        private Integer ordering;
         private String orderMenuOptionName;
         private Long orderMenuOptionPrice;
     }
