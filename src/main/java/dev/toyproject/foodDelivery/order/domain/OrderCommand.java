@@ -84,9 +84,21 @@ public class OrderCommand {
     @ToString
     public static class OrderBasketMenuRequest{
         private Long id;
+        private Integer ordering;
         private String orderMenuName;
         private Long orderMenuCount;
         private Long orderMenuPrice;
+        private List<OrderBasketMenuOptionGroupRequest> orderBasketMenuOptionGroupList;
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    @ToString
+    public static class OrderBasketMenuOptionGroupRequest{
+        private Long id;
+        private Integer ordering;
+        private String menuOptionGroupName;
         private List<OrderBasketMenuOptionRequest> orderBasketMenuOptionList;
     }
 
@@ -96,6 +108,7 @@ public class OrderCommand {
     @ToString
     public static class OrderBasketMenuOptionRequest{
         private Long id;
+        private Integer ordering;
         private String orderMenuOptionName;
         private Long orderMenuOptionPrice;
     }

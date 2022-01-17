@@ -26,10 +26,24 @@ public class OrderInfo {
     @AllArgsConstructor
     public static class OrderBasketMenuInfo{
         private Long id;
+        private Integer ordering;
         private String orderMenuName;
         private Long orderMenuCount;
         private Long orderMenuPrice;
-        private List<OrderBasketMenuOptionInfo> orderBasketMenuOptionList;
+        private List<OrderBasketMenuOptionGroupInfo> orderBasketMenuOptionGroupList;
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class OrderBasketMenuOptionGroupInfo{
+        private Long id;
+        private Integer ordering;
+        private String menuOptionGroupName;
+        List<OrderBasketMenuOptionInfo> orderBasketMenuOptionList;
     }
 
     @Getter
@@ -40,6 +54,7 @@ public class OrderInfo {
     @AllArgsConstructor
     public static class OrderBasketMenuOptionInfo{
         private Long id;
+        private Integer ordering;
         private String orderMenuOptionName;
         private Long orderMenuOptionPrice;
     }

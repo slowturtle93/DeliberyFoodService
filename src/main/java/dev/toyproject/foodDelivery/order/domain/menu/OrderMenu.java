@@ -27,29 +27,33 @@ public class OrderMenu extends AbstracEntity {
     private String orderMenuName;
     private Long orderMenuCount;
     private Long orderMenuPrice;
+    private Integer ordering;
 
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "orderMenu", cascade = CascadeType.PERSIST)
-    private List<OrderMenuOption> orderMenuOptionList = Arrays.asList();
+    private List<OrderMenuOptionGroup> orderMenuOptionGroupList = Arrays.asList();
 
     @Builder
     public OrderMenu(
             String orderMenuName,
             Long orderMenuCount,
             Long orderMenuPrice,
+            Integer ordering,
             Order order
     ){
         if (StringUtils.isEmpty(orderMenuName)) throw new InvalidParamException("orderMenu.orderMenuName");
         if (orderMenuCount == null)             throw new InvalidParamException("orderMenu.orderMenuCount");
         if (orderMenuPrice == null)             throw new InvalidParamException("orderMenu.orderMenuPrice");
+        if (ordering == null)                   throw new InvalidParamException("orderMenu.ordering");
         if (order == null)                      throw new InvalidParamException("orderMenu.order");
 
         this.orderMenuName  = orderMenuName;
         this.orderMenuCount = orderMenuCount;
         this.orderMenuPrice = orderMenuPrice;
+        this.ordering       = ordering;
         this.order          = order;
     }
 
