@@ -1,6 +1,7 @@
 package dev.toyproject.foodDelivery.order.interfaces;
 
 import dev.toyproject.foodDelivery.address.domain.AddressFragment;
+import dev.toyproject.foodDelivery.order.domain.OrderInfo;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -104,6 +105,52 @@ public class OrderDto {
     @ToString
     public static class RegisterResponse {
         private final String orderToken;
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class OrderResponse{
+        private String orderToken;
+        private String memberToken;
+        private String shopToken;
+        private String paymentMethod;
+        private Long totalAmount;
+        private String region1DepthName;
+        private String region2DepthName;
+        private String region3DepthName;
+        private String detail;
+        private String orderDate;
+        private List<OrderMenuResponse> orderMenuList;
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class OrderMenuResponse{
+        private String orderMenuName;
+        private Long orderMenuCount;
+        private Long orderMenuPrice;
+        private Integer ordering;
+        private List<OrderMenuOptionGroupResponse> orderMenuOptionGroupList;
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class OrderMenuOptionGroupResponse{
+        private String orderMenuOptionGroupName;
+        private Integer ordering;
+        private List<OrderMenuOptionResponse> orderMenuOptionList;
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class OrderMenuOptionResponse{
+        private String orderMenuOptionName;
+        private Long orderMenuOptionPrice;
+        private Integer ordering;
     }
 
     @Getter
