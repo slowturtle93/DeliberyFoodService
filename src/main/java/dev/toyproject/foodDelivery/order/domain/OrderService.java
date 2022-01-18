@@ -17,4 +17,6 @@ public interface OrderService {
     public String registerOrder(OrderCommand.RegisterOrder registerOrder);
 
     public OrderInfo.OrderResponse retrieveOrder(String orderToken);
+
+    public List<OrderInfo.OrderResponse> retrieveOrderList(String memberToken);
 }

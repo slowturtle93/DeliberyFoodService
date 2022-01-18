@@ -106,4 +106,18 @@ public class OrderServiceImpl implements OrderService{
         var order = orderRead.getOrder(orderToken);         // 주문 정보 조회
         return  orderInfoMapper.of(order);
     }
+
+    /**
+     * 사용자의 주문 이력 list 조회
+     *
+     * @param memberToken
+     * @return
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public List<OrderInfo.OrderResponse> retrieveOrderList(String memberToken) {
+        var orderList = orderRead.getOrderList(memberToken);
+        var response = orderInfoMapper.orderInfoList(orderList);
+        return response;
+    }
 }
