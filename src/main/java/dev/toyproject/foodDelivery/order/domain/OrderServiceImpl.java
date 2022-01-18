@@ -4,6 +4,7 @@ import dev.toyproject.foodDelivery.common.util.redis.RedisCacheUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -83,6 +84,7 @@ public class OrderServiceImpl implements OrderService{
      * @return
      */
     @Override
+    @Transactional
     public String registerOrder(OrderCommand.RegisterOrder registerOrder) {
         Order order = orderStore.store(registerOrder.toEntity()); // 주문 정보 저장
         orderMenuSeriesFactory.store(order, registerOrder);       // 주문 정보 하위 객체 저장
