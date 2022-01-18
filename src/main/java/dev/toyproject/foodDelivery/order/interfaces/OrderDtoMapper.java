@@ -27,4 +27,7 @@ public interface OrderDtoMapper {
 
     @Mappings({@Mapping(source = "orderDate", target = "orderDate", dateFormat = "yyyy-MM-dd HH:mm:ss")})
     OrderDto.OrderResponse of(OrderInfo.OrderResponse response);
+
+    @Mappings({@Mapping(source = "orderDate", target = "orderDate", dateFormat = "yyyy-MM-dd HH:mm:ss")})
+    List<OrderDto.OrderResponse> orderInfoList(List<OrderInfo.OrderResponse> response);
 }
