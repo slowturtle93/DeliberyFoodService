@@ -87,4 +87,14 @@ public class OrderFacade {
     public OrderInfo.OrderResponse retrieveOrder(String orderToken){
         return orderService.retrieveOrder(orderToken);
     }
+
+    /**
+     * 사용자의 주문 이력 list 조회
+     *
+     * @param memberToken
+     * @return
+     */
+    public List<OrderInfo.OrderResponse> retrieveOrderList(String memberToken){
+        return orderService.retrieveOrderList(memberToken);
+    }
 }

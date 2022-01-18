@@ -110,4 +110,17 @@ public class OrderController {
         var response = orderDtoMapper.of(orderInfo);           // 주문 정보 객체 변환
         return CommonResponse.success(response);
     }
+
+    /**
+     * 사용자의 주문 이력 list 조회
+     *
+     * @param memberToken
+     * @return
+     */
+    @GetMapping("list/{memberToken}")
+    public CommonResponse retrieveOrderList(@PathVariable("memberToken") String memberToken){
+        var orderInfoList = orderFacade.retrieveOrderList(memberToken);
+        var response = orderDtoMapper.orderInfoList(orderInfoList);
+        return CommonResponse.success(response);
+    }
 }
