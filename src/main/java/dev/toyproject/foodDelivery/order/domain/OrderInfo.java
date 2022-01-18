@@ -7,6 +7,59 @@ import java.util.List;
 public class OrderInfo {
 
     @Getter
+    @Builder
+    @ToString
+    public static class OrderResponse{
+        private Long id;
+        private String orderToken;
+        private String memberToken;
+        private String shopToken;
+        private String paymentMethod;
+        private Long totalAmount;
+        private String region1DepthName;
+        private String region2DepthName;
+        private String region3DepthName;
+        private String detail;
+        private String orderDate;
+        private Order.Status status;
+        private List<OrderInfo.OrderMenuResponse> orderMenuList;
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class OrderMenuResponse{
+        private Long id;
+        private String orderMenuName;
+        private Long orderMenuCount;
+        private Long orderMenuPrice;
+        private Integer ordering;
+        private List<OrderInfo.OrderMenuOptionGroupResponse> orderMenuOptionGroupList;
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class OrderMenuOptionGroupResponse{
+        private Long id;
+        private String orderMenuOptionGroupName;
+        private Integer ordering;
+        private List<OrderInfo.OrderMenuOptionResponse> orderMenuOptionList;
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class OrderMenuOptionResponse{
+        private Long id;
+        private String orderMenuOptionName;
+        private Long orderMenuOptionPrice;
+        private Integer ordering;
+    }
+
+    /*********** 장바구니 ***********/
+
+    @Getter
     @Setter
     @Builder
     @ToString
