@@ -77,4 +77,14 @@ public class OrderFacade {
         var orderToken = orderService.registerOrder(registerOrder);            // 주문 정보 등록
         return orderToken;
     }
+
+    /**
+     * 주문 정보 조회
+     *
+     * @param orderToken
+     * @return
+     */
+    public OrderInfo.OrderResponse retrieveOrder(String orderToken){
+        return orderService.retrieveOrder(orderToken);
+    }
 }
