@@ -97,4 +97,17 @@ public class OrderController {
         var response = orderDtoMapper.of(orderToken);
         return CommonResponse.success(response);
     }
+
+    /**
+     * 주문 정보 조회
+     *
+     * @param orderToken
+     * @return
+     */
+    @GetMapping("/{orderToken}")
+    public CommonResponse retrieveOrder(@PathVariable String orderToken){
+        var orderInfo = orderFacade.retrieveOrder(orderToken); // 주문 정보 조회
+        var response = orderDtoMapper.of(orderInfo);           // 주문 정보 객체 변환
+        return CommonResponse.success(response);
+    }
 }
