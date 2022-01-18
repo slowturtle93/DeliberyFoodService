@@ -3,6 +3,7 @@ package dev.toyproject.foodDelivery.order.domain;
 import dev.toyproject.foodDelivery.common.util.redis.RedisCacheUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,8 @@ public class OrderServiceImpl implements OrderService{
     private final OrderFactory orderFactory;
     private final OrderStore orderStore;
     private final OrderMenuSeriesFactory orderMenuSeriesFactory;
+    private final OrderRead orderRead;
+    private final OrderInfoMapper orderInfoMapper;
 
     /**
      * 장바구니 메뉴 등록
@@ -89,5 +92,18 @@ public class OrderServiceImpl implements OrderService{
         Order order = orderStore.store(registerOrder.toEntity()); // 주문 정보 저장
         orderMenuSeriesFactory.store(order, registerOrder);       // 주문 정보 하위 객체 저장
         return order.getOrderToken();
+    }
+
+    /**
+     * 주문 정보 조회
+     *
+     * @param orderToken
+     * @return
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public OrderInfo.OrderResponse retrieveOrder(String orderToken) {
+        var order = orderRead.getOrder(orderToken);         // 주문 정보 조회
+        return  orderInfoMapper.of(order);
     }
 }

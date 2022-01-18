@@ -15,4 +15,6 @@ public interface OrderService {
     public List<OrderInfo.OrderBasketInfo> updateMenuBasketAmount (OrderCommand.OrderBasketRequest command);
 
     public String registerOrder(OrderCommand.RegisterOrder registerOrder);
+
+    public OrderInfo.OrderResponse retrieveOrder(String orderToken);
 }
