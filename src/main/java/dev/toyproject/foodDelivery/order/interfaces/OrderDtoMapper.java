@@ -2,9 +2,7 @@ package dev.toyproject.foodDelivery.order.interfaces;
 
 import dev.toyproject.foodDelivery.order.domain.OrderCommand;
 import dev.toyproject.foodDelivery.order.domain.OrderInfo;
-import org.mapstruct.InjectionStrategy;
-import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
 import java.util.List;
 
@@ -26,4 +24,7 @@ public interface OrderDtoMapper {
     List<OrderDto.OrderBasketResponse> orderMenuListResponse(List<OrderInfo.OrderBasketInfo> response);
 
     OrderDto.RegisterResponse of(String orderToken);
+
+    @Mappings({@Mapping(source = "orderDate", target = "orderDate", dateFormat = "yyyy-MM-dd HH:mm:ss")})
+    OrderDto.OrderResponse of(OrderInfo.OrderResponse response);
 }
