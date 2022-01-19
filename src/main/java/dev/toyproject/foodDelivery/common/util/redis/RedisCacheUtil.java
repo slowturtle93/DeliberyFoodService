@@ -143,4 +143,37 @@ public class RedisCacheUtil {
         }
     }
 
+    /************************************* DEVICE TOKEN ***********************************/
+
+    /**
+     * 사용자 device token 정보 저장
+     *
+     * @param memberToken
+     * @param deviceToken
+     */
+    public void setRedisCacheDeviceToken(String memberToken, String deviceToken){
+        String redisKey = RedisKeyFactory.generateKey(memberToken, RedisKeyFactory.USER_DEVICE_TOKEN_INFO);
+        redisTemplate.opsForValue().set(redisKey, deviceToken);
+    }
+
+    /**
+     * 사용자 device token 정보 조회
+     *
+     * @param memberToken
+     * @return
+     */
+    public String getDeviceTokenInfo(String memberToken) {
+        String redisKey = RedisKeyFactory.generateKey(memberToken, RedisKeyFactory.USER_DEVICE_TOKEN_INFO);
+        var deviceToken = redisTemplate.opsForValue().get(redisKey);
+        return deviceToken.toString();
+    }
+
+    /**
+     * 사용자 device token 정보 삭제
+     *
+     * @param memberToken
+     */
+    public void removeDeviceToken(String memberToken){
+        redisTemplate.delete(RedisKeyFactory.generateKey(memberToken, RedisKeyFactory.USER_DEVICE_TOKEN_INFO));
+    }
 }
