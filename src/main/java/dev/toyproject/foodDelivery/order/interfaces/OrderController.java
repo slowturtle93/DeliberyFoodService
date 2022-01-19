@@ -123,4 +123,17 @@ public class OrderController {
         var response = orderDtoMapper.orderInfoList(orderInfoList);
         return CommonResponse.success(response);
     }
+
+    /**
+     * 주문 결제 요청
+     *
+     * @param paymentRequest
+     * @return
+     */
+    @PostMapping("/payment")
+    public CommonResponse paymentOrder(@RequestBody @Valid OrderDto.PaymentRequest paymentRequest){
+        var paymentCommand = orderDtoMapper.of(paymentRequest); // Command 로 객체 변환
+        orderFacade.paymentOrder(paymentCommand);                                        // 주문 결제 요청
+        return CommonResponse.success("OK");
+    }
 }
