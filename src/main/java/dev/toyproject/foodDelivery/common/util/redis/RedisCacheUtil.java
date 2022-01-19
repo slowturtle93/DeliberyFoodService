@@ -164,8 +164,15 @@ public class RedisCacheUtil {
      */
     public String getDeviceTokenInfo(String memberToken) {
         String redisKey = RedisKeyFactory.generateKey(memberToken, RedisKeyFactory.USER_DEVICE_TOKEN_INFO);
-        var deviceToken = redisTemplate.opsForValue().get(redisKey);
-        return deviceToken.toString();
+        var deviceToken = "";
+
+        try {
+            deviceToken = redisTemplate.opsForValue().get(redisKey).toString();
+        }catch (Exception e){
+            throw new NullPointerException("Device Token Not Found");
+        }
+
+        return deviceToken;
     }
 
     /**
