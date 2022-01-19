@@ -55,10 +55,10 @@ public class MemberController {
      * @param session
      * @return
      */
-    @GetMapping("/logout")
+    @GetMapping("/logout/{memberToken}")
     @LoginCheck(type = LoginCheck.UserType.MEMBER)
-    public CommonResponse logoutMember(HttpSession session){
-        memberFacade.logoutMember(session); // MEMBER 로그아웃
+    public CommonResponse logoutMember(@PathVariable("memberToken") String memberToken, HttpSession session){
+        memberFacade.logoutMember(memberToken, session); // MEMBER 로그아웃
         return CommonResponse.success("OK");
     }
 

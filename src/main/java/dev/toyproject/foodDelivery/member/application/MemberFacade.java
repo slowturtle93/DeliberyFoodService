@@ -1,6 +1,7 @@
 package dev.toyproject.foodDelivery.member.application;
 
 import dev.toyproject.foodDelivery.common.util.RandomAccessGenerator;
+import dev.toyproject.foodDelivery.common.util.redis.RedisCacheUtil;
 import dev.toyproject.foodDelivery.common.util.redis.SessionUtil;
 import dev.toyproject.foodDelivery.member.domain.MemberCommand;
 import dev.toyproject.foodDelivery.member.domain.MemberInfo;
@@ -24,6 +25,7 @@ public class MemberFacade {
     private final MemberService memberService;
     private final NaverSensService naverSensService;
     private final MailService mailService;
+    private final RedisCacheUtil redisCacheUtil;
 
     /**
      * 회원가입 진행
@@ -46,6 +48,7 @@ public class MemberFacade {
     public MemberInfo.Main loginMember(MemberCommand.Main command, HttpSession session){
         var loginMemberInfo = memberService.loginMemberInfo(command.getMemberMail(), command.getMemberPwd()); // 로그인 정보 확인
         SessionUtil.setLoginMemberToken(session, loginMemberInfo.getMemberToken()); // session 에 사용자 Token 정보 저장
+        redisCacheUtil.setRedisCacheDeviceToken(loginMemberInfo.getMemberToken(), command.getDeviceToken());
         return loginMemberInfo;
     }
 
@@ -54,8 +57,9 @@ public class MemberFacade {
      *
      * @param session
      */
-    public void logoutMember(HttpSession session){
-        SessionUtil.removeLogoutMember(session); // session 에 사용자 Token 정보 삭제
+    public void logoutMember(String memberToken, HttpSession session){
+        SessionUtil.removeLogoutMember(session);       // session 에 사용자 Token 정보 삭제
+        redisCacheUtil.removeDeviceToken(memberToken); // device Token 정보 삭제
     }
 
     /**
