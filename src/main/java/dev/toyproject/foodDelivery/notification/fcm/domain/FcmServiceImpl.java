@@ -21,18 +21,20 @@ public class FcmServiceImpl implements FcmService {
      */
     @Override
     public void sendFcm(FcmNotificationRequest fcmNotificationRequest) {
-        try{
-            Message message = Message.builder()
-                    .setToken(fcmNotificationRequest.getToken())
-                    .setWebpushConfig(WebpushConfig.builder().putHeader("ttl", "300")
-                            .setNotification(new WebpushNotification(fcmNotificationRequest.getTitle(),
-                                    fcmNotificationRequest.getMessage()))
-                            .build())
-                    .build();
 
+        Message message = Message.builder()
+                .setToken(fcmNotificationRequest.getToken())
+                .setWebpushConfig(WebpushConfig.builder().putHeader("ttl", "300")
+                        .setNotification(new WebpushNotification(fcmNotificationRequest.getTitle(),
+                                fcmNotificationRequest.getMessage()))
+                        .build())
+                .build();
+
+        try{
             String response = FirebaseMessaging.getInstance().sendAsync(message).get();
             log.info("Sent message: " + response);
         }catch (Exception e){
+            log.error("FCM PUSH ERROR");
             log.error(e.getMessage());
         }
     }
