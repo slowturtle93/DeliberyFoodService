@@ -8,6 +8,9 @@ public class RedisKeyFactory {
     // 메뉴 장바구니
     public static final String MENU_SHOPPING_BASKET = "MENU_SHOPPING_BASKET";
 
+    // FCM TOKEN
+    public static final String USER_DEVICE_TOKEN_INFO = "USER_DEVICE_TOKEN_INFO";
+
     private RedisKeyFactory() {}
 
     public static String generateKey(String token, String key) {
