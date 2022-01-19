@@ -20,6 +20,7 @@ public class MemberCommand {
         private String memberPwd;      // 사용자 비밀번호
         private String memberTel;      // 사용자 전화번호
         private String memberNickname; // 사용자 닉네임
+        private String deviceToken;
 
         public Member toEntity() {
             return Member.builder()

@@ -56,10 +56,13 @@ public class MemberDto {
         @NotEmpty(message = "memberPassword 는 필수값입니다.")
         private String memberPwd;
 
+        private String deviceToken;
+
         public MemberCommand.Main toCommand(){
             return MemberCommand.Main.builder()
                     .memberMail(memberMail)
                     .memberPwd(SHA256Util.encryptSHA256(memberPwd))
+                    .deviceToken(deviceToken)
                     .build();
         }
     }
