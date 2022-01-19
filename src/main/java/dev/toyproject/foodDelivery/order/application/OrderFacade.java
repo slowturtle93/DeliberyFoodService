@@ -102,4 +102,13 @@ public class OrderFacade {
     public List<OrderInfo.OrderResponse> retrieveOrderList(String memberToken){
         return orderService.retrieveOrderList(memberToken);
     }
+
+    /**
+     * 주문 결제 요청
+     *
+     * @param paymentRequest
+     */
+    public void paymentOrder(OrderCommand.PaymentRequest paymentRequest){
+
+    }
 }
