@@ -2,6 +2,9 @@ package dev.toyproject.foodDelivery.order.application;
 
 import dev.toyproject.foodDelivery.common.util.redis.RedisCacheUtil;
 import dev.toyproject.foodDelivery.common.util.redis.RedisKeyFactory;
+import dev.toyproject.foodDelivery.notification.fcm.domain.FcmNotificationRequest;
+import dev.toyproject.foodDelivery.notification.fcm.domain.FcmService;
+import dev.toyproject.foodDelivery.notification.fcm.infrastructrue.FcmNotificationInfo;
 import dev.toyproject.foodDelivery.order.domain.OrderCommand;
 import dev.toyproject.foodDelivery.order.domain.OrderFactory;
 import dev.toyproject.foodDelivery.order.domain.OrderInfo;
@@ -17,9 +20,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderFacade {
 
-    private final OrderFactory orderFactory;
-    private final RedisCacheUtil redisCacheUtil;
     private final OrderService orderService;
+    private final RedisCacheUtil redisCacheUtil;
+    private final FcmService fcmService;
 
     /**
      * 장바구니 메뉴 등록
@@ -75,6 +78,8 @@ public class OrderFacade {
      */
     public String registerOrder(OrderCommand.RegisterOrder registerOrder){
         var orderToken = orderService.registerOrder(registerOrder);            // 주문 정보 등록
+        var deviceToken = redisCacheUtil.getDeviceTokenInfo(registerOrder.getMemberToken());
+        fcmService.sendFcm(new FcmNotificationRequest(FcmNotificationInfo.FCM_ORDER_INIT_TITLE, FcmNotificationInfo.FCM_ORDER_INIT_MESSAGE, deviceToken));
         return orderToken;
     }
 
