@@ -2,11 +2,14 @@ package dev.toyproject.foodDelivery.order.interfaces;
 
 import dev.toyproject.foodDelivery.address.domain.AddressFragment;
 import dev.toyproject.foodDelivery.order.domain.OrderInfo;
+import dev.toyproject.foodDelivery.order.domain.payment.PayMethod;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class OrderDto {
@@ -96,6 +99,20 @@ public class OrderDto {
         private Integer ordering;
         private String orderMenuOptionName;
         private Long orderMenuOptionPrice;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class PaymentRequest {
+        @NotBlank(message = "orderToken 는 필수값입니다")
+        private String orderToken;
+
+        @NotNull(message = "payMethod 는 필수값입니다")
+        private PayMethod payMethod;
+
+        @NotNull(message = "amount 는 필수값입니다")
+        private Long amount;
     }
 
     /******************************** response ********************************/

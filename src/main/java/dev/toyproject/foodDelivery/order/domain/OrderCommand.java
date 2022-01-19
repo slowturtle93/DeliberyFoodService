@@ -4,6 +4,7 @@ import dev.toyproject.foodDelivery.address.domain.AddressFragment;
 import dev.toyproject.foodDelivery.order.domain.menu.OrderMenu;
 import dev.toyproject.foodDelivery.order.domain.menu.OrderMenuOption;
 import dev.toyproject.foodDelivery.order.domain.menu.OrderMenuOptionGroup;
+import dev.toyproject.foodDelivery.order.domain.payment.PayMethod;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -140,5 +141,14 @@ public class OrderCommand {
         private Integer ordering;
         private String orderMenuOptionName;
         private Long orderMenuOptionPrice;
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class PaymentRequest{
+        private final String    orderToken; // 주문토큰
+        private final Long      amount;     // 결제금액
+        private final PayMethod payMethod;  // 결제수단
     }
 }
