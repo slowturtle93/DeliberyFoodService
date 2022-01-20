@@ -109,6 +109,6 @@ public class OrderFacade {
      * @param paymentRequest
      */
     public void paymentOrder(OrderCommand.PaymentRequest paymentRequest){
-
+        orderService.paymentOrder(paymentRequest);
     }
 }
