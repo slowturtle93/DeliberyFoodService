@@ -1,9 +1,9 @@
 package dev.toyproject.foodDelivery.order.domain;
 
 import dev.toyproject.foodDelivery.common.util.redis.RedisCacheUtil;
+import dev.toyproject.foodDelivery.order.domain.payment.PaymentProcessor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +20,7 @@ public class OrderServiceImpl implements OrderService{
     private final OrderMenuSeriesFactory orderMenuSeriesFactory;
     private final OrderRead orderRead;
     private final OrderInfoMapper orderInfoMapper;
+    private final PaymentProcessor paymentProcessor;
 
     /**
      * 장바구니 메뉴 등록
@@ -119,5 +120,19 @@ public class OrderServiceImpl implements OrderService{
         var orderList = orderRead.getOrderList(memberToken);
         var response = orderInfoMapper.orderInfoList(orderList);
         return response;
+    }
+
+    /**
+     * 주문 결제 요청
+     *
+     * @param paymentRequest
+     */
+    @Override
+    @Transactional
+    public void paymentOrder(OrderCommand.PaymentRequest paymentRequest) {
+        var orderToken = paymentRequest.getOrderToken(); // 주문 Token 정보 get
+        var order = orderRead.getOrder(orderToken);    // 주문 정보 조회
+        paymentProcessor.pay(order, paymentRequest);            // 주문 결제 요청
+        order.orderComplete();                                  // 주문 완료
     }
 }

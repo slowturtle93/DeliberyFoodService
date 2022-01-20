@@ -19,4 +19,6 @@ public interface OrderService {
     public OrderInfo.OrderResponse retrieveOrder(String orderToken);
 
     public List<OrderInfo.OrderResponse> retrieveOrderList(String memberToken);
+
+    void paymentOrder(OrderCommand.PaymentRequest paymentRequest);
 }
