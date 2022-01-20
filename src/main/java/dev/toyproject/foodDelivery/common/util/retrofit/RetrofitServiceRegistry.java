@@ -3,6 +3,7 @@ package dev.toyproject.foodDelivery.common.util.retrofit;
 import dev.toyproject.foodDelivery.address.infrastructure.RetrofitKakaoAddressApi;
 import dev.toyproject.foodDelivery.notification.sms.infrastructure.RetrofitNaverSensApi;
 import dev.toyproject.foodDelivery.order.infrastructure.payment.kakao.RetrofitKakaoPayApi;
+import dev.toyproject.foodDelivery.order.infrastructure.payment.toss.RetrofitTossPayApi;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +24,10 @@ public class RetrofitServiceRegistry {
     // kakaoPay Url
     @Value("${payment.method.kakao.url}")
     private String kakaoUPayUrl;
+
+    // tossPay Url
+    @Value("${payment.method.toss.url}")
+    private String tossPayUrl;
     
     // naver snes Retrofit Bean 생성
     @Bean
@@ -43,5 +48,12 @@ public class RetrofitServiceRegistry {
     public RetrofitKakaoPayApi retrofitKakaoApi() {
         var retrofit = RetrofitUtils.initRetrofit(kakaoUPayUrl);
         return retrofit.create(RetrofitKakaoPayApi.class);
+    }
+
+    // TOSS pay Retrofit Bean 생성
+    @Bean
+    public RetrofitTossPayApi retrofitTossApi() {
+        var retrofit = RetrofitUtils.initRetrofit(tossPayUrl);
+        return retrofit.create(RetrofitTossPayApi.class);
     }
 }
