@@ -56,3 +56,10 @@ payment:
       approvalUrl: http://localhost:8088
       cancelUrl: http://localhost:8088
       failUrl: http://localhost:8088
+    toss:
+      url: https://pay.toss.im/
+      apiKey: sk_test_w5lNQylNqa5lNQe013Nq
+      retUrl: http://YOUR-SITE.COM/ORDER-CHECK?orderno=1
+      retCancelUrl: http://YOUR-SITE.COM/close
+      resultCallback: https://YOUR-SITE.COM/callback
+      callbackVersion: V2
