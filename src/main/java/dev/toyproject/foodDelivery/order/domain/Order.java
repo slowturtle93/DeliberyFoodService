@@ -1,7 +1,6 @@
 package dev.toyproject.foodDelivery.order.domain;
 
 import dev.toyproject.foodDelivery.AbstracEntity;
-import dev.toyproject.foodDelivery.address.domain.AddressFragment;
 import dev.toyproject.foodDelivery.common.exception.IllegalStatusException;
 import dev.toyproject.foodDelivery.common.exception.InvalidParamException;
 import dev.toyproject.foodDelivery.common.util.TokenGenerator;
@@ -97,7 +96,30 @@ public class Order extends AbstracEntity {
         this.orderDate        = ZonedDateTime.now();
         this.status           = Status.INIT;
     }
-    
+
+    /**
+     * 주문 총 수량 계산
+     *
+     */
+    public Long calculateTotalQuantity() {
+        return orderMenuList.stream()
+                .mapToLong(OrderMenu::getOrderMenuCount)
+                .sum();
+    }
+
+    /**
+     * 주문 상품 name
+     *
+     * @return
+     */
+    public String TotalMenuName(){
+        if(orderMenuList.size() > 1){
+            return orderMenuList.get(0).getOrderMenuName() + "외 " + (orderMenuList.size() - 1);
+        }else{
+            return orderMenuList.get(0).getOrderMenuName();
+        }
+    }
+
     /**
      *  주문 완료 상태변경 (INIT 인 경우 예외)
      */
