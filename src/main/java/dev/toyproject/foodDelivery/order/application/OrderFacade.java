@@ -1,12 +1,10 @@
 package dev.toyproject.foodDelivery.order.application;
 
 import dev.toyproject.foodDelivery.common.util.redis.RedisCacheUtil;
-import dev.toyproject.foodDelivery.common.util.redis.RedisKeyFactory;
 import dev.toyproject.foodDelivery.notification.fcm.domain.FcmNotificationRequest;
 import dev.toyproject.foodDelivery.notification.fcm.domain.FcmService;
 import dev.toyproject.foodDelivery.notification.fcm.infrastructrue.FcmNotificationInfo;
 import dev.toyproject.foodDelivery.order.domain.OrderCommand;
-import dev.toyproject.foodDelivery.order.domain.OrderFactory;
 import dev.toyproject.foodDelivery.order.domain.OrderInfo;
 import dev.toyproject.foodDelivery.order.domain.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -108,7 +106,7 @@ public class OrderFacade {
      *
      * @param paymentRequest
      */
-    public void paymentOrder(OrderCommand.PaymentRequest paymentRequest){
-        orderService.paymentOrder(paymentRequest);
+    public OrderInfo.OrderPaymentRedirectUrl paymentOrder(OrderCommand.PaymentRequest paymentRequest){
+        return orderService.paymentOrder(paymentRequest);
     }
 }

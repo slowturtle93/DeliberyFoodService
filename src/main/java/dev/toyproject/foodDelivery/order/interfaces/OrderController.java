@@ -132,8 +132,8 @@ public class OrderController {
      */
     @PostMapping("/payment")
     public CommonResponse paymentOrder(@RequestBody @Valid OrderDto.PaymentRequest paymentRequest){
-        var paymentCommand = orderDtoMapper.of(paymentRequest); // Command 로 객체 변환
-        orderFacade.paymentOrder(paymentCommand);                                        // 주문 결제 요청
-        return CommonResponse.success("OK");
+        var paymentCommand = orderDtoMapper.of(paymentRequest);   // Command 로 객체 변환
+        var response = orderFacade.paymentOrder(paymentCommand); // 주문 결제 요청
+        return CommonResponse.success(response);
     }
 }
