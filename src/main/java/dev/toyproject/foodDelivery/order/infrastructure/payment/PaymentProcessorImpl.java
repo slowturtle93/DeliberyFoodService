@@ -3,6 +3,7 @@ package dev.toyproject.foodDelivery.order.infrastructure.payment;
 import dev.toyproject.foodDelivery.common.exception.InvalidParamException;
 import dev.toyproject.foodDelivery.order.domain.Order;
 import dev.toyproject.foodDelivery.order.domain.OrderCommand;
+import dev.toyproject.foodDelivery.order.domain.OrderInfo;
 import dev.toyproject.foodDelivery.order.domain.payment.PaymentProcessor;
 import dev.toyproject.foodDelivery.order.domain.payment.validator.PaymentValidator;
 import lombok.RequiredArgsConstructor;
@@ -26,10 +27,10 @@ public class PaymentProcessorImpl implements PaymentProcessor {
      * @param paymentRequest
      */
     @Override
-    public void pay(Order order, OrderCommand.PaymentRequest paymentRequest) {
+    public OrderInfo.OrderPaymentRedirectUrl pay(Order order, OrderCommand.PaymentRequest paymentRequest) {
         paymentValidatorList.forEach(paymentValidator -> paymentValidator.validate(order, paymentRequest)); // 결제 요청 전 validation 체크
         PaymentApiCaller payApiCaller = routingApiCaller(paymentRequest);                                   // 사용자가 선택한 결제 수단 Find
-        payApiCaller.pay(paymentRequest);                                                                   // 사용자가 선택한 결제 수단에 결제 요청
+        return payApiCaller.pay(paymentRequest);                                                            // 사용자가 선택한 결제 수단에 결제 요청
     }
 
     /**
