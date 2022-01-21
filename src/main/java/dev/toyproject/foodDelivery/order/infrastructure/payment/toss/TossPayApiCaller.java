@@ -2,6 +2,7 @@ package dev.toyproject.foodDelivery.order.infrastructure.payment.toss;
 
 import dev.toyproject.foodDelivery.common.util.retrofit.RetrofitUtils;
 import dev.toyproject.foodDelivery.order.domain.OrderCommand;
+import dev.toyproject.foodDelivery.order.domain.OrderInfo;
 import dev.toyproject.foodDelivery.order.domain.payment.PayMethod;
 import dev.toyproject.foodDelivery.order.infrastructure.payment.PaymentApiCaller;
 import lombok.RequiredArgsConstructor;
@@ -35,14 +36,14 @@ public class TossPayApiCaller implements PaymentApiCaller {
      * @param request
      */
     @Override
-    public void pay(OrderCommand.PaymentRequest request) {
+    public OrderInfo.OrderPaymentRedirectUrl pay(OrderCommand.PaymentRequest request) {
 
         // TODO - 구현
         JSONObject params = new JSONObject();
         params.put("orderNo", request.getOrderToken());
         params.put("amount", request.getAmount());
         params.put("amountTaxFree", 0);
-        params.put("productDesc", "상품 결제");
+        params.put("productDesc", "상품 결제 요청");
         params.put("apiKey", tossApiRequest.getApiKey());
         params.put("autoExecute", true);
         params.put("resultCallback", tossApiRequest.getResultCallback());
@@ -55,5 +56,9 @@ public class TossPayApiCaller implements PaymentApiCaller {
         // API response
         TossApiResponse.response response =  retrofitUtils.responseSync(call)
                 .orElseThrow(RuntimeException::new);
+
+        return OrderInfo.OrderPaymentRedirectUrl.builder()
+                .redirectUrl(response.getCheckoutPage())
+                .build();
     }
 }

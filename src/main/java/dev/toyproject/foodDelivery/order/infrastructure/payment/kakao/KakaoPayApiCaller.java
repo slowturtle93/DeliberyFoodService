@@ -3,8 +3,8 @@ package dev.toyproject.foodDelivery.order.infrastructure.payment.kakao;
 import dev.toyproject.foodDelivery.common.util.retrofit.RetrofitUtils;
 import dev.toyproject.foodDelivery.order.domain.Order;
 import dev.toyproject.foodDelivery.order.domain.OrderCommand;
+import dev.toyproject.foodDelivery.order.domain.OrderInfo;
 import dev.toyproject.foodDelivery.order.domain.OrderRead;
-import dev.toyproject.foodDelivery.order.domain.menu.OrderMenu;
 import dev.toyproject.foodDelivery.order.domain.payment.PayMethod;
 import dev.toyproject.foodDelivery.order.infrastructure.payment.PaymentApiCaller;
 import lombok.RequiredArgsConstructor;
@@ -29,26 +29,24 @@ public class KakaoPayApiCaller implements PaymentApiCaller {
         return PayMethod.KAKAO_PAY == payMethod;
     }
 
+    /**
+     * 카카오 페이 결제 준비 API 요청
+     *
+     * @param request
+     * @return
+     */
     @Override
-    public void pay(OrderCommand.PaymentRequest request) {
+    public OrderInfo.OrderPaymentRedirectUrl pay(OrderCommand.PaymentRequest request) {
         Map<String, Object> params = new HashMap<>(); // request 정보
-        long quantity = 0;                         // 주문 총 수량
-        StringBuilder menuName = new StringBuilder(); // 주문 메뉴명
 
         Order order = orderRead.getOrder(request.getOrderToken());
-
-        // 주문 수량 및 상품명
-        for(OrderMenu orderMenu : order.getOrderMenuList()){
-            quantity += orderMenu.getOrderMenuCount();
-            menuName.append(orderMenu.getOrderMenuName() + ",");
-        }
 
         // request 정보 put
         params.put("cid"             , kakaoApiRequest.getApiKey());
         params.put("partner_order_id", request.getOrderToken());
         params.put("partner_user_id" , kakaoApiRequest.getPartnerUserId());
-        params.put("item_name"       , menuName.toString());
-        params.put("quantity"        , quantity);
+        params.put("item_name"       , order.TotalMenuName());
+        params.put("quantity"        , order.calculateTotalQuantity());
         params.put("total_amount"    , request.getAmount());
         params.put("tax_free_amount" , 0);
         params.put("approval_url"    , kakaoApiRequest.getApprovalUrl());
@@ -64,5 +62,9 @@ public class KakaoPayApiCaller implements PaymentApiCaller {
         // API response
         KakaoApiResponse.response response =  retrofitUtils.responseSync(call)
                 .orElseThrow(RuntimeException::new);
+
+        return OrderInfo.OrderPaymentRedirectUrl.builder()
+                .redirectUrl(response.getNext_redirect_mobile_url())
+                .build();
     }
 }
