@@ -57,6 +57,13 @@ public class OrderInfo {
         private Integer ordering;
     }
 
+    @Getter
+    @Builder
+    @ToString
+    public static class OrderPaymentRedirectUrl{
+        private String redirectUrl;
+    }
+
     /*********** 장바구니 ***********/
 
     @Getter
