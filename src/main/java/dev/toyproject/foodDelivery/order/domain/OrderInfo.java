@@ -60,6 +60,16 @@ public class OrderInfo {
     @Getter
     @Builder
     @ToString
+    public static class OrderAPIPaymentResponse{
+        private String paymentToken;
+        private String orderToken;
+        private String paymentMethod;
+        private String redirectUrl;
+    }
+
+    @Getter
+    @Builder
+    @ToString
     public static class OrderPaymentRedirectUrl{
         private String redirectUrl;
     }
