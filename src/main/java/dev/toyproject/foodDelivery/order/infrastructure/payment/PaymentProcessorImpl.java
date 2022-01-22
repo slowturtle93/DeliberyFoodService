@@ -27,7 +27,7 @@ public class PaymentProcessorImpl implements PaymentProcessor {
      * @param paymentRequest
      */
     @Override
-    public OrderInfo.OrderPaymentRedirectUrl pay(Order order, OrderCommand.PaymentRequest paymentRequest) {
+    public OrderInfo.OrderAPIPaymentResponse pay(Order order, OrderCommand.PaymentRequest paymentRequest) {
         paymentValidatorList.forEach(paymentValidator -> paymentValidator.validate(order, paymentRequest)); // 결제 요청 전 validation 체크
         PaymentApiCaller payApiCaller = routingApiCaller(paymentRequest);                                   // 사용자가 선택한 결제 수단 Find
         return payApiCaller.pay(paymentRequest);                                                            // 사용자가 선택한 결제 수단에 결제 요청

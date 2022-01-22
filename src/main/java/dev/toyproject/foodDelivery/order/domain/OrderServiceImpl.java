@@ -129,7 +129,7 @@ public class OrderServiceImpl implements OrderService{
      */
     @Override
     @Transactional
-    public OrderInfo.OrderPaymentRedirectUrl paymentOrder(OrderCommand.PaymentRequest paymentRequest) {
+    public OrderInfo.OrderAPIPaymentResponse paymentOrder(OrderCommand.PaymentRequest paymentRequest) {
         var orderToken = paymentRequest.getOrderToken(); // 주문 Token 정보 get
         var order = orderRead.getOrder(orderToken);      // 주문 정보 조회
         order.orderComplete();                                  // 주문 완료

@@ -5,5 +5,5 @@ import dev.toyproject.foodDelivery.order.domain.OrderCommand;
 import dev.toyproject.foodDelivery.order.domain.OrderInfo;
 
 public interface PaymentProcessor {
-    OrderInfo.OrderPaymentRedirectUrl pay(Order order, OrderCommand.PaymentRequest paymentRequest);
+    OrderInfo.OrderAPIPaymentResponse pay(Order order, OrderCommand.PaymentRequest paymentRequest);
 }
