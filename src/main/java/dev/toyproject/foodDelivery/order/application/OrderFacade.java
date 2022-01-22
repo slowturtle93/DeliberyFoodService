@@ -6,6 +6,7 @@ import dev.toyproject.foodDelivery.notification.fcm.domain.FcmService;
 import dev.toyproject.foodDelivery.notification.fcm.infrastructrue.FcmNotificationInfo;
 import dev.toyproject.foodDelivery.order.domain.OrderCommand;
 import dev.toyproject.foodDelivery.order.domain.OrderInfo;
+import dev.toyproject.foodDelivery.order.domain.OrderInfoMapper;
 import dev.toyproject.foodDelivery.order.domain.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -107,6 +108,9 @@ public class OrderFacade {
      * @param paymentRequest
      */
     public OrderInfo.OrderPaymentRedirectUrl paymentOrder(OrderCommand.PaymentRequest paymentRequest){
-        return orderService.paymentOrder(paymentRequest);
+        var response = orderService.paymentOrder(paymentRequest);
+        return OrderInfo.OrderPaymentRedirectUrl.builder()
+                .redirectUrl(response.getRedirectUrl())
+                .build();
     }
 }
