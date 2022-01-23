@@ -19,6 +19,8 @@ spring:
     host: "127.0.0.1"
     port: 6379
 
+  address-api:
+    url: https://dapi.kakao.com/
   ## NANVER SENS
   sens-api:
     url: https://sens.apigw.ntruss.com/
@@ -43,6 +45,9 @@ spring:
           starttls:
             enable: true
 
+  ## kafka
+  kafka:
+    bootstrap-servers: 3.35.209.108:9092
 
 # payment
 payment:
