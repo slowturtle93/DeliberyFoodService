@@ -1,5 +1,7 @@
 package dev.toyproject.foodDelivery.order.domain.kafka;
 
+import dev.toyproject.foodDelivery.order.domain.OrderCommand;
+import dev.toyproject.foodDelivery.order.domain.OrderInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -10,18 +12,18 @@ import org.springframework.stereotype.Service;
 public class KafkaOrderPaymentProducer {
 
     private static final String TOPIC = "order_payment";
-    private final KafkaTemplate<String, String> kafkaOrderPaymentTemplate;
+    private final KafkaTemplate<String, OrderCommand.OrderPaymentConfirmRequest> kafkaOrderPaymentTemplate;
 
     @Autowired
-    public KafkaOrderPaymentProducer(KafkaTemplate<String, String> kafkaOrderPaymentTemplate) {
+    public KafkaOrderPaymentProducer(KafkaTemplate<String, OrderCommand.OrderPaymentConfirmRequest> kafkaOrderPaymentTemplate) {
         this.kafkaOrderPaymentTemplate = kafkaOrderPaymentTemplate;
     }
 
-    public void registerKafkaMessage(String orderToken) {
+    public void registerKafkaMessage(OrderCommand.OrderPaymentConfirmRequest APIResponse) {
 
         // Send a message
         try{
-            kafkaOrderPaymentTemplate.send(TOPIC, orderToken);
+            kafkaOrderPaymentTemplate.send(TOPIC, APIResponse);
             log.info("send kafka message");
         }catch (Exception e){
             log.info("fail kafka message");
