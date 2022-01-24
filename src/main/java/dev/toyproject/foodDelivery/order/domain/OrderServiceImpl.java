@@ -135,7 +135,7 @@ public class OrderServiceImpl implements OrderService{
         var orderToken = paymentRequest.getOrderToken(); // 주문 Token 정보 get
         var order = orderRead.getOrder(orderToken);      // 주문 정보 조회
         var paymentResponse = paymentProcessor.pay(order, paymentRequest); // 주문 결제 요청
-        kafkaOrderPaymentProducer.registerKafkaMessage(paymentResponse.getOrderToken());
+        kafkaOrderPaymentProducer.registerKafkaMessage(orderInfoMapper.of(paymentResponse));           // kafka send message
         order.orderComplete();                                  // 주문 완료
         return paymentResponse;
     }
