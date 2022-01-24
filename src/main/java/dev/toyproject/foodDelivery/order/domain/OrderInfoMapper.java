@@ -16,4 +16,6 @@ public interface OrderInfoMapper {
 
     @Mappings({@Mapping(source = "orderDate", target = "orderDate", dateFormat = "yyyy-MM-dd HH:mm:ss")})
     List<OrderInfo.OrderResponse> orderInfoList(List<Order> order);
+
+    OrderCommand.OrderPaymentConfirmRequest of(OrderInfo.OrderAPIPaymentResponse response);
 }
