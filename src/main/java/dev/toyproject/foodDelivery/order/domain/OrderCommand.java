@@ -5,10 +5,7 @@ import dev.toyproject.foodDelivery.order.domain.menu.OrderMenu;
 import dev.toyproject.foodDelivery.order.domain.menu.OrderMenuOption;
 import dev.toyproject.foodDelivery.order.domain.menu.OrderMenuOptionGroup;
 import dev.toyproject.foodDelivery.order.domain.payment.PayMethod;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
@@ -150,5 +147,17 @@ public class OrderCommand {
         private final String    orderToken; // 주문토큰
         private final Long      amount;     // 결제금액
         private final PayMethod payMethod;  // 결제수단
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class OrderPaymentConfirmRequest{
+        private String paymentToken;
+        private String orderToken;
+        private String paymentMethod;
+        private String redirectUrl;
     }
 }
