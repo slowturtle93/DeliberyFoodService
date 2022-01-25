@@ -1,8 +1,8 @@
 package dev.toyproject.foodDelivery.order.domain;
 
 import dev.toyproject.foodDelivery.common.util.redis.RedisCacheUtil;
-import dev.toyproject.foodDelivery.order.domain.kafka.KafkaOrderPaymentProducer;
 import dev.toyproject.foodDelivery.order.domain.payment.PaymentProcessor;
+import dev.toyproject.foodDelivery.order.domain.payment.PaymentStore;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ public class OrderServiceImpl implements OrderService{
     private final OrderRead orderRead;
     private final OrderInfoMapper orderInfoMapper;
     private final PaymentProcessor paymentProcessor;
-    private final KafkaOrderPaymentProducer kafkaOrderPaymentProducer;
+    private final PaymentStore paymentStore;
 
     /**
      * 장바구니 메뉴 등록
@@ -134,9 +134,10 @@ public class OrderServiceImpl implements OrderService{
     public OrderInfo.OrderAPIPaymentResponse paymentOrder(OrderCommand.PaymentRequest paymentRequest) {
         var orderToken = paymentRequest.getOrderToken(); // 주문 Token 정보 get
         var order = orderRead.getOrder(orderToken);      // 주문 정보 조회
-        var paymentResponse = paymentProcessor.pay(order, paymentRequest); // 주문 결제 요청
-        kafkaOrderPaymentProducer.registerKafkaMessage(orderInfoMapper.of(paymentResponse));           // kafka send message
+        var APIResponse = paymentProcessor.pay(order, paymentRequest); // 주문 결제 요청
+        var paymentCommand = orderInfoMapper.of(APIResponse);
+        paymentStore.store(paymentCommand.toEntity());          // 결제 정보 등록
         order.orderComplete();                                  // 주문 완료
-        return paymentResponse;
+        return APIResponse;
     }
 }

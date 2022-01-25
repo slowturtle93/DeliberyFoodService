@@ -22,7 +22,8 @@ public class TossApiResponse {
             return OrderInfo.OrderAPIPaymentResponse.builder()
                     .paymentToken(payToken)
                     .orderToken(request.getOrderToken())
-                    .paymentMethod(request.getPayMethod().toString())
+                    .paymentType(request.getPayMethod().toString())
+                    .paymentAmount(request.getAmount())
                     .redirectUrl(checkoutPage)
                     .build();
         }

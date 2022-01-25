@@ -64,6 +64,8 @@ public class OrderInfo {
         private String paymentToken;
         private String orderToken;
         private String paymentMethod;
+        private String paymentType;
+        private Long paymentAmount;
         private String redirectUrl;
     }
 

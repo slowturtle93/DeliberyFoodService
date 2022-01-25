@@ -27,7 +27,8 @@ public class KakaoApiResponse {
             return OrderInfo.OrderAPIPaymentResponse.builder()
                     .paymentToken(tid)
                     .orderToken(request.getOrderToken())
-                    .paymentMethod(request.getPayMethod().toString())
+                    .paymentType(request.getPayMethod().toString())
+                    .paymentAmount(request.getAmount())
                     .redirectUrl(next_redirect_mobile_url)
                     .build();
         }
