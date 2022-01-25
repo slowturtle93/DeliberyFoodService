@@ -1,5 +1,8 @@
 package dev.toyproject.foodDelivery.order.infrastructure.payment.kakao;
 
+import dev.toyproject.foodDelivery.order.domain.Order;
+import dev.toyproject.foodDelivery.order.domain.OrderCommand;
+import dev.toyproject.foodDelivery.order.domain.OrderInfo;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -19,5 +22,15 @@ public class KakaoApiResponse {
         private final String created_at;
         private final String msg;
         private final String code;
+
+        public OrderInfo.OrderAPIPaymentResponse toConvert(OrderCommand.PaymentRequest request){
+            return OrderInfo.OrderAPIPaymentResponse.builder()
+                    .paymentToken(tid)
+                    .orderToken(request.getOrderToken())
+                    .paymentType(request.getPayMethod().toString())
+                    .paymentAmount(request.getAmount())
+                    .redirectUrl(next_redirect_mobile_url)
+                    .build();
+        }
     }
 }
