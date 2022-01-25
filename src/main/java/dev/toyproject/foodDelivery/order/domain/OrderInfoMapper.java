@@ -1,5 +1,6 @@
 package dev.toyproject.foodDelivery.order.domain;
 
+import dev.toyproject.foodDelivery.order.domain.payment.PaymentCommand;
 import org.mapstruct.*;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface OrderInfoMapper {
 
     @Mappings({@Mapping(source = "orderDate", target = "orderDate", dateFormat = "yyyy-MM-dd HH:mm:ss")})
     List<OrderInfo.OrderResponse> orderInfoList(List<Order> order);
+
+    PaymentCommand.RegisterPayment of(OrderInfo.OrderAPIPaymentResponse response);
 }
