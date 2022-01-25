@@ -106,7 +106,7 @@ public class OrderFacade {
      *
      * @param paymentRequest
      */
-    public OrderInfo.OrderPaymentRedirectUrl paymentOrder(OrderCommand.PaymentRequest paymentRequest){
+    public OrderInfo.OrderAPIPaymentResponse paymentOrder(OrderCommand.PaymentRequest paymentRequest){
         return orderService.paymentOrder(paymentRequest);
     }
 }
