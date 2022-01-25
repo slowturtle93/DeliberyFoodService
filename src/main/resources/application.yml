@@ -19,6 +19,8 @@ spring:
     host: "127.0.0.1"
     port: 6379
 
+  address-api:
+    url: https://dapi.kakao.com/
   ## NANVER SENS
   sens-api:
     url: https://sens.apigw.ntruss.com/
@@ -53,13 +55,13 @@ payment:
       url: https://kapi.kakao.com/
       Authorization: 'KakaoAK {ADMIN-KEY}'
       ContentType: 'application/x-www-form-urlencoded;charset=utf-8'
-      approvalUrl: http://localhost:8088
-      cancelUrl: http://localhost:8088
-      failUrl: http://localhost:8088
+      approvalUrl: http://localhost:8088/v1/order/kakao/success
+      cancelUrl: http://localhost:8088/v1/order/kakao/cancel
+      failUrl: http://localhost:8088/v1/order/kakao/fail
     toss:
       url: https://pay.toss.im/
       apiKey: sk_test_w5lNQylNqa5lNQe013Nq
-      retUrl: http://YOUR-SITE.COM/ORDER-CHECK?orderno=1
-      retCancelUrl: http://YOUR-SITE.COM/close
-      resultCallback: https://YOUR-SITE.COM/callback
+      retUrl: http://localhost:8088/v1/order/toss/order-check?orderno=1
+      retCancelUrl: http://localhost:8088/v1/order/toss/cancel
+      resultCallback: http://localhost:8088/v1/order/toss/callback
       callbackVersion: V2
