@@ -20,5 +20,5 @@ public interface OrderService {
 
     public List<OrderInfo.OrderResponse> retrieveOrderList(String memberToken);
 
-    OrderInfo.OrderPaymentRedirectUrl paymentOrder(OrderCommand.PaymentRequest paymentRequest);
+    OrderInfo.OrderAPIPaymentResponse paymentOrder(OrderCommand.PaymentRequest paymentRequest);
 }
