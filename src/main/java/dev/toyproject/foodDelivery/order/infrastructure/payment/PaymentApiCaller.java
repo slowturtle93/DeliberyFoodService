@@ -7,5 +7,5 @@ import dev.toyproject.foodDelivery.order.domain.payment.PayMethod;
 public interface PaymentApiCaller {
     boolean support(PayMethod payMethod);
 
-    OrderInfo.OrderPaymentRedirectUrl pay(OrderCommand.PaymentRequest request);
+    OrderInfo.OrderAPIPaymentResponse pay(OrderCommand.PaymentRequest request);
 }

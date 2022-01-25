@@ -36,7 +36,7 @@ public class TossPayApiCaller implements PaymentApiCaller {
      * @param request
      */
     @Override
-    public OrderInfo.OrderPaymentRedirectUrl pay(OrderCommand.PaymentRequest request) {
+    public OrderInfo.OrderAPIPaymentResponse pay(OrderCommand.PaymentRequest request) {
 
         // TODO - 구현
         JSONObject params = new JSONObject();
@@ -57,8 +57,6 @@ public class TossPayApiCaller implements PaymentApiCaller {
         TossApiResponse.response response =  retrofitUtils.responseSync(call)
                 .orElseThrow(RuntimeException::new);
 
-        return OrderInfo.OrderPaymentRedirectUrl.builder()
-                .redirectUrl(response.getCheckoutPage())
-                .build();
+        return response.toConvert(request);
     }
 }

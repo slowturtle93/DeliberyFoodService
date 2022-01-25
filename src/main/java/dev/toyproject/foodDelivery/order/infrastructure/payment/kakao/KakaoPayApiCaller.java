@@ -36,7 +36,7 @@ public class KakaoPayApiCaller implements PaymentApiCaller {
      * @return
      */
     @Override
-    public OrderInfo.OrderPaymentRedirectUrl pay(OrderCommand.PaymentRequest request) {
+    public OrderInfo.OrderAPIPaymentResponse pay(OrderCommand.PaymentRequest request) {
         Map<String, Object> params = new HashMap<>(); // request 정보
 
         Order order = orderRead.getOrder(request.getOrderToken());
@@ -63,8 +63,6 @@ public class KakaoPayApiCaller implements PaymentApiCaller {
         KakaoApiResponse.response response =  retrofitUtils.responseSync(call)
                 .orElseThrow(RuntimeException::new);
 
-        return OrderInfo.OrderPaymentRedirectUrl.builder()
-                .redirectUrl(response.getNext_redirect_mobile_url())
-                .build();
+        return response.toConvert(request);
     }
 }
