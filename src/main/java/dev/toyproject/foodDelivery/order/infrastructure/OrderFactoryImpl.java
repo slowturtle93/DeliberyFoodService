@@ -2,14 +2,19 @@ package dev.toyproject.foodDelivery.order.infrastructure;
 
 import dev.toyproject.foodDelivery.common.exception.InvalidParamException;
 import dev.toyproject.foodDelivery.common.util.redis.RedisCacheUtil;
-import dev.toyproject.foodDelivery.order.domain.OrderCommand;
-import dev.toyproject.foodDelivery.order.domain.OrderFactory;
-import dev.toyproject.foodDelivery.order.domain.OrderInfo;
+import dev.toyproject.foodDelivery.order.domain.*;
+import dev.toyproject.foodDelivery.order.domain.menu.OrderMenu;
+import dev.toyproject.foodDelivery.order.domain.payment.PayMethod;
+import dev.toyproject.foodDelivery.order.domain.payment.Payment;
+import dev.toyproject.foodDelivery.order.domain.payment.PaymentRead;
+import dev.toyproject.foodDelivery.owner.domain.OwnerReader;
+import dev.toyproject.foodDelivery.shop.domain.ShopReader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -17,6 +22,11 @@ import java.util.List;
 public class OrderFactoryImpl implements OrderFactory {
 
     private final RedisCacheUtil redisCacheUtil;
+    private final OrderStore orderStore;
+    private final PaymentRead paymentRead;
+    private final OrderRead orderRead;
+    private final ShopReader shopReader;
+    private final OwnerReader ownerReader;
 
     /**
      * 장바구니 hashKey 생성
@@ -126,5 +136,99 @@ public class OrderFactoryImpl implements OrderFactory {
     public List<OrderInfo.OrderBasketInfo> updateMenuBasketAmount(OrderCommand.OrderBasketRequest command, String hashKey) {
         redisCacheUtil.setRedisCacheMenuBasket(command, hashKey);
         return redisCacheUtil.getMenuBasketList(command.getMemberToken());
+    }
+
+    /**
+     * Redis 장바구니 전체 메뉴 삭제
+     *
+     * @param memberToken
+     */
+    @Override
+    public void removeMenuBasketAll(String memberToken) {
+        redisCacheUtil.removeMenuBasketAll(memberToken);
+    }
+
+    /**
+     * Redis 결제 Token 정보 저장
+     *
+     * @param memberToken
+     * @param paymentToken
+     */
+    @Override
+    public void setRedisCacheOrderPaymentToken(String memberToken, String paymentToken) {
+        redisCacheUtil.setRedisCacheOrderPaymentToken(memberToken, paymentToken);
+    }
+
+    /**
+     * 주문 메뉴 및 주문 메뉴 옵션 등록
+     *
+     * @param order
+     * @param registerOrder
+     * @return
+     */
+    @Override
+    public List<OrderMenu> store(Order order, OrderCommand.RegisterOrder registerOrder) {
+        return registerOrder.getOrderMenuList().stream()
+                .map(orderMenuRequest -> {
+                    //  주문 메뉴 등록
+                    var initOrderMenu = orderMenuRequest.toEntity(order);
+                    var orderMenu = orderStore.store(initOrderMenu);
+
+                    orderMenuRequest.getOrderMenuOptionGroupList().forEach(orderMenuOptionGroupRequest -> {
+
+                        // 주문 메뉴 옵션 그룹 등록
+                        var initOrderMenuOptionGroup = orderMenuOptionGroupRequest.toEntity(orderMenu);
+                        var orderMenuOptionGroup = orderStore.store(initOrderMenuOptionGroup);
+
+                        orderMenuOptionGroupRequest.getOrderMenuOptionList().forEach(orderMenuOptionRequest -> {
+
+                            // 주문 메뉴 옵션 등록
+                            var initOrderMenuOption = orderMenuOptionRequest.toEntity(orderMenuOptionGroup);
+                            orderStore.store(initOrderMenuOption);
+
+                        });
+                    });
+                    return orderMenu;
+                }).collect(Collectors.toList());
+    }
+
+    /**
+     * payment 정보 OrderCommand.PaymentApproveRequest 정보로 변환
+     *
+     * @param payment
+     * @param pgToken
+     * @return
+     */
+    @Override
+    public OrderCommand.PaymentApproveRequest approveRequestConvertPayment(Payment payment, String pgToken) {
+
+        var payMethod = PayMethod.valueOf(payment.getPaymentType());
+
+        return OrderCommand.PaymentApproveRequest.builder()
+                .orderToken(payment.getOrderToken())
+                .paymentToken(payment.getPaymentToken())
+                .payMethod(payMethod)
+                .pgToken(pgToken)
+                .build();
+    }
+
+    /**
+     * OrderCommand.OrderPaymentConfirmRequest 정보 make
+     *
+     * @param paymentToken
+     * @return
+     */
+    @Override
+    public OrderInfo.OrderPaymentConfirmRequest orderPaymentConfirmInfo(String paymentToken) {
+        var payment = paymentRead.getPayment(paymentToken);
+        var order = orderRead.getOrder(payment.getOrderToken());
+        var shop = shopReader.getShopByToken(order.getShopToken());
+        var owner = ownerReader.getOwnerByToken(shop.getOwnerToken());
+
+        return OrderInfo.OrderPaymentConfirmRequest.builder()
+                .paymentToken(payment.getPaymentToken())
+                .orderToken(payment.getOrderToken())
+                .ownerToken(owner.getOwnerToken())
+                .build();
     }
 }
