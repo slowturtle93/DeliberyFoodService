@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.toyproject.foodDelivery.order.domain.OrderCommand;
 import dev.toyproject.foodDelivery.order.domain.OrderInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
@@ -182,5 +183,46 @@ public class RedisCacheUtil {
      */
     public void removeDeviceToken(String memberToken){
         redisTemplate.delete(RedisKeyFactory.generateKey(memberToken, RedisKeyFactory.USER_DEVICE_TOKEN_INFO));
+    }
+
+    /************************************* Member Order PaymentToken ***********************************/
+
+    /**
+     * 주문 payment token 정보 저장
+     *
+     * @param memberToken
+     * @param paymentToken
+     */
+    public void setRedisCacheOrderPaymentToken(String memberToken, String paymentToken){
+        String redisKey = RedisKeyFactory.generateKey(memberToken, RedisKeyFactory.USER_ORDER_PAYMENT_TOKEN);
+        redisTemplate.opsForValue().set(redisKey, paymentToken);
+    }
+
+    /**
+     * 주문 payment token 정보 조회
+     *
+     * @param memberToken
+     * @return
+     */
+    public String getOrderPaymentTokenInfo(String memberToken) {
+        String redisKey = RedisKeyFactory.generateKey(memberToken, RedisKeyFactory.USER_ORDER_PAYMENT_TOKEN);
+        var paymentToken = "";
+
+        try {
+            paymentToken = redisTemplate.opsForValue().get(redisKey).toString();
+        }catch (Exception e){
+            throw new NullPointerException("Device Token Not Found");
+        }
+
+        return paymentToken;
+    }
+
+    /**
+     * 주문 payment token 정보 삭제
+     *
+     * @param memberToken
+     */
+    public void removeOrderPaymentToken(String memberToken){
+        redisTemplate.delete(RedisKeyFactory.generateKey(memberToken, RedisKeyFactory.USER_ORDER_PAYMENT_TOKEN));
     }
 }
