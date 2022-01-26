@@ -1,6 +1,7 @@
 package dev.toyproject.foodDelivery.order.application;
 
 import dev.toyproject.foodDelivery.common.util.redis.RedisCacheUtil;
+import dev.toyproject.foodDelivery.common.util.redis.SessionUtil;
 import dev.toyproject.foodDelivery.notification.fcm.domain.FcmNotificationRequest;
 import dev.toyproject.foodDelivery.notification.fcm.domain.FcmService;
 import dev.toyproject.foodDelivery.notification.fcm.infrastructrue.FcmNotificationInfo;
@@ -108,5 +109,27 @@ public class OrderFacade {
      */
     public OrderInfo.OrderAPIPaymentResponse paymentOrder(OrderCommand.PaymentRequest paymentRequest){
         return orderService.paymentOrder(paymentRequest);
+    }
+
+    /**
+     * 카카오 페이 결제 성공 api 요청
+     *
+     * @param pgToken
+     */
+    public void orderPaymentKakaoSuccess(String pgToken, String memberToken){
+        var paymentToken = redisCacheUtil.getOrderPaymentTokenInfo(memberToken);
+        orderService.orderPaymentKakaoSuccess(pgToken, paymentToken);
+        redisCacheUtil.removeOrderPaymentToken(memberToken);
+    }
+
+    /**
+     * Toss Pay 결제 성공 feedback 결제 상태 변경
+     *
+     * @param paymentToken
+     * @param memberToken
+     */
+    public void orderPaymentTossSuccess(String paymentToken, String memberToken){
+        orderService.orderPaymentTossSuccess(paymentToken);
+        redisCacheUtil.removeOrderPaymentToken(memberToken);
     }
 }
