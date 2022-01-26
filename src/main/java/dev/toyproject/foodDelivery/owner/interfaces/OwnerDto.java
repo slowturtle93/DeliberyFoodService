@@ -4,9 +4,7 @@ import dev.toyproject.foodDelivery.common.util.SHA256Util;
 import dev.toyproject.foodDelivery.owner.domain.Owner;
 import dev.toyproject.foodDelivery.owner.domain.OwnerCommand;
 import dev.toyproject.foodDelivery.owner.domain.OwnerInfo;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -62,10 +60,13 @@ public class OwnerDto {
         @NotEmpty(message = "ownerPassword 는 필수값입니다.")
         private String ownerPwd;
 
+        private String deviceToken;
+
         public OwnerCommand toCommand(){
             return OwnerCommand.builder()
                     .ownerLoginId(ownerLoginId)
                     .ownerPwd(SHA256Util.encryptSHA256(ownerPwd))
+                    .deviceToken(deviceToken)
                     .build();
         }
     }
@@ -187,6 +188,13 @@ public class OwnerDto {
                     .ownerPwd(SHA256Util.encryptSHA256(ownerPwd))
                     .build();
         }
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class OrderPaymentConfirmRequest{
+        private String ownerToken;
     }
 
     /******************************** response ********************************/
