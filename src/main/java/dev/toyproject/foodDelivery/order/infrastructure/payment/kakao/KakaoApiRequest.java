@@ -10,12 +10,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class KakaoApiRequest {
 
-    @Value("${payment.method.kakao.apiKey}")
-    private String apiKey;
-
-    @Value("${payment.method.kakao.partnerUserId}")
-    private String partnerUserId;
-
     @Value("${payment.method.kakao.Authorization}")
     private String Authorization;
 
