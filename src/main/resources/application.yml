@@ -44,7 +44,9 @@ spring:
           auth: true
           starttls:
             enable: true
-
+  ## kafka
+  kafka:
+    bootstrap-servers: 3.35.209.108:9092
 # payment
 payment:
   method:
