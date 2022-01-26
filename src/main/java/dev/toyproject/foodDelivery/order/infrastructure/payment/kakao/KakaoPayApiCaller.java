@@ -7,6 +7,10 @@ import dev.toyproject.foodDelivery.order.domain.OrderInfo;
 import dev.toyproject.foodDelivery.order.domain.OrderRead;
 import dev.toyproject.foodDelivery.order.domain.payment.PayMethod;
 import dev.toyproject.foodDelivery.order.infrastructure.payment.PaymentApiCaller;
+import dev.toyproject.foodDelivery.owner.domain.Owner;
+import dev.toyproject.foodDelivery.owner.domain.OwnerReader;
+import dev.toyproject.foodDelivery.shop.domain.Shop;
+import dev.toyproject.foodDelivery.shop.domain.ShopReader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -23,6 +27,8 @@ public class KakaoPayApiCaller implements PaymentApiCaller {
     private final RetrofitUtils retrofitUtils;
     private final KakaoApiRequest kakaoApiRequest;
     private final OrderRead orderRead;
+    private final ShopReader shopReader;
+    private final OwnerReader ownerReader;
 
     @Override
     public boolean support(PayMethod payMethod) {
@@ -40,11 +46,14 @@ public class KakaoPayApiCaller implements PaymentApiCaller {
         Map<String, Object> params = new HashMap<>(); // request 정보
 
         Order order = orderRead.getOrder(request.getOrderToken());
+        Shop shop = shopReader.getShopByToken(order.getShopToken());
+        Owner owner = ownerReader.getOwnerByToken(shop.getOwnerToken());
+
 
         // request 정보 put
-        params.put("cid"             , kakaoApiRequest.getApiKey());
+        params.put("cid"             , "TC0ONETIME"); // shop.getShopBusiness();
         params.put("partner_order_id", request.getOrderToken());
-        params.put("partner_user_id" , kakaoApiRequest.getPartnerUserId());
+        params.put("partner_user_id" , owner.getOwnerLoginId());
         params.put("item_name"       , order.TotalMenuName());
         params.put("quantity"        , order.calculateTotalQuantity());
         params.put("total_amount"    , request.getAmount());
@@ -64,5 +73,36 @@ public class KakaoPayApiCaller implements PaymentApiCaller {
                 .orElseThrow(RuntimeException::new);
 
         return response.toConvert(request);
+    }
+
+    /**
+     * 카카오페이 결제 승인 API 호출
+     *
+     * @param request
+     */
+    @Override
+    public void approvePay(OrderCommand.PaymentApproveRequest request) {
+        Map<String, Object> params = new HashMap<>(); // request 정보
+
+        Order order = orderRead.getOrder(request.getOrderToken());
+        Shop shop = shopReader.getShopByToken(order.getShopToken());
+        Owner owner = ownerReader.getOwnerByToken(shop.getOwnerToken());
+
+        // request 정보 put
+        params.put("cid"              , "TC0ONETIME"); // shop.getShopBusiness();
+        params.put("tid"              , request.getPaymentToken());
+        params.put("partner_order_id" , order.getOrderToken());
+        params.put("partner_user_id"  , owner.getOwnerLoginId());
+        params.put("pg_token"         , request.getPgToken());
+
+        // 결제 준비 요청
+        var call = retrofitKakaoApi.kakaoPayApproveRequest(
+                kakaoApiRequest.getAuthorization(),
+                kakaoApiRequest.getContentType(),
+                params);
+
+        // API response
+        KakaoApiResponse.approveResponse response =  retrofitUtils.responseSync(call)
+                .orElseThrow(RuntimeException::new);
     }
 }

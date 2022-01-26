@@ -11,6 +11,9 @@ public class RedisKeyFactory {
     // FCM TOKEN
     public static final String USER_DEVICE_TOKEN_INFO = "USER_DEVICE_TOKEN_INFO";
 
+    // MEMBER ORDER PAYMENT TOKEN
+    public static final String USER_ORDER_PAYMENT_TOKEN = "USER_ORDER_PAYMENT_TOKEN";
+
     private RedisKeyFactory() {}
 
     public static String generateKey(String token, String key) {

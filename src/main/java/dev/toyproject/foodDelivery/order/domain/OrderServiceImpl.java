@@ -1,7 +1,7 @@
 package dev.toyproject.foodDelivery.order.domain;
 
-import dev.toyproject.foodDelivery.common.util.redis.RedisCacheUtil;
 import dev.toyproject.foodDelivery.order.domain.payment.PaymentProcessor;
+import dev.toyproject.foodDelivery.order.domain.payment.PaymentRead;
 import dev.toyproject.foodDelivery.order.domain.payment.PaymentStore;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,14 +15,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService{
 
-    private final RedisCacheUtil redisCacheUtil;
     private final OrderFactory orderFactory;
-    private final OrderStore orderStore;
-    private final OrderMenuSeriesFactory orderMenuSeriesFactory;
-    private final OrderRead orderRead;
+    private final OrderStore orderStore;    private final OrderRead orderRead;
     private final OrderInfoMapper orderInfoMapper;
     private final PaymentProcessor paymentProcessor;
     private final PaymentStore paymentStore;
+
+    private final PaymentRead paymentRead;
 
     /**
      * 장바구니 메뉴 등록
@@ -57,7 +56,7 @@ public class OrderServiceImpl implements OrderService{
      */
     @Override
     public void deleteMenuBasketAll(String memberToken) {
-        redisCacheUtil.removeMenuBasketAll(memberToken);
+        orderFactory.removeMenuBasketAll(memberToken);
     }
 
     /**
@@ -93,7 +92,7 @@ public class OrderServiceImpl implements OrderService{
     @Transactional
     public String registerOrder(OrderCommand.RegisterOrder registerOrder) {
         Order order = orderStore.store(registerOrder.toEntity()); // 주문 정보 저장
-        orderMenuSeriesFactory.store(order, registerOrder);       // 주문 정보 하위 객체 저장
+        orderFactory.store(order, registerOrder);                 // 주문 정보 하위 객체 저장
         return order.getOrderToken();
     }
 
@@ -132,12 +131,40 @@ public class OrderServiceImpl implements OrderService{
     @Override
     @Transactional
     public OrderInfo.OrderAPIPaymentResponse paymentOrder(OrderCommand.PaymentRequest paymentRequest) {
-        var orderToken = paymentRequest.getOrderToken(); // 주문 Token 정보 get
-        var order = orderRead.getOrder(orderToken);      // 주문 정보 조회
-        var APIResponse = paymentProcessor.pay(order, paymentRequest); // 주문 결제 요청
-        var paymentCommand = orderInfoMapper.of(APIResponse);
-        paymentStore.store(paymentCommand.toEntity());          // 결제 정보 등록
-        order.orderComplete();                                  // 주문 완료
+        var orderToken = paymentRequest.getOrderToken();                                         // 주문 Token 정보 get
+        var order = orderRead.getOrder(orderToken);                                              // 주문 정보 조회
+        var APIResponse = paymentProcessor.pay(order, paymentRequest);      // 주문 결제 요청
+        var paymentCommand = orderInfoMapper.of(APIResponse);                // 결제 Entity Convert
+        var payment= paymentStore.store(paymentCommand.toEntity());                            // 결제 정보 등록
+        orderFactory.setRedisCacheOrderPaymentToken(order.getMemberToken(), payment.getPaymentToken()); // 결제 토큰 Redis 저장
+        order.orderComplete();                                                                          // 주문 완료 상태 변경
         return APIResponse;
+    }
+
+    /**
+     * 카카오페이 결제 승인 API 요청
+     *
+     * @param pgToken
+     * @param paymentToken
+     */
+    @Override
+    @Transactional
+    public void orderPaymentKakaoSuccess(String pgToken, String paymentToken) {
+        var payment = paymentRead.getPayment(paymentToken);
+        var paymentRequest = orderFactory.approveRequestConvertPayment(payment, pgToken);
+        paymentProcessor.approvePay(paymentRequest);
+        payment.paymentComplete();
+    }
+
+    /**
+     * Toss Pay 결제완료 처리
+     *
+     * @param paymentToken
+     */
+    @Override
+    @Transactional
+    public void orderPaymentTossSuccess(String paymentToken) {
+        var payment = paymentRead.getPayment(paymentToken);
+        payment.paymentComplete();
     }
 }

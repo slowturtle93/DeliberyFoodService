@@ -21,4 +21,8 @@ public interface OrderService {
     public List<OrderInfo.OrderResponse> retrieveOrderList(String memberToken);
 
     OrderInfo.OrderAPIPaymentResponse paymentOrder(OrderCommand.PaymentRequest paymentRequest);
+
+    public void orderPaymentKakaoSuccess(String pgToken, String paymentToken);
+
+    public void orderPaymentTossSuccess(String paymentToken);
 }

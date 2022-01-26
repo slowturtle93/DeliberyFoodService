@@ -45,13 +45,10 @@ spring:
           starttls:
             enable: true
 
-
 # payment
 payment:
   method:
     kakao:
-      apiKey: 'TC0ONETIME'
-      partnerUserId : partner_user_id
       url: https://kapi.kakao.com/
       Authorization: 'KakaoAK {ADMIN-KEY}'
       ContentType: 'application/x-www-form-urlencoded;charset=utf-8'

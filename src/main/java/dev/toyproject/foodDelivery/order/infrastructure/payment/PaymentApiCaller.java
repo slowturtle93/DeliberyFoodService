@@ -8,4 +8,6 @@ public interface PaymentApiCaller {
     boolean support(PayMethod payMethod);
 
     OrderInfo.OrderAPIPaymentResponse pay(OrderCommand.PaymentRequest request);
+
+    void approvePay(OrderCommand.PaymentApproveRequest request);
 }

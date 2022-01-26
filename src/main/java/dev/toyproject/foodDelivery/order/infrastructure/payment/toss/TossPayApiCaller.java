@@ -59,4 +59,14 @@ public class TossPayApiCaller implements PaymentApiCaller {
 
         return response.toConvert(request);
     }
+
+    /**
+     * toss pay 결제 승인 API 호출
+     *
+     * @param request
+     */
+    @Override
+    public void approvePay(OrderCommand.PaymentApproveRequest request) {
+        // TODO - 구현
+    }
 }

@@ -152,12 +152,10 @@ public class OrderCommand {
     @Getter
     @Builder
     @ToString
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class OrderPaymentConfirmRequest{
-        private String paymentToken;
-        private String orderToken;
-        private String paymentMethod;
-        private String redirectUrl;
+    public static class PaymentApproveRequest{
+        private final String orderToken;   // 주문토큰
+        private final String paymentToken; // 결제토큰
+        private final String pgToken;      // 결제승인 요청을 인증하는 토큰(카카오페이)
+        private final PayMethod payMethod; // 결제수단
     }
 }

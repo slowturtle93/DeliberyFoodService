@@ -115,6 +115,28 @@ public class OrderDto {
         private Long amount;
     }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class orderPaymentTossCallbackRequest{
+        private String status;              // PAY_COMPLETE (결제 완료)
+        private String payToken;            // 승인된 결제 토큰
+        private String orderNo;             // 결제생성 구간에서 전달된 가맹점 주문번호
+        private String payMethod;           // 승인된 결제수단
+        private Integer amount;             // 결제요청된 금액
+        private Integer discountedAmount;   // 할인된 금액
+        private Integer paidAmount;         // 지불수단 승인금액
+        private String paidTs;              // 결제 완료 처리 시간
+        private String transactionId;       // 거래 트랜잭션 아이디
+        private Integer cardCompanyCode;    // 승인된 카드사 코드
+        private String cardAuthorizationNo; // 카드 승인번호
+        private String spreadOut;           // 사용자가 선택한 카드 할부개월
+        private Boolean noInterest;         // 카드 무이자 적용 여부
+        private String cardMethodType;      // 카드 타입
+        private String cardNumber;          // 마스킹된 카드번호
+        private String salesCheckLinkUrl;   // 신용카드 매출전표 호출 URL
+    }
+
     /******************************** response ********************************/
 
     @Getter
