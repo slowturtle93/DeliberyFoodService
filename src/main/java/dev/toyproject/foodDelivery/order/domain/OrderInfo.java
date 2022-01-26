@@ -63,7 +63,6 @@ public class OrderInfo {
     public static class OrderAPIPaymentResponse{
         private String paymentToken;
         private String orderToken;
-        private String paymentMethod;
         private String paymentType;
         private Long paymentAmount;
         private String redirectUrl;
@@ -129,5 +128,16 @@ public class OrderInfo {
         private Integer ordering;
         private String orderMenuOptionName;
         private Long orderMenuOptionPrice;
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class OrderPaymentConfirmRequest{
+        private String paymentToken;
+        private String orderToken;
+        private String ownerToken;
     }
 }
