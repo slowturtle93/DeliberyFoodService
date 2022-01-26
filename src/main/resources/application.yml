@@ -19,6 +19,8 @@ spring:
     host: "127.0.0.1"
     port: 6379
 
+  common-api:
+    url: http://localhost:8088/
   address-api:
     url: https://dapi.kakao.com/
   ## NANVER SENS
