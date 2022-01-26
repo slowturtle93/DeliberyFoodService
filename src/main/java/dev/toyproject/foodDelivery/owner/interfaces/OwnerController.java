@@ -3,6 +3,8 @@ package dev.toyproject.foodDelivery.owner.interfaces;
 import dev.toyproject.foodDelivery.common.aop.LoginCheck;
 import dev.toyproject.foodDelivery.common.response.CommonResponse;
 import dev.toyproject.foodDelivery.common.util.SHA256Util;
+import dev.toyproject.foodDelivery.common.util.redis.SessionUtil;
+import dev.toyproject.foodDelivery.notification.common.domain.CommonApiService;
 import dev.toyproject.foodDelivery.owner.application.OwnerFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -66,10 +68,11 @@ public class OwnerController {
      * @param session
      * @return
      */
-    @GetMapping("/logout")
+    @GetMapping("/logout/{ownerToken}")
     @LoginCheck(type = LoginCheck.UserType.OWNER)
-    public CommonResponse logoutOwner(HttpSession session){
-        ownerFacade.logoutOwner(session); // OWNER 로그아웃
+    public CommonResponse logoutOwner(@PathVariable("ownerToken") String ownerToken, HttpSession session){
+        SessionUtil.removeLogoutOwner(session); // session 에 사장 Token 정보 삭제
+        ownerFacade.logoutOwner(ownerToken);
         return CommonResponse.success("OK");
     }
 
@@ -165,6 +168,19 @@ public class OwnerController {
     public CommonResponse newPasswordUpdate(@RequestBody @Valid OwnerDto.NewPasswordUpdateRequest request){
         var ownerCommand = request.toCommand();
         ownerFacade.newPasswordUpdate(ownerCommand);
+        return CommonResponse.success("OK");
+    }
+
+    /**
+     * 사장님 주문 요청 push 알림
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/order/push")
+    public CommonResponse ownerOrderConfirmPush(@RequestBody @Valid OwnerDto.OrderPaymentConfirmRequest request){
+        var ownerToken = request.getOwnerToken();
+        ownerFacade.ownerOrderConfirmPush(ownerToken);
         return CommonResponse.success("OK");
     }
 }
