@@ -1,6 +1,6 @@
 package dev.toyproject.foodDelivery.order.domain.kafka;
 
-import dev.toyproject.foodDelivery.order.domain.OrderCommand;
+import dev.toyproject.foodDelivery.order.domain.OrderInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class KafkaOrderPaymentConsumer {
 
     @KafkaListener(topics = "order_payment", groupId = "khs", containerFactory = "orderPaymentListener")
-    public void consume(OrderCommand.OrderPaymentConfirmRequest orderPaymentConfirmRequest) {
+    public void consume(OrderInfo.OrderPaymentConfirmRequest orderPaymentConfirmRequest) {
         log.info(orderPaymentConfirmRequest.getOrderToken());
         log.info(orderPaymentConfirmRequest.getPaymentToken());
     }
