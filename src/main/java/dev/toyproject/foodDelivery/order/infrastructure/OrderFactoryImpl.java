@@ -226,8 +226,6 @@ public class OrderFactoryImpl implements OrderFactory {
         var owner = ownerReader.getOwnerByToken(shop.getOwnerToken());
 
         return OrderInfo.OrderPaymentConfirmRequest.builder()
-                .paymentToken(payment.getPaymentToken())
-                .orderToken(payment.getOrderToken())
                 .ownerToken(owner.getOwnerToken())
                 .build();
     }
