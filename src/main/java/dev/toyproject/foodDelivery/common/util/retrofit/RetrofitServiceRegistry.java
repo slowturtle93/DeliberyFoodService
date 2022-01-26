@@ -1,6 +1,7 @@
 package dev.toyproject.foodDelivery.common.util.retrofit;
 
 import dev.toyproject.foodDelivery.address.infrastructure.RetrofitKakaoAddressApi;
+import dev.toyproject.foodDelivery.notification.common.infrastructure.RetrofitCommonApi;
 import dev.toyproject.foodDelivery.notification.sms.infrastructure.RetrofitNaverSensApi;
 import dev.toyproject.foodDelivery.order.infrastructure.payment.kakao.RetrofitKakaoPayApi;
 import dev.toyproject.foodDelivery.order.infrastructure.payment.toss.RetrofitTossPayApi;
@@ -12,6 +13,10 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 @Configuration
 public class RetrofitServiceRegistry {
+
+    // COMMON API
+    @Value("${spring.common-api.url}")
+    private String CommonApi;
 
     // Naver SENS API
     @Value("${spring.sens-api.url}")
@@ -28,7 +33,14 @@ public class RetrofitServiceRegistry {
     // tossPay Url
     @Value("${payment.method.toss.url}")
     private String tossPayUrl;
-    
+
+    // Common Retrofit Bean 생성
+    @Bean
+    public RetrofitCommonApi retrofitCommonApi(){
+        var retrofit = RetrofitUtils.initRetrofit(CommonApi);
+        return retrofit.create(RetrofitCommonApi.class);
+    }
+
     // naver snes Retrofit Bean 생성
     @Bean
     public RetrofitNaverSensApi retrofitNaverSensApi(){
