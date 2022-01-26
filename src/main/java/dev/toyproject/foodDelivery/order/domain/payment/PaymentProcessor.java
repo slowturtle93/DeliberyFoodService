@@ -6,4 +6,6 @@ import dev.toyproject.foodDelivery.order.domain.OrderInfo;
 
 public interface PaymentProcessor {
     OrderInfo.OrderAPIPaymentResponse pay(Order order, OrderCommand.PaymentRequest paymentRequest);
+
+    void approvePay(OrderCommand.PaymentApproveRequest paymentRequest);
 }
