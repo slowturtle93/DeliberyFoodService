@@ -136,8 +136,6 @@ public class OrderInfo {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class OrderPaymentConfirmRequest{
-        private String paymentToken;
-        private String orderToken;
         private String ownerToken;
     }
 }
