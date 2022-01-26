@@ -17,4 +17,13 @@ public interface RetrofitKakaoPayApi {
             @Header("Content-Type") String ContentType,
             @FieldMap Map<String, Object> params
     );
+
+    @FormUrlEncoded
+    @POST("v1/payment/approve")
+    Call<KakaoApiResponse.approveResponse> kakaoPayApproveRequest(
+            @Header("Authorization") String Authorization,
+            @Header("Content-Type") String ContentType,
+            @FieldMap Map<String, Object> params
+    );
+
 }
