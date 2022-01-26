@@ -1,11 +1,14 @@
 package dev.toyproject.foodDelivery.order.interfaces;
 
+import dev.toyproject.foodDelivery.common.aop.LoginCheck;
 import dev.toyproject.foodDelivery.common.response.CommonResponse;
+import dev.toyproject.foodDelivery.common.util.redis.SessionUtil;
 import dev.toyproject.foodDelivery.order.application.OrderFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Slf4j
@@ -24,6 +27,7 @@ public class OrderController {
      * @return
      */
     @PostMapping("/basket")
+    @LoginCheck(type = LoginCheck.UserType.MEMBER)
     public CommonResponse registerMenuBasket(@RequestBody @Valid OrderDto.OrderBasketRequest request){
         var command = orderDtoMapper.of(request);
         var orderMenuBasketList = orderFacade.registerMenuBasket(command);
@@ -38,6 +42,7 @@ public class OrderController {
      * @return
      */
     @DeleteMapping("/basket")
+    @LoginCheck(type = LoginCheck.UserType.MEMBER)
     public CommonResponse deleteMenuBasket(@RequestBody @Valid OrderDto.OrderBasketRequest request){
         var command = orderDtoMapper.of(request);
         var menuBasketInfoList = orderFacade.deleteMenuBasket(command);
@@ -52,6 +57,7 @@ public class OrderController {
      * @return
      */
     @DeleteMapping("/basket/all/{memberToken}")
+    @LoginCheck(type = LoginCheck.UserType.MEMBER)
     public CommonResponse deleteMenuBasketAll(@PathVariable("memberToken") String memberToken){
         orderFacade.deleteMenuBasketAll(memberToken);
         return CommonResponse.success("OK");
@@ -64,6 +70,7 @@ public class OrderController {
      * @return
      */
     @GetMapping("/basket/{memberToken}")
+    @LoginCheck(type = LoginCheck.UserType.MEMBER)
     public CommonResponse retrieveMenuBasket(@PathVariable("memberToken") String memberToken){
         var menuBasketInfoList = orderFacade.retrieveMenuBasket(memberToken);
         var response = orderDtoMapper.orderMenuListResponse(menuBasketInfoList);
@@ -77,6 +84,7 @@ public class OrderController {
      * @return
      */
     @PatchMapping("basket/amount_update")
+    @LoginCheck(type = LoginCheck.UserType.MEMBER)
     public CommonResponse updateMenuBasketAmount(@RequestBody @Valid OrderDto.OrderBasketRequest request){
         var command = orderDtoMapper.of(request);
         var menuBasketInfoList = orderFacade.updateMenuBasketAmount(command);
@@ -91,6 +99,7 @@ public class OrderController {
      * @return
      */
     @PostMapping("/init")
+    @LoginCheck(type = LoginCheck.UserType.MEMBER)
     public CommonResponse registerOrder(@RequestBody @Valid OrderDto.RegisterOrderRequest request){
         var orderCommand = orderDtoMapper.of(request);
         var orderToken = orderFacade.registerOrder(orderCommand);
@@ -105,6 +114,7 @@ public class OrderController {
      * @return
      */
     @GetMapping("/{orderToken}")
+    @LoginCheck(type = LoginCheck.UserType.MEMBER)
     public CommonResponse retrieveOrder(@PathVariable String orderToken){
         var orderInfo = orderFacade.retrieveOrder(orderToken); // 주문 정보 조회
         var response = orderDtoMapper.of(orderInfo);           // 주문 정보 객체 변환
@@ -118,6 +128,7 @@ public class OrderController {
      * @return
      */
     @GetMapping("list/{memberToken}")
+    @LoginCheck(type = LoginCheck.UserType.MEMBER)
     public CommonResponse retrieveOrderList(@PathVariable("memberToken") String memberToken){
         var orderInfoList = orderFacade.retrieveOrderList(memberToken);
         var response = orderDtoMapper.orderInfoList(orderInfoList);
@@ -131,9 +142,42 @@ public class OrderController {
      * @return
      */
     @PostMapping("/payment")
+    @LoginCheck(type = LoginCheck.UserType.MEMBER)
     public CommonResponse paymentOrder(@RequestBody @Valid OrderDto.PaymentRequest paymentRequest){
         var paymentCommand = orderDtoMapper.of(paymentRequest);   // Command 로 객체 변환
         var response = orderFacade.paymentOrder(paymentCommand); // 주문 결제 요청
         return CommonResponse.success(response);
+    }
+
+    /**
+     * 카카오페이 주문 결제 성공 API 요청
+     *
+     * @param pg_token
+     * @return
+     */
+    @GetMapping("/kakao/success")
+    @LoginCheck(type = LoginCheck.UserType.MEMBER)
+    public CommonResponse orderPaymentKakaoSuccess(@RequestParam("pg_token") String pg_token, HttpSession session){
+        String pgToken = pg_token;
+        String memberToken = SessionUtil.getLoginMemberToken(session);
+        orderFacade.orderPaymentKakaoSuccess(pgToken, memberToken);
+        return CommonResponse.success("OK");
+    }
+
+    /**
+     * 토스페이 결제 성공 callback 결과
+     *
+     * @param callbackRequest
+     * @return
+     */
+    @PostMapping("/toss/callback")
+    @LoginCheck(type = LoginCheck.UserType.MEMBER)
+    public CommonResponse orderPaymentTossCallback(
+            @RequestBody @Valid OrderDto.orderPaymentTossCallbackRequest callbackRequest,
+            HttpSession session){
+        var paymentToken = callbackRequest.getPayToken();
+        var memberToken = SessionUtil.getLoginMemberToken(session);
+        orderFacade.orderPaymentTossSuccess(paymentToken, memberToken);
+        return CommonResponse.success("OK");
     }
 }
