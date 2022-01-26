@@ -12,14 +12,14 @@ public class PaymentCommand {
     public static class RegisterPayment{
         private String paymentToken;
         private String orderToken;
-        private String paymentType;
+        private PayMethod paymentType;
         private Long paymentAmount;
 
         public Payment toEntity(){
             return Payment.builder()
                     .paymentToken(paymentToken)
                     .orderToken(orderToken)
-                    .paymentType(paymentType)
+                    .paymentType(paymentType.toString())
                     .paymentAmount(paymentAmount)
                     .build();
         }
