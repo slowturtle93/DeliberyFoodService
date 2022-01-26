@@ -1,5 +1,6 @@
 package dev.toyproject.foodDelivery.order.domain;
 
+import dev.toyproject.foodDelivery.order.domain.kafka.KafkaOrderPaymentProducer;
 import dev.toyproject.foodDelivery.order.domain.payment.PaymentProcessor;
 import dev.toyproject.foodDelivery.order.domain.payment.PaymentRead;
 import dev.toyproject.foodDelivery.order.domain.payment.PaymentStore;
@@ -16,12 +17,13 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService{
 
     private final OrderFactory orderFactory;
-    private final OrderStore orderStore;    private final OrderRead orderRead;
+    private final OrderStore orderStore;
+    private final OrderRead orderRead;
     private final OrderInfoMapper orderInfoMapper;
     private final PaymentProcessor paymentProcessor;
     private final PaymentStore paymentStore;
-
     private final PaymentRead paymentRead;
+    private final KafkaOrderPaymentProducer kafkaOrderPaymentProducer;
 
     /**
      * 장바구니 메뉴 등록
@@ -154,6 +156,7 @@ public class OrderServiceImpl implements OrderService{
         var paymentRequest = orderFactory.approveRequestConvertPayment(payment, pgToken);
         paymentProcessor.approvePay(paymentRequest);
         payment.paymentComplete();
+        kafkaOrderPaymentProducer.registerKafkaMessage(orderFactory.orderPaymentConfirmInfo(payment.getPaymentToken()));
     }
 
     /**
@@ -166,5 +169,6 @@ public class OrderServiceImpl implements OrderService{
     public void orderPaymentTossSuccess(String paymentToken) {
         var payment = paymentRead.getPayment(paymentToken);
         payment.paymentComplete();
+        kafkaOrderPaymentProducer.registerKafkaMessage(orderFactory.orderPaymentConfirmInfo(payment.getPaymentToken()));
     }
 }
