@@ -53,6 +53,8 @@ public class Order extends AbstracEntity {
     public enum Status{
         INIT("주문시작"),
         ORDER_COMPLETE("주문완료"),
+        ORDER_APPROVAL("주문승인"),
+        ORDER_CANCEL("주문취소"),
         DELIVERY_PREPARE("배송준비"),
         IN_DELIVERY("배송중"),
         DELIVERY_COMPLETE("배송완료");
