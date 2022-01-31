@@ -11,4 +11,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Optional<Order> findByOrderToken(String orderToken);
 
     List<Order> findByMemberToken(String memberToken);
+
+    List<Order> findByShopTokenAndStatus(String shopToken, Order.Status status);
 }

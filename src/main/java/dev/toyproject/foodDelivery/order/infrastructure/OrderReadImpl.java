@@ -38,4 +38,15 @@ public class OrderReadImpl implements OrderRead {
     public List<Order> getOrderList(String memberToken) {
         return orderRepository.findByMemberToken(memberToken);
     }
+
+    /**
+     * 주문 정보 list 조회 by ShopToken
+     *
+     * @param shopToken
+     * @return
+     */
+    @Override
+    public List<Order> getOrderByShopToken(String shopToken) {
+        return orderRepository.findByShopTokenAndStatus(shopToken, Order.Status.ORDER_COMPLETE);
+    }
 }
