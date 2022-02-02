@@ -122,4 +122,14 @@ public class ShopFacade {
     public List<ShopInfo.ShopMain> searchShop(ShopCommand.MemberLocationRequest request){
         return shopService.searchShop(request);
     }
+
+    /**
+     * 가게 주문 list 조회
+     *
+     * @param command
+     * @return
+     */
+    public List<ShopInfo.ShopOrderList> retrieveShopOrderMenu(ShopCommand.ShopOrderMenuRequest command){
+        return shopService.retrieveShopOrderMenu(command);
+    }
 }
