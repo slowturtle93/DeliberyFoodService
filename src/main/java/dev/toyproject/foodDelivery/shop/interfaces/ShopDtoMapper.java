@@ -31,6 +31,8 @@ public interface ShopDtoMapper {
 
     ShopCommand.MemberLocationRequest of(ShopDto.MemberLocationRequest request);
 
+    ShopCommand.ShopOrderMenuRequest of(ShopDto.ShopOrderMenuRequest request);
+
     /******************* response  *********************/
 
     ShopDto.Main of(ShopInfo.Main main);
