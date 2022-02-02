@@ -1,5 +1,6 @@
 package dev.toyproject.foodDelivery.shop.interfaces;
 
+import dev.toyproject.foodDelivery.common.aop.LoginCheck;
 import dev.toyproject.foodDelivery.common.response.CommonResponse;
 import dev.toyproject.foodDelivery.shop.application.ShopFacade;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ public class ShopController {
      * @return
      */
     @PostMapping
+    @LoginCheck(type = LoginCheck.UserType.OWNER)
     public CommonResponse registerShop(@RequestBody @Valid ShopDto.ShopRequest request){
         var shopCommand = shopDtoMapper.of(request);
         var shopToken = shopFacade.registerShop(shopCommand);
@@ -38,6 +40,7 @@ public class ShopController {
      * @return
      */
     @PostMapping("/{shopToken}")
+    @LoginCheck(type = LoginCheck.UserType.OWNER)
     public CommonResponse disableShop(@PathVariable("shopToken") String shopToken){
         shopFacade.disableShop(shopToken);
         return CommonResponse.success("OK");
@@ -50,6 +53,7 @@ public class ShopController {
      * @return
      */
     @PostMapping("/update/{shopToken}")
+    @LoginCheck(type = LoginCheck.UserType.OWNER)
     public CommonResponse updateShop(@PathVariable("shopToken") String shopToken, @RequestBody @Valid ShopDto.ShopRequest request){
         var command = shopDtoMapper.of(request);
         var shopInfo = shopFacade.updateShop(shopToken, command);
@@ -64,6 +68,7 @@ public class ShopController {
      * @return
      */
     @PostMapping("/menu/{shopToken}")
+    @LoginCheck(type = LoginCheck.UserType.OWNER)
     public CommonResponse registerMenu(@PathVariable("shopToken") String shopToken, @RequestBody @Valid List<ShopDto.MenuGroupRequest> request){
         var command = shopDtoMapper.toMenuList(request);
         var shopTokenInfo = shopFacade.registerMenu(shopToken, command);
@@ -77,6 +82,7 @@ public class ShopController {
      * @return
      */
     @PatchMapping("/menu/update")
+    @LoginCheck(type = LoginCheck.UserType.OWNER)
     public CommonResponse updateMenu(@RequestBody @Valid List<ShopDto.MenuGroupRequest> request){
         var command = shopDtoMapper.toMenuList(request);
         shopFacade.updateMenu(command);
@@ -90,6 +96,7 @@ public class ShopController {
      * @return
      */
     @DeleteMapping("/delete/menuGroup")
+    @LoginCheck(type = LoginCheck.UserType.OWNER)
     public CommonResponse deleteMenuGroup(@RequestBody @Valid ShopDto.MenuGroupRequest request){
         var command = shopDtoMapper.of(request);
         shopFacade.deleteMenuGroup(command);
@@ -103,6 +110,7 @@ public class ShopController {
      * @return
      */
     @DeleteMapping("/delete/menu")
+    @LoginCheck(type = LoginCheck.UserType.OWNER)
     public CommonResponse deleteMenu(@RequestBody @Valid ShopDto.MenuRequest request){
         var command = shopDtoMapper.of(request);
         shopFacade.deleteMenu(command);
@@ -116,6 +124,7 @@ public class ShopController {
      * @return
      */
     @DeleteMapping("/delete/menuOptionGroup")
+    @LoginCheck(type = LoginCheck.UserType.OWNER)
     public CommonResponse deleteMenuOptionGroup(@RequestBody @Valid ShopDto.MenuOptionGroupRequest request){
         var command = shopDtoMapper.of(request);
         shopFacade.deleteMenuOptionGroup(command);
@@ -129,6 +138,7 @@ public class ShopController {
      * @return
      */
     @DeleteMapping("/delete/menuOption")
+    @LoginCheck(type = LoginCheck.UserType.OWNER)
     public CommonResponse deleteMenuOption(@RequestBody @Valid ShopDto.MenuOptionRequest request){
         var command = shopDtoMapper.of(request);
         shopFacade.deleteMenuOption(command);
@@ -142,6 +152,7 @@ public class ShopController {
      * @return
      */
     @GetMapping("/{shopToken}")
+    @LoginCheck(type = LoginCheck.UserType.OWNER)
     public CommonResponse retrieveShop(@PathVariable("shopToken") String shopToken){
         var shopInfo = shopFacade.retrieveShopInfo(shopToken);
         var response = shopDtoMapper.of(shopInfo);
@@ -169,6 +180,7 @@ public class ShopController {
      * @return
      */
     @GetMapping("/order/list")
+    @LoginCheck(type = LoginCheck.UserType.OWNER)
     public CommonResponse retrieveShopOrderMenu(@RequestBody @Valid ShopDto.ShopOrderMenuRequest request){
         var command = shopDtoMapper.of(request);
         var response = shopFacade.retrieveShopOrderMenu(command);
