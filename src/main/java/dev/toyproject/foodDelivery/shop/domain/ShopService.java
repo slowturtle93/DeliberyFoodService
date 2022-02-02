@@ -25,4 +25,6 @@ public interface ShopService {
     public ShopInfo.Main retrieveShopInfo(String shopToken);
 
     public List<ShopInfo.ShopMain> searchShop(ShopCommand.MemberLocationRequest request);
+
+    public List<ShopInfo.ShopOrderList> retrieveShopOrderMenu(ShopCommand.ShopOrderMenuRequest command);
 }

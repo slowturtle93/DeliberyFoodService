@@ -17,6 +17,7 @@ public class ShopServiceImpl implements ShopService{
     private final ShopFactory shopFactory;
     private final ShopReader shopReader;
     private final ShopMenuFactory shopMenuFactory;
+    private final ShopOrderMenuFactory shopOrderMenuFactory;
 
     /**
      * 사장님 가게 등록
@@ -157,5 +158,15 @@ public class ShopServiceImpl implements ShopService{
         var shopInfo = shopReader.searchShop(request);
         var shopMainList = shopReader.getShopListSeries(shopInfo);
         return shopMainList;
+    }
+
+    /**
+     * 가게 주문 정보 조회
+     *
+     * @param command
+     */
+    @Override
+    public List<ShopInfo.ShopOrderList> retrieveShopOrderMenu(ShopCommand.ShopOrderMenuRequest command) {
+        return shopOrderMenuFactory.retrieveOrderMenuList(command);
     }
 }
