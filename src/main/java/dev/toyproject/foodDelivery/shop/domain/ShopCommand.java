@@ -191,4 +191,12 @@ public class ShopCommand {
         private final Double x;
         private final Double y;
     }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class ShopOrderMenuRequest{
+        private String ownerToken;
+        private String shopToken;
+    }
 }
