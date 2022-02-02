@@ -59,29 +59,29 @@ public class ShopDto {
     }
 
     @Getter
-    @Builder
+    @Setter
     @ToString
     public static class ShopBusinessInfoRequest{
-        private final String shopBusinessId;                 // 사업자등록번호
-        private final String shopBusinessTaxationType;       // 사업자과세구분
-        private final String shopBusinessStatus;             // 사업자 업태
-        private final String shopBusinessCategory;           // 사업자 종목
-        private final String shopBusinessName;               // 사업자 상호
-        private final String shopBusinessRepresentativeType; // 사업자 대표자구분
-        private final String shopBusinessRepresentativeName; // 사업자 대표자성명
-        private final String shopBusinessLocation;           // 사업장 소재지
-        private final String regDate;
-        private final String modDate;
+        private String shopBusinessId;                 // 사업자등록번호
+        private String shopBusinessTaxationType;       // 사업자과세구분
+        private String shopBusinessStatus;             // 사업자 업태
+        private String shopBusinessCategory;           // 사업자 종목
+        private String shopBusinessName;               // 사업자 상호
+        private String shopBusinessRepresentativeType; // 사업자 대표자구분
+        private String shopBusinessRepresentativeName; // 사업자 대표자성명
+        private String shopBusinessLocation;           // 사업장 소재지
+        private String regDate;
+        private String modDate;
     }
 
     @Getter
-    @Builder
+    @Setter
     @ToString
     public static class ShopAddressInfoRequest{
-        private final AddressFragment addressFragment; // 가게 주소
-        private final String detail;                   // 가게 상세 주소
-        private final String regDate;
-        private final String modDate;
+        private AddressFragment addressFragment; // 가게 주소
+        private String detail;                   // 가게 상세 주소
+        private String regDate;
+        private String modDate;
     }
 
     @Getter
@@ -142,6 +142,14 @@ public class ShopDto {
     public static class MemberLocationRequest{
         private Double x;
         private Double y;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class ShopOrderMenuRequest{
+        private String ownerToken;
+        private String shopToken;
     }
 
     /******************************** response ********************************/
