@@ -1,6 +1,10 @@
 package dev.toyproject.foodDelivery.shop.domain;
 
 import dev.toyproject.foodDelivery.address.domain.AddressFragment;
+import dev.toyproject.foodDelivery.order.domain.Order;
+import dev.toyproject.foodDelivery.order.domain.menu.OrderMenu;
+import dev.toyproject.foodDelivery.order.domain.menu.OrderMenuOption;
+import dev.toyproject.foodDelivery.order.domain.menu.OrderMenuOptionGroup;
 import dev.toyproject.foodDelivery.shop.domain.menu.Menu;
 import dev.toyproject.foodDelivery.shop.domain.menuGroup.MenuGroup;
 import dev.toyproject.foodDelivery.shop.domain.menuOption.MenuOption;
@@ -10,6 +14,7 @@ import dev.toyproject.foodDelivery.shop.domain.shopBusiness.ShopBusiness;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 public class ShopInfo {
@@ -233,6 +238,80 @@ public class ShopInfo {
             this.ordering        = menuOption.getOrdering();
             this.regDate         = menuOption.getRegDate().toString();
             this.modDate         = menuOption.getModDate().toString();
+        }
+    }
+
+    @Getter
+    @ToString
+    public static class ShopOrderList{
+        private String orderToken;
+        private String memberToken;
+        private String shopToken;
+        private Long totalAmount;
+        private String region1DepthName;
+        private String region2DepthName;
+        private String region3DepthName;
+        private ZonedDateTime orderDate;
+        private String status;
+        private List<ShopOrderMenu> shopOrderMenuList;
+
+        public ShopOrderList(Order order, List<ShopOrderMenu> shopOrderMenuList){
+            this.orderToken        = order.getOrderToken();
+            this.memberToken       = order.getMemberToken();
+            this.shopToken         = order.getShopToken();
+            this.totalAmount       = order.getTotalAmount();
+            this.region1DepthName  = order.getRegion1DepthName();
+            this.region2DepthName  = order.getRegion2DepthName();
+            this.region3DepthName  = order.getRegion3DepthName();
+            this.orderDate         = order.getOrderDate();
+            this.status            = order.getStatus().toString();
+            this.shopOrderMenuList = shopOrderMenuList;
+        }
+    }
+
+    @Getter
+    @ToString
+    public static class ShopOrderMenu{
+        private String orderMenuName;
+        private Long orderMenuCount;
+        private Long orderMenuPrice;
+        private Integer ordering;
+        private List<ShopOrderMenuOptionGroup> shopOrderMenuOptionGroupList;
+
+        public ShopOrderMenu(OrderMenu orderMenu, List<ShopOrderMenuOptionGroup> shopOrderMenuOptionGroupList){
+            this.orderMenuName                = orderMenu.getOrderMenuName();
+            this.orderMenuCount               = orderMenu.getOrderMenuCount();
+            this.orderMenuPrice               = orderMenu.getOrderMenuPrice();
+            this.ordering                     = orderMenu.getOrdering();
+            this.shopOrderMenuOptionGroupList = shopOrderMenuOptionGroupList;
+        }
+    }
+
+    @Getter
+    @ToString
+    public static class ShopOrderMenuOptionGroup{
+        private String orderMenuOptionGroupName;
+        private Integer ordering;
+        private List<ShopOrderMenuOption> shopOrderMenuOptionList;
+
+        public ShopOrderMenuOptionGroup(OrderMenuOptionGroup orderMenuOptionGroup, List<ShopOrderMenuOption> shopOrderMenuOptionList){
+            this.orderMenuOptionGroupName = orderMenuOptionGroup.getOrderMenuOptionGroupName();
+            this.ordering                 = orderMenuOptionGroup.getOrdering();
+            this.shopOrderMenuOptionList  = shopOrderMenuOptionList;
+        }
+    }
+
+    @Getter
+    @ToString
+    public static class ShopOrderMenuOption{
+        private String orderMenuOptionName;
+        private Long orderMenuOptionPrice;
+        private Integer ordering;
+
+        public ShopOrderMenuOption(OrderMenuOption orderMenuOption){
+            this.orderMenuOptionName  = orderMenuOption.getOrderMenuOptionName();
+            this.orderMenuOptionPrice = orderMenuOption.getOrderMenuOptionPrice();
+            this.ordering             = orderMenuOption.getOrdering();
         }
     }
 }
