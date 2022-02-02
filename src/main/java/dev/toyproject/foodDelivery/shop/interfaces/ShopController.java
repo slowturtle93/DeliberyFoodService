@@ -161,4 +161,17 @@ public class ShopController {
         var response = shopDtoMapper.of(shopInfo);
         return CommonResponse.success(response);
     }
+
+    /**
+     * 가게의 주문 LIST 조회
+     *
+     * @param request
+     * @return
+     */
+    @GetMapping("/order/list")
+    public CommonResponse retrieveShopOrderMenu(@RequestBody @Valid ShopDto.ShopOrderMenuRequest request){
+        var command = shopDtoMapper.of(request);
+        var response = shopFacade.retrieveShopOrderMenu(command);
+        return CommonResponse.success(response);
+    }
 }
