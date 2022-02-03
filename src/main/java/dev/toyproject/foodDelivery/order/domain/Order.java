@@ -134,7 +134,7 @@ public class Order extends AbstracEntity {
      * 주문 상태 [배송준비] 변경
      */
     public void deliveryPrepare() {
-        if (this.status != Status.ORDER_COMPLETE) throw new IllegalStatusException();
+        if (this.status != Status.ORDER_APPROVAL) throw new IllegalStatusException();
         this.status = Status.DELIVERY_PREPARE;
     }
 
@@ -144,6 +144,22 @@ public class Order extends AbstracEntity {
     public void deliveryComplete() {
         if (this.status != Status.IN_DELIVERY) throw new IllegalStatusException();
         this.status = Status.DELIVERY_COMPLETE;
+    }
+
+    /**
+     * 주문 상태 [주문승인] 변경
+     */
+    public void orderApproval() {
+        if (this.status != Status.ORDER_COMPLETE) throw new IllegalStatusException();
+        this.status = Status.ORDER_APPROVAL;
+    }
+
+    /**
+     * 주문 상태 [주문취소] 변경
+     */
+    public void orderCancel() {
+        if (this.status != Status.ORDER_COMPLETE) throw new IllegalStatusException();
+        this.status = Status.ORDER_CANCEL;
     }
 
     /**
