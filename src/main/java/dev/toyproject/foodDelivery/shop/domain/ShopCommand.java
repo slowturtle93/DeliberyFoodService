@@ -199,4 +199,12 @@ public class ShopCommand {
         private String ownerToken;
         private String shopToken;
     }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class ShopOrderConfirmRequest{
+        private String orderToken;
+        private String memberToken;
+    }
 }
