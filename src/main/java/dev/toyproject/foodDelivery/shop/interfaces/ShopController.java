@@ -1,8 +1,10 @@
 package dev.toyproject.foodDelivery.shop.interfaces;
 
+import com.google.api.client.json.Json;
 import dev.toyproject.foodDelivery.common.aop.LoginCheck;
 import dev.toyproject.foodDelivery.common.response.CommonResponse;
 import dev.toyproject.foodDelivery.shop.application.ShopFacade;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -185,5 +187,19 @@ public class ShopController {
         var command = shopDtoMapper.of(request);
         var response = shopFacade.retrieveShopOrderMenu(command);
         return CommonResponse.success(response);
+    }
+
+    /**
+     * 주문 내역 주문 승인 처리
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/order/approval")
+    @LoginCheck(type = LoginCheck.UserType.OWNER)
+    public CommonResponse shopOrderApproval(@RequestBody @Valid ShopDto.ShopOrderConfirmRequest request){
+        var command = shopDtoMapper.of(request);
+        shopFacade.shopOrderApproval(command);
+        return CommonResponse.success("OK");
     }
 }
