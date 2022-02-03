@@ -1,5 +1,11 @@
 package dev.toyproject.foodDelivery.shop.application;
 
+import dev.toyproject.foodDelivery.common.util.redis.RedisCacheUtil;
+import dev.toyproject.foodDelivery.member.application.MemberFacade;
+import dev.toyproject.foodDelivery.member.domain.MemberReader;
+import dev.toyproject.foodDelivery.notification.fcm.domain.FcmNotificationRequest;
+import dev.toyproject.foodDelivery.notification.fcm.domain.FcmService;
+import dev.toyproject.foodDelivery.notification.fcm.infrastructrue.FcmNotificationInfo;
 import dev.toyproject.foodDelivery.shop.domain.ShopCommand;
 import dev.toyproject.foodDelivery.shop.domain.ShopInfo;
 import dev.toyproject.foodDelivery.shop.domain.ShopService;
@@ -15,6 +21,8 @@ import java.util.List;
 public class ShopFacade {
 
     private final ShopService shopService;
+    private final FcmService fcmService;
+    private final RedisCacheUtil redisCacheUtil;
 
     /**
      * 사장님 가게 등록
@@ -131,5 +139,16 @@ public class ShopFacade {
      */
     public List<ShopInfo.ShopOrderList> retrieveShopOrderMenu(ShopCommand.ShopOrderMenuRequest command){
         return shopService.retrieveShopOrderMenu(command);
+    }
+
+    /**
+     * 특정 주문 주문 승인 상태 처리
+     *
+     * @param command
+     */
+    public void shopOrderApproval(ShopCommand.ShopOrderConfirmRequest command){
+        shopService.shopOrderApproval(command);
+        var memberDeviceToken = redisCacheUtil.getDeviceTokenInfo(command.getMemberToken());
+        fcmService.sendFcm(new FcmNotificationRequest(FcmNotificationInfo.FCM_OWNER_ORDER_APPROVAL_TITLE, FcmNotificationInfo.FCM_OWNER_ORDER_APPROVAL_MESSAGE, memberDeviceToken));
     }
 }
