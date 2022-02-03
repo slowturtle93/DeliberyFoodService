@@ -11,4 +11,8 @@ public class FcmNotificationInfo {
     // 사장님 주문 요청 확인 FCM TITLE & MESSAGE
     public static final String FCM_OWNER_ORDER_CONFIRM_TITLE   = "[주문 확인 요청]";
     public static final String FCM_OWNER_ORDER_CONFIRM_MESSAGE = "고객님이 음식을 주문하였습니다. 주문 내역을 확인해주세요.";
+
+    // 사장님 주문 승인 FCM TITLE & MESSAGE
+    public static final String FCM_OWNER_ORDER_APPROVAL_TITLE   = "[주문 승인]";
+    public static final String FCM_OWNER_ORDER_APPROVAL_MESSAGE = "주문이 접수되었습니다. 주문하신 음식을 곧장 배달해드리겠습니다.";
 }
