@@ -33,6 +33,8 @@ public interface ShopDtoMapper {
 
     ShopCommand.ShopOrderMenuRequest of(ShopDto.ShopOrderMenuRequest request);
 
+    ShopCommand.ShopOrderConfirmRequest of(ShopDto.ShopOrderConfirmRequest request);
+
     /******************* response  *********************/
 
     ShopDto.Main of(ShopInfo.Main main);
