@@ -1,5 +1,6 @@
 package dev.toyproject.foodDelivery.shop.domain;
 
+import dev.toyproject.foodDelivery.order.domain.OrderRead;
 import dev.toyproject.foodDelivery.shop.domain.shopAddress.ShopAddress;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ public class ShopServiceImpl implements ShopService{
     private final ShopReader shopReader;
     private final ShopMenuFactory shopMenuFactory;
     private final ShopOrderMenuFactory shopOrderMenuFactory;
+    private final OrderRead orderRead;
 
     /**
      * 사장님 가게 등록
@@ -154,6 +156,7 @@ public class ShopServiceImpl implements ShopService{
      * @return
      */
     @Override
+    @Transactional(readOnly = true)
     public List<ShopInfo.ShopMain> searchShop(ShopCommand.MemberLocationRequest request) {
         var shopInfo = shopReader.searchShop(request);
         var shopMainList = shopReader.getShopListSeries(shopInfo);
@@ -166,7 +169,20 @@ public class ShopServiceImpl implements ShopService{
      * @param command
      */
     @Override
+    @Transactional(readOnly = true)
     public List<ShopInfo.ShopOrderList> retrieveShopOrderMenu(ShopCommand.ShopOrderMenuRequest command) {
         return shopOrderMenuFactory.retrieveOrderMenuList(command);
+    }
+
+    /**
+     * 특정 주문 주문 승인 처리
+     *
+     * @param command
+     */
+    @Override
+    @Transactional
+    public void shopOrderApproval(ShopCommand.ShopOrderConfirmRequest command) {
+        var order = orderRead.getOrder(command.getOrderToken());
+        order.orderApproval();
     }
 }
