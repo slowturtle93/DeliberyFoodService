@@ -152,6 +152,14 @@ public class ShopDto {
         private String shopToken;
     }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class ShopOrderConfirmRequest{
+        private String orderToken;
+        private String memberToken;
+    }
+
     /******************************** response ********************************/
 
     @Getter
