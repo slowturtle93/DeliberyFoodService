@@ -137,6 +137,13 @@ public class OrderDto {
         private String salesCheckLinkUrl;   // 신용카드 매출전표 호출 URL
     }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class OrderPaymentStatusRequest{
+        private String orderToken;
+    }
+
     /******************************** response ********************************/
 
     @Getter

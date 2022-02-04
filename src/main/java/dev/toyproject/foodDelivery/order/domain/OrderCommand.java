@@ -158,4 +158,11 @@ public class OrderCommand {
         private final String pgToken;      // 결제승인 요청을 인증하는 토큰(카카오페이)
         private final PayMethod payMethod; // 결제수단
     }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class OrderPaymentStatusRequest{
+        private String orderToken;
+    }
 }
