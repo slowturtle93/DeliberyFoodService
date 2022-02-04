@@ -21,6 +21,8 @@ public interface OrderDtoMapper {
 
     OrderCommand.PaymentRequest of(OrderDto.PaymentRequest request);
 
+    OrderCommand.OrderPaymentStatusRequest of(OrderDto.OrderPaymentStatusRequest request);
+
     /******************************** response ********************************/
 
     List<OrderDto.OrderBasketResponse> orderMenuListResponse(List<OrderInfo.OrderBasketInfo> response);
