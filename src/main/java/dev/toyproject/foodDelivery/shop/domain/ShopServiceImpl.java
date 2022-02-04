@@ -1,5 +1,6 @@
 package dev.toyproject.foodDelivery.shop.domain;
 
+import dev.toyproject.foodDelivery.notification.common.domain.CommonApiService;
 import dev.toyproject.foodDelivery.order.domain.OrderRead;
 import dev.toyproject.foodDelivery.shop.domain.shopAddress.ShopAddress;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ public class ShopServiceImpl implements ShopService{
     private final ShopReader shopReader;
     private final ShopMenuFactory shopMenuFactory;
     private final ShopOrderMenuFactory shopOrderMenuFactory;
-    private final OrderRead orderRead;
+    private final CommonApiService commonApiService;
 
     /**
      * 사장님 가게 등록
@@ -177,12 +178,10 @@ public class ShopServiceImpl implements ShopService{
     /**
      * 특정 주문 주문 승인 처리
      *
-     * @param command
+     * @param orderToken
      */
     @Override
-    @Transactional
-    public void shopOrderApproval(ShopCommand.ShopOrderConfirmRequest command) {
-        var order = orderRead.getOrder(command.getOrderToken());
-        order.orderApproval();
+    public void shopOrderApproval(String orderToken) {
+        commonApiService.OrderApprovalApiRequest(orderToken);
     }
 }
