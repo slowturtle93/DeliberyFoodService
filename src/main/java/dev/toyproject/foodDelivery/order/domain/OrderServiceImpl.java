@@ -171,4 +171,16 @@ public class OrderServiceImpl implements OrderService{
         payment.paymentComplete();
         kafkaOrderPaymentProducer.registerKafkaMessage(orderFactory.orderPaymentConfirmInfo(payment.getPaymentToken()));
     }
+
+    /**
+     * 주문 정보 [주문 승인] 상태 변경
+     *
+     * @param command
+     */
+    @Override
+    @Transactional
+    public void orderApproval(OrderCommand.OrderPaymentStatusRequest command) {
+        var order = orderRead.getOrder(command.getOrderToken());
+        order.orderApproval();
+    }
 }

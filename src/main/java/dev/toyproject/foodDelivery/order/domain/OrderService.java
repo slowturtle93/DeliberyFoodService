@@ -25,4 +25,6 @@ public interface OrderService {
     public void orderPaymentKakaoSuccess(String pgToken, String paymentToken);
 
     public void orderPaymentTossSuccess(String paymentToken);
+
+    public void orderApproval(OrderCommand.OrderPaymentStatusRequest command);
 }
