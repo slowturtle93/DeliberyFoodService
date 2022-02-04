@@ -132,4 +132,13 @@ public class OrderFacade {
         orderService.orderPaymentTossSuccess(paymentToken);
         redisCacheUtil.removeOrderPaymentToken(memberToken);
     }
+
+    /**
+     * 주문 정보 [주문 승인] 상태 변경
+     *
+     * @param command
+     */
+    public void orderApproval(OrderCommand.OrderPaymentStatusRequest command){
+        orderService.orderApproval(command);
+    }
 }

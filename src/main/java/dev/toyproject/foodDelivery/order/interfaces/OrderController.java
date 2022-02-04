@@ -180,4 +180,17 @@ public class OrderController {
         orderFacade.orderPaymentTossSuccess(paymentToken, memberToken);
         return CommonResponse.success("OK");
     }
+
+    /**
+     * 주문 정보 [주문 승인] 상태 변경
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/approval")
+    public CommonResponse OrderApproval(@RequestBody @Valid OrderDto.OrderPaymentStatusRequest request){
+        var command = orderDtoMapper.of(request);
+        orderFacade.orderApproval(command);
+        return CommonResponse.success("OK");
+    }
 }
