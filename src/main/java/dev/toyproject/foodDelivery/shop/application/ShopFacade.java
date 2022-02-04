@@ -147,7 +147,7 @@ public class ShopFacade {
      * @param command
      */
     public void shopOrderApproval(ShopCommand.ShopOrderConfirmRequest command){
-        shopService.shopOrderApproval(command);
+        shopService.shopOrderApproval(command.getOrderToken());
         var memberDeviceToken = redisCacheUtil.getDeviceTokenInfo(command.getMemberToken());
         fcmService.sendFcm(new FcmNotificationRequest(FcmNotificationInfo.FCM_OWNER_ORDER_APPROVAL_TITLE, FcmNotificationInfo.FCM_OWNER_ORDER_APPROVAL_MESSAGE, memberDeviceToken));
     }
