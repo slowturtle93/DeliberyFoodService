@@ -20,4 +20,10 @@ public interface RetrofitCommonApi {
             @Header("content-type") String contentType,
             @Body JSONObject body
     );
+
+    @POST("v1/order/cancel")
+    Call<CommonResponse> OrderCancelApiRequest(
+            @Header("content-type") String contentType,
+            @Body JSONObject body
+    );
 }

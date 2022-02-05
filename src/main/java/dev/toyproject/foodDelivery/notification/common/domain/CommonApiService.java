@@ -6,4 +6,6 @@ public interface CommonApiService {
     void OwnerOrderConfirmApiRequest(OrderInfo.OrderPaymentConfirmRequest request);
 
     void OrderApprovalApiRequest(String orderToken);
+
+    void OrderCancelApiRequest(String orderToken);
 }
