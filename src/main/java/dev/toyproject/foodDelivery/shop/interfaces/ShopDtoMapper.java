@@ -35,6 +35,8 @@ public interface ShopDtoMapper {
 
     ShopCommand.ShopOrderConfirmRequest of(ShopDto.ShopOrderConfirmRequest request);
 
+    ShopCommand.ShopOrderCancelRequest of(ShopDto.ShopOrderCancelRequest request);
+
     /******************* response  *********************/
 
     ShopDto.Main of(ShopInfo.Main main);
