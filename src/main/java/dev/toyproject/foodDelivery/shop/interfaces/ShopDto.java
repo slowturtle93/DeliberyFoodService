@@ -160,6 +160,16 @@ public class ShopDto {
         private String memberToken;
     }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class ShopOrderCancelRequest{
+        private String orderToken;
+        private String memberToken;
+        private String fcmOwnerOrderCancelTitle;
+        private String fcmOwnerOrderCancelMessage;
+    }
+
     /******************************** response ********************************/
 
     @Getter
