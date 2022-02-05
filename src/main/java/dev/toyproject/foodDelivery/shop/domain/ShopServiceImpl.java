@@ -184,4 +184,14 @@ public class ShopServiceImpl implements ShopService{
     public void shopOrderApproval(String orderToken) {
         commonApiService.OrderApprovalApiRequest(orderToken);
     }
+
+    /**
+     * 특정 주문 주문 취소 처리
+     *
+     * @param orderToken
+     */
+    @Override
+    public void shopOrderCancel(String orderToken) {
+        commonApiService.OrderCancelApiRequest(orderToken);
+    }
 }

@@ -29,4 +29,6 @@ public interface ShopService {
     public List<ShopInfo.ShopOrderList> retrieveShopOrderMenu(ShopCommand.ShopOrderMenuRequest command);
 
     public void shopOrderApproval(String orderToken);
+
+    public void shopOrderCancel(String orderToken);
 }
