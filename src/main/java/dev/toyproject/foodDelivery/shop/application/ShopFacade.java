@@ -1,8 +1,6 @@
 package dev.toyproject.foodDelivery.shop.application;
 
 import dev.toyproject.foodDelivery.common.util.redis.RedisCacheUtil;
-import dev.toyproject.foodDelivery.member.application.MemberFacade;
-import dev.toyproject.foodDelivery.member.domain.MemberReader;
 import dev.toyproject.foodDelivery.notification.fcm.domain.FcmNotificationRequest;
 import dev.toyproject.foodDelivery.notification.fcm.domain.FcmService;
 import dev.toyproject.foodDelivery.notification.fcm.infrastructrue.FcmNotificationInfo;
@@ -150,5 +148,16 @@ public class ShopFacade {
         shopService.shopOrderApproval(command.getOrderToken());
         var memberDeviceToken = redisCacheUtil.getDeviceTokenInfo(command.getMemberToken());
         fcmService.sendFcm(new FcmNotificationRequest(FcmNotificationInfo.FCM_OWNER_ORDER_APPROVAL_TITLE, FcmNotificationInfo.FCM_OWNER_ORDER_APPROVAL_MESSAGE, memberDeviceToken));
+    }
+
+    /**
+     * 특정 주문 주문 취소 상태 처리
+     *
+     * @param command
+     */
+    public void shopOrderCancel(ShopCommand.ShopOrderCancelRequest command){
+        shopService.shopOrderCancel(command.getOrderToken());
+        var memberDeviceToken = redisCacheUtil.getDeviceTokenInfo(command.getMemberToken());
+        fcmService.sendFcm(new FcmNotificationRequest(command.getFcmOwnerOrderCancelTitle(), command.getFcmOwnerOrderCancelMessage(), memberDeviceToken));
     }
 }
