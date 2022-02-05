@@ -207,4 +207,14 @@ public class ShopCommand {
         private String orderToken;
         private String memberToken;
     }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class ShopOrderCancelRequest{
+        private String orderToken;
+        private String memberToken;
+        private String fcmOwnerOrderCancelTitle;
+        private String fcmOwnerOrderCancelMessage;
+    }
 }
