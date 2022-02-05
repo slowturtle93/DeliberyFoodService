@@ -10,7 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -200,6 +202,20 @@ public class ShopController {
     public CommonResponse shopOrderApproval(@RequestBody @Valid ShopDto.ShopOrderConfirmRequest request){
         var command = shopDtoMapper.of(request);
         shopFacade.shopOrderApproval(command);
+        return CommonResponse.success("OK");
+    }
+
+    /**
+     * 주문내역 주문 취소 처리
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/order/cancel")
+    //@LoginCheck(type = LoginCheck.UserType.OWNER)
+    public CommonResponse shopOrderCancel(@RequestBody @Valid ShopDto.ShopOrderCancelRequest request){
+        var command = shopDtoMapper.of(request);
+        shopFacade.shopOrderCancel(command);
         return CommonResponse.success("OK");
     }
 }
