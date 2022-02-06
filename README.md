@@ -39,7 +39,8 @@
 
 # 프로젝트 사용기술
 
-![사용기술](https://user-images.githubusercontent.com/80434153/138026855-6253e281-c69a-49d9-903a-97dda97bfea0.png)
+![사용기술](https://user-images.githubusercontent.com/80434153/152683886-96b83778-3562-4e8e-9fd7-d180a0975ba1.png)
+
 
 # 프로젝트 ERD
 
