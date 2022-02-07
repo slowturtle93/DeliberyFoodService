@@ -10,4 +10,6 @@ public interface PaymentApiCaller {
     OrderInfo.OrderAPIPaymentResponse pay(OrderCommand.PaymentRequest request);
 
     void approvePay(OrderCommand.PaymentApproveRequest request);
+
+    void cancelPay(OrderCommand.PaymentCancelRequest request);
 }

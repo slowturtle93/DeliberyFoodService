@@ -8,4 +8,6 @@ public interface PaymentProcessor {
     OrderInfo.OrderAPIPaymentResponse pay(Order order, OrderCommand.PaymentRequest paymentRequest);
 
     void approvePay(OrderCommand.PaymentApproveRequest paymentRequest);
+
+    void cancelPay(OrderCommand.PaymentCancelRequest paymentRequest);
 }

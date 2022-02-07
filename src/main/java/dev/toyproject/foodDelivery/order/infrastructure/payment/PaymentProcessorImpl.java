@@ -30,7 +30,7 @@ public class PaymentProcessorImpl implements PaymentProcessor {
     @Override
     public OrderInfo.OrderAPIPaymentResponse pay(Order order, OrderCommand.PaymentRequest paymentRequest) {
         paymentValidatorList.forEach(paymentValidator -> paymentValidator.validate(order, paymentRequest)); // 결제 요청 전 validation 체크
-        PaymentApiCaller payApiCaller = routingApiCaller(paymentRequest.getPayMethod());                                   // 사용자가 선택한 결제 수단 Find
+        PaymentApiCaller payApiCaller = routingApiCaller(paymentRequest.getPayMethod());                    // 사용자가 선택한 결제 수단 Find
         return payApiCaller.pay(paymentRequest);                                                            // 사용자가 선택한 결제 수단에 결제 요청
     }
 
@@ -41,6 +41,17 @@ public class PaymentProcessorImpl implements PaymentProcessor {
     public void approvePay(OrderCommand.PaymentApproveRequest paymentApproveRequest) {
         PaymentApiCaller payApiCaller = routingApiCaller(paymentApproveRequest.getPayMethod()); // 사용자가 선택한 결제 수단 Find
         payApiCaller.approvePay(paymentApproveRequest);
+    }
+
+    /**
+     * 주문 취소 요청
+     *
+     * @param paymentCancelRequest
+     */
+    @Override
+    public void cancelPay(OrderCommand.PaymentCancelRequest paymentCancelRequest) {
+        PaymentApiCaller payApiCaller = routingApiCaller(paymentCancelRequest.getPayMethod()); // 사용자가 선택한 결제 수단 Find
+        payApiCaller.cancelPay(paymentCancelRequest);
     }
 
     /**
