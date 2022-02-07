@@ -162,6 +162,14 @@ public class OrderCommand {
     @Getter
     @Builder
     @ToString
+    public static class PaymentCancelRequest{
+        private final String paymentToken; // 결제토큰
+        private final PayMethod payMethod; // 결제수단
+    }
+
+    @Getter
+    @Builder
+    @ToString
     public static class OrderPaymentStatusRequest{
         private String orderToken;
     }
