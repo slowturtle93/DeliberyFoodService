@@ -105,4 +105,14 @@ public class KakaoPayApiCaller implements PaymentApiCaller {
         KakaoApiResponse.approveResponse response =  retrofitUtils.responseSync(call)
                 .orElseThrow(RuntimeException::new);
     }
+
+    /**
+     * kakao pay 결제 취소 API 호출
+     *
+     * @param request
+     */
+    @Override
+    public void cancelPay(OrderCommand.PaymentCancelRequest request) {
+        // TODO - 구현
+    }
 }

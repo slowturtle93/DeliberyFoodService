@@ -26,4 +26,12 @@ public interface RetrofitKakaoPayApi {
             @FieldMap Map<String, Object> params
     );
 
+    @FormUrlEncoded
+    @POST("v1/payment/cancel")
+    Call<KakaoApiResponse.cancelResponse> kakaoPayCancelRequest(
+            @Header("Authorization") String Authorization,
+            @Header("Content-Type") String ContentType,
+            @FieldMap Map<String, Object> params
+    );
+
 }
