@@ -10,6 +10,18 @@
 대용량 데이터를 어떻게 다루고 있을까?<br>
 음식점과 사용자의 배송지의 정보에 대한 거리는 어떻게 처리하고 있을까?<br><br>
 이러한 궁금증들을 통해서 직접 배달의민족 서버를 구현해보는 프로젝트를 진행하게 되었습니다.
+
+# 어떠한 기능들을 구현 해야하는 하는지 고민하였습니다.
+
+* AOP를 통해 로그인 관리 기능
+* email 및 naver Sens 를 통해 비밀번호 찾기 본인인증 기능
+* FCM PUSH 발송을 위해 device Token 정보를 Redis로 관리하여 필요에 의해 FCM PUSH 발송 기능
+* QueryDsl 을 활용하여 사용자의 위치로 부터 특정 반경 내 가게 조회 기능
+* Retrofit 을 활용하여 Kakao, Toss Pay API 결제 프로세스 기능 
+* 결제 완료 등 다양한 상황에서 Apach Kafka 파이프 라인 생성 후 producer, consumer를 통해 message 전달
+* 라이더의 실시간 위치 제공 기능
+
+다양한 기술 스택을 통해 많은 요구사항을 구현하기 위해 노력하였습니다.
   
 # 단순 기능만 구현하지 않고 유지보수에 <br> 이점을 가질수 있도록 고민하였습니다.
   
@@ -27,8 +39,11 @@
 
 # 프로젝트 사용기술
 
-![사용기술](https://user-images.githubusercontent.com/80434153/138026855-6253e281-c69a-49d9-903a-97dda97bfea0.png)
+![사용기술](https://user-images.githubusercontent.com/80434153/152683886-96b83778-3562-4e8e-9fd7-d180a0975ba1.png)
+
 
 # 프로젝트 ERD
 
-![FoodDelive_ERD](https://user-images.githubusercontent.com/80434153/142520760-f142c3ca-b162-457f-9303-46f1f50a2e84.png)
+![foodDelivery_ERD](https://user-images.githubusercontent.com/80434153/152683024-5104b4d4-4de4-4309-914c-3adecd96abbf.png)
+
+
