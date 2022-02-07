@@ -1,12 +1,10 @@
 package dev.toyproject.foodDelivery.order.infrastructure.payment.kakao;
 
-import dev.toyproject.foodDelivery.order.domain.Order;
 import dev.toyproject.foodDelivery.order.domain.OrderCommand;
 import dev.toyproject.foodDelivery.order.domain.OrderInfo;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-import org.joda.time.DateTime;
 
 public class KakaoApiResponse {
 
@@ -84,5 +82,28 @@ public class KakaoApiResponse {
         private final String card_mid;
         private final String interest_free_install;
         private final String card_item_code;
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class cancelResponse{
+        private final String aid;
+        private final String tid;
+        private final String cid;
+        private final String status;
+        private final String partner_order_id;
+        private final String partner_user_id;
+        private final String payment_method_type;
+        private final String item_name;
+        private final String item_code;
+        private final Integer quantity;
+        private final String created_at;
+        private final String approved_at;
+        private final String payload;
+        private final Amount amount;
+        private final Amount approved_cancel_amount;
+        private final Amount canceled_amount;
+        private final Amount cancel_available_amount;
     }
 }
