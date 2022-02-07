@@ -25,4 +25,16 @@ public class PaymentReadImpl implements PaymentRead {
         return paymentRepository.findByPaymentToken(paymentToken)
                 .orElseThrow(EntityNotFoundException::new);
     }
+
+    /**
+     * 결제 정보 조회 by OrderToken
+     *
+     * @param orderToken
+     * @return
+     */
+    @Override
+    public Payment getPaymentByOrderToken(String orderToken) {
+        return paymentRepository.findByOrderToken(orderToken)
+                .orElseThrow(EntityNotFoundException::new);
+    }
 }
