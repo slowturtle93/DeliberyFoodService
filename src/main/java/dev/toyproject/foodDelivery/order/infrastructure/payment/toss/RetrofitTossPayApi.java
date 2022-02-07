@@ -11,4 +11,8 @@ public interface RetrofitTossPayApi {
     @Headers("Content-Type: application/json")
     @POST("api/v2/payments")
     Call<TossApiResponse.response> tossPayRequest(@Body JSONObject jsonBody);
+
+    @Headers("Content-Type: application/json")
+    @POST("api/v2/refunds")
+    Call<TossApiResponse.refundResponse> tossPayRefundRequest(@Body JSONObject jsonBody);
 }

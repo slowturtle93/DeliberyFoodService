@@ -4,6 +4,7 @@ import dev.toyproject.foodDelivery.common.util.retrofit.RetrofitUtils;
 import dev.toyproject.foodDelivery.order.domain.OrderCommand;
 import dev.toyproject.foodDelivery.order.domain.OrderInfo;
 import dev.toyproject.foodDelivery.order.domain.payment.PayMethod;
+import dev.toyproject.foodDelivery.order.domain.payment.PaymentRead;
 import dev.toyproject.foodDelivery.order.infrastructure.payment.PaymentApiCaller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ public class TossPayApiCaller implements PaymentApiCaller {
     private final RetrofitTossPayApi retrofitTossPayApi;
     private final RetrofitUtils retrofitUtils;
     private final TossApiRequest tossApiRequest;
+    private final PaymentRead paymentRead;
 
     /**
      * 결제 방식 TOSS_PAY CHECK
@@ -68,5 +70,26 @@ public class TossPayApiCaller implements PaymentApiCaller {
     @Override
     public void approvePay(OrderCommand.PaymentApproveRequest request) {
         // TODO - 구현
+    }
+
+    /**
+     * toss pay 결제 취소 API 호출
+     *
+     * @param request
+     */
+    @Override
+    public void cancelPay(OrderCommand.PaymentCancelRequest request) {
+        // TODO - 구현
+        var payment = paymentRead.getPayment(request.getPaymentToken());
+
+        JSONObject params = new JSONObject();
+        params.put("apiKey"  , tossApiRequest.getApiKey());
+        params.put("payToken", request.getPaymentToken());
+
+        var call = retrofitTossPayApi.tossPayRefundRequest(params);
+
+        // API response
+        TossApiResponse.refundResponse response =  retrofitUtils.responseSync(call)
+                .orElseThrow(RuntimeException::new);
     }
 }
