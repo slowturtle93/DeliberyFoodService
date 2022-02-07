@@ -18,7 +18,7 @@
 * FCM PUSH 발송을 위해 device Token 정보를 Redis로 관리하여 필요에 의해 FCM PUSH 발송 기능
 * QueryDsl 을 활용하여 사용자의 위치로 부터 특정 반경 내 가게 조회 기능
 * Retrofit 을 활용하여 Kakao, Toss Pay API 결제 프로세스 기능 
-* 결제 완료 등 다양한 상황에서 Apach Kafka 파이프 라인 생성 후 producer, consumer를 통해 message 전달
+* 결제 완료 등 다양한 상황에서 Apach Kafka producer, consumer를 통해 message 전달
 * 라이더의 실시간 위치 제공 기능
 
 다양한 기술 스택을 통해 많은 요구사항을 구현하기 위해 노력하였습니다.
