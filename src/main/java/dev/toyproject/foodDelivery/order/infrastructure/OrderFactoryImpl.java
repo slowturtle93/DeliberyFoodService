@@ -151,12 +151,12 @@ public class OrderFactoryImpl implements OrderFactory {
     /**
      * Redis 결제 Token 정보 저장
      *
-     * @param memberToken
+     * @param orderToken
      * @param paymentToken
      */
     @Override
-    public void setRedisCacheOrderPaymentToken(String memberToken, String paymentToken) {
-        redisCacheUtil.setRedisCacheOrderPaymentToken(memberToken, paymentToken);
+    public void setRedisCacheOrderPaymentToken(String orderToken, String paymentToken) {
+        redisCacheUtil.setRedisCacheOrderPaymentToken(orderToken, paymentToken);
     }
 
     /**

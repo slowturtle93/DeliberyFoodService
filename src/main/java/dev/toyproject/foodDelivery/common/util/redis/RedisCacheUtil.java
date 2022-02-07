@@ -190,11 +190,11 @@ public class RedisCacheUtil {
     /**
      * 주문 payment token 정보 저장
      *
-     * @param memberToken
+     * @param orderToken
      * @param paymentToken
      */
-    public void setRedisCacheOrderPaymentToken(String memberToken, String paymentToken){
-        String redisKey = RedisKeyFactory.generateKey(memberToken, RedisKeyFactory.USER_ORDER_PAYMENT_TOKEN);
+    public void setRedisCacheOrderPaymentToken(String orderToken, String paymentToken){
+        String redisKey = RedisKeyFactory.generateKey(orderToken, RedisKeyFactory.USER_ORDER_PAYMENT_TOKEN);
         redisTemplate.opsForValue().set(redisKey, paymentToken);
     }
 
