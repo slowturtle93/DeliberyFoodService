@@ -6,6 +6,8 @@ import dev.toyproject.foodDelivery.order.domain.OrderCommand;
 import dev.toyproject.foodDelivery.order.domain.OrderInfo;
 import dev.toyproject.foodDelivery.order.domain.OrderRead;
 import dev.toyproject.foodDelivery.order.domain.payment.PayMethod;
+import dev.toyproject.foodDelivery.order.domain.payment.Payment;
+import dev.toyproject.foodDelivery.order.domain.payment.PaymentRead;
 import dev.toyproject.foodDelivery.order.infrastructure.payment.PaymentApiCaller;
 import dev.toyproject.foodDelivery.owner.domain.Owner;
 import dev.toyproject.foodDelivery.owner.domain.OwnerReader;
@@ -29,6 +31,7 @@ public class KakaoPayApiCaller implements PaymentApiCaller {
     private final OrderRead orderRead;
     private final ShopReader shopReader;
     private final OwnerReader ownerReader;
+    private final PaymentRead paymentRead;
 
     @Override
     public boolean support(PayMethod payMethod) {
@@ -114,5 +117,25 @@ public class KakaoPayApiCaller implements PaymentApiCaller {
     @Override
     public void cancelPay(OrderCommand.PaymentCancelRequest request) {
         // TODO - 구현
+        Map<String, Object> params = new HashMap<>(); // request 정보
+
+        Payment payment = paymentRead.getPayment(request.getPaymentToken());
+        Order order = orderRead.getOrder(payment.getOrderToken());
+
+        // request 정보 put
+        params.put("cid"                     , order.getShopToken());
+        params.put("tid"                     , payment.getPaymentToken());
+        params.put("cancel_amount"           , order.getTotalAmount());
+        params.put("cancel_tax_free_amount"  , "0");
+
+        // 결제 준비 요청
+        var call = retrofitKakaoApi.kakaoPayCancelRequest(
+                kakaoApiRequest.getAuthorization(),
+                kakaoApiRequest.getContentType(),
+                params);
+
+        // API response
+        KakaoApiResponse.cancelResponse response =  retrofitUtils.responseSync(call)
+                .orElseThrow(RuntimeException::new);
     }
 }
