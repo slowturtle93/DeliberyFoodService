@@ -193,4 +193,17 @@ public class OrderController {
         orderFacade.orderApproval(command);
         return CommonResponse.success("OK");
     }
+
+    /**
+     * 주문 정보 [주문 취소] 상태 변경
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/cancel")
+    public CommonResponse OrderCancel(@RequestBody @Valid OrderDto.OrderPaymentStatusRequest request){
+        var command = orderDtoMapper.of(request);
+        orderFacade.orderCancel(command);
+        return CommonResponse.success("OK");
+    }
 }
