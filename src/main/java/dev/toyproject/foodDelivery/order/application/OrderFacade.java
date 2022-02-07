@@ -141,4 +141,13 @@ public class OrderFacade {
     public void orderApproval(OrderCommand.OrderPaymentStatusRequest command){
         orderService.orderApproval(command);
     }
+
+    /**
+     * 주문 정보 [주문 취소] 상태 변경
+     *
+     * @param command
+     */
+    public void orderCancel(OrderCommand.OrderPaymentStatusRequest command){
+        orderService.orderCancel(command);
+    }
 }
