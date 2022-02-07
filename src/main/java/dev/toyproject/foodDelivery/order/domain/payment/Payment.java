@@ -76,7 +76,7 @@ public class Payment extends AbstracEntity {
      * 결제 취소 상태 변경
      */
     public void paymentRefund(){
-        if(this.status != Status.INIT) throw new IllegalStatusException();
+        if(this.status != Status.PAYMENT_COMPLETE) throw new IllegalStatusException();
         this.status = Status.PAYMENT_REFUND;
     }
 }
