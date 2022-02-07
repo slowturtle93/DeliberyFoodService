@@ -27,4 +27,6 @@ public interface OrderService {
     public void orderPaymentTossSuccess(String paymentToken);
 
     public void orderApproval(OrderCommand.OrderPaymentStatusRequest command);
+
+    public void orderCancel(OrderCommand.OrderPaymentStatusRequest command);
 }

@@ -1,11 +1,10 @@
 package dev.toyproject.foodDelivery.order.domain;
 
 import dev.toyproject.foodDelivery.order.domain.kafka.KafkaOrderPaymentProducer;
-import dev.toyproject.foodDelivery.order.domain.payment.PaymentProcessor;
-import dev.toyproject.foodDelivery.order.domain.payment.PaymentRead;
-import dev.toyproject.foodDelivery.order.domain.payment.PaymentStore;
+import dev.toyproject.foodDelivery.order.domain.payment.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -138,7 +137,7 @@ public class OrderServiceImpl implements OrderService{
         var APIResponse = paymentProcessor.pay(order, paymentRequest);      // 주문 결제 요청
         var paymentCommand = orderInfoMapper.of(APIResponse);                // 결제 Entity Convert
         var payment= paymentStore.store(paymentCommand.toEntity());                            // 결제 정보 등록
-        orderFactory.setRedisCacheOrderPaymentToken(order.getMemberToken(), payment.getPaymentToken()); // 결제 토큰 Redis 저장
+        orderFactory.setRedisCacheOrderPaymentToken(order.getOrderToken(), payment.getPaymentToken());  // 결제 토큰 Redis 저장
         order.orderComplete();                                                                          // 주문 완료 상태 변경
         return APIResponse;
     }
@@ -182,5 +181,20 @@ public class OrderServiceImpl implements OrderService{
     public void orderApproval(OrderCommand.OrderPaymentStatusRequest command) {
         var order = orderRead.getOrder(command.getOrderToken());
         order.orderApproval();
+    }
+
+    /**
+     * 주문 정보 [주문 취소] 상태 변경
+     *
+     * @param command
+     */
+    @Override
+    @Transactional
+    public void orderCancel(OrderCommand.OrderPaymentStatusRequest command) {
+        var payment = paymentRead.getPaymentByOrderToken(command.getOrderToken());
+        var order = orderRead.getOrder(command.getOrderToken());
+        payment.paymentRefund();
+        order.orderCancel();
+        paymentProcessor.cancelPay(new OrderCommand.PaymentCancelRequest(payment.getPaymentToken(), PayMethod.valueOf(payment.getPaymentType())));
     }
 }
