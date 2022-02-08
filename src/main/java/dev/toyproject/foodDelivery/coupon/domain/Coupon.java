@@ -60,9 +60,9 @@ public class Coupon extends AbstracEntity {
         this.discountPrice    = discountPrice;
         this.endDate          = endDate;
         this.expirationPeriod = expirationPeriod;
-        this.status           = Status.ENABLE;
+        this.status           = Status.DISABLE;
     }
 
-    // 쿠폰 상태 [DISABLE] 변경
-    public void disable() { this.status = Status.DISABLE; }
+    // 쿠폰 상태 [ENABLE] 변경
+    public void enable() { this.status = Status.ENABLE; }
 }
