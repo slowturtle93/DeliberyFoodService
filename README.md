@@ -44,6 +44,6 @@
 
 # 프로젝트 ERD
 
-![foodDelivery_ERD](https://user-images.githubusercontent.com/80434153/152683024-5104b4d4-4de4-4309-914c-3adecd96abbf.png)
+![ERD](https://user-images.githubusercontent.com/80434153/152926969-60c6a2d7-caab-43ad-ac26-72a7cda42dc5.png)
 
 
