@@ -38,4 +38,18 @@ public class CouponServiceImpl implements CouponService{
         coupon.update(command);
         return new CouponInfo.Main(coupon);
     }
+
+    /**
+     * 쿠폰 상태 [ENABLE] 변경
+     *
+     * @param couponToken
+     * @return
+     */
+    @Override
+    @Transactional
+    public CouponInfo.Main enable(String couponToken) {
+        var coupon = couponRead.getCoupon(couponToken);
+        coupon.enable();
+        return new CouponInfo.Main(coupon);
+    }
 }
