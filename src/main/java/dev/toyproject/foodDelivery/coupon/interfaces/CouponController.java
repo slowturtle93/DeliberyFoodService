@@ -4,10 +4,7 @@ import dev.toyproject.foodDelivery.common.response.CommonResponse;
 import dev.toyproject.foodDelivery.coupon.application.CouponFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -30,6 +27,19 @@ public class CouponController {
     public CommonResponse registerCoupon(@RequestBody @Valid CouponDto.Register request){
         var command = couponDtoMapper.of(request);
         var response = couponFacade.registerCoupon(command);
+        return CommonResponse.success(response);
+    }
+
+    /**
+     *  쿠폰 정보 수정
+     *
+     * @param request
+     * @return
+     */
+    @PatchMapping("/update")
+    public CommonResponse updateCoupon(@RequestBody @Valid CouponDto.CouponUpdate request){
+        var command = couponDtoMapper.of(request);
+        var response = couponFacade.updateCoupon(command);
         return CommonResponse.success(response);
     }
 }
