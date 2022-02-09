@@ -35,4 +35,14 @@ public class CouponFacade {
         return couponService.updateCoupon(command);
     }
 
+    /**
+     * 쿠폰 상태 [ENABLE] 변경
+     *
+     * @param couponToken
+     * @return
+     */
+    public CouponInfo.Main enable(String couponToken){
+        return couponService.enable(couponToken);
+    }
+
 }
