@@ -1,5 +1,6 @@
 package dev.toyproject.foodDelivery.coupon.interfaces;
 
+import dev.toyproject.foodDelivery.common.aop.LoginCheck;
 import dev.toyproject.foodDelivery.common.response.CommonResponse;
 import dev.toyproject.foodDelivery.coupon.application.CouponFacade;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ public class CouponController {
      * @return
      */
     @PostMapping("/init")
+    @LoginCheck(type = LoginCheck.UserType.OWNER)
     public CommonResponse registerCoupon(@RequestBody @Valid CouponDto.Register request){
         var command = couponDtoMapper.of(request);
         var response = couponFacade.registerCoupon(command);
@@ -37,6 +39,7 @@ public class CouponController {
      * @return
      */
     @PatchMapping("/update")
+    @LoginCheck(type = LoginCheck.UserType.OWNER)
     public CommonResponse updateCoupon(@RequestBody @Valid CouponDto.CouponUpdate request){
         var command = couponDtoMapper.of(request);
         var response = couponFacade.updateCoupon(command);
@@ -50,6 +53,7 @@ public class CouponController {
      * @return
      */
     @PatchMapping("/enable/{couponToken}")
+    @LoginCheck(type = LoginCheck.UserType.OWNER)
     public CommonResponse enable(@PathVariable("couponToken") String couponToken){
         var response = couponFacade.enable(couponToken);
         return CommonResponse.success(response);
