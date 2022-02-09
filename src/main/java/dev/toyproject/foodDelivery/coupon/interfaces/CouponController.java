@@ -42,4 +42,16 @@ public class CouponController {
         var response = couponFacade.updateCoupon(command);
         return CommonResponse.success(response);
     }
+
+    /**
+     * 쿠폰 상태 [ENABLE] 변경
+     *
+     * @param couponToken
+     * @return
+     */
+    @PatchMapping("/enable/{couponToken}")
+    public CommonResponse enable(@PathVariable("couponToken") String couponToken){
+        var response = couponFacade.enable(couponToken);
+        return CommonResponse.success(response);
+    }
 }
