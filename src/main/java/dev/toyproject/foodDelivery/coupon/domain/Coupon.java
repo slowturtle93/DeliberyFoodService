@@ -46,10 +46,10 @@ public class Coupon extends AbstracEntity {
 
     @Builder
     public Coupon(
-        String shopToken,
-        Long discountPrice,
-        String endDate,
-        Long expirationPeriod
+            String shopToken,
+            Long discountPrice,
+            String endDate,
+            Long expirationPeriod
     ){
         if (StringUtils.isEmpty(shopToken)) throw new InvalidParamException("coupon.shopToken");
         if (discountPrice    == null)       throw new InvalidParamException("coupon.discountPrice");
@@ -65,4 +65,11 @@ public class Coupon extends AbstracEntity {
 
     // 쿠폰 상태 [ENABLE] 변경
     public void enable() { this.status = Status.ENABLE; }
+
+    // 쿠폰 정보 변경
+    public void update(CouponCommand.CouponUpdate command){
+        this.discountPrice    = command.getDiscountPrice();
+        this.endDate          = command.getEndDate();
+        this.expirationPeriod = command.getExpirationPeriod();
+    }
 }
