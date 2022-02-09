@@ -15,4 +15,6 @@ public interface CouponDtoMapper {
     /******************************** request ********************************/
 
     CouponCommand.Register of(CouponDto.Register request);
+
+    CouponCommand.CouponUpdate of(CouponDto.CouponUpdate request);
 }

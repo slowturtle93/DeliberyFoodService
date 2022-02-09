@@ -17,4 +17,14 @@ public class CouponDto {
         private String endDate;
         private Long expirationPeriod;
     }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class CouponUpdate{
+        private String  couponToken;
+        private Long discountPrice;
+        private String endDate;
+        private Long expirationPeriod;
+    }
 }
