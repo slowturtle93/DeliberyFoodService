@@ -25,4 +25,14 @@ public class CouponFacade {
         return couponService.registerCoupon(command);
     }
 
+    /**
+     * 쿠폰 정보 수정
+     *
+     * @param command
+     * @return
+     */
+    public CouponInfo.Main updateCoupon(CouponCommand.CouponUpdate command){
+        return couponService.updateCoupon(command);
+    }
+
 }
