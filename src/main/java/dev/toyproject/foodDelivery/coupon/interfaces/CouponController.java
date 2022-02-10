@@ -65,6 +65,7 @@ public class CouponController {
      * @return
      */
     @GetMapping("/retrieve/{shopToken}")
+    @LoginCheck(type = LoginCheck.UserType.OWNER)
     public CommonResponse retrieveCouponList(@PathVariable("shopToken") String shopToken){
         var response = couponFacade.retrieveCouponList(shopToken);
         return CommonResponse.success(response);
