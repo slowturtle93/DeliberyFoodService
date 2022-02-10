@@ -58,4 +58,15 @@ public class CouponController {
         var response = couponFacade.enable(couponToken);
         return CommonResponse.success(response);
     }
+
+    /**
+     * 등록 된 쿠폰 list 조회
+     *
+     * @return
+     */
+    @GetMapping("/retrieve/{shopToken}")
+    public CommonResponse retrieveCouponList(@PathVariable("shopToken") String shopToken){
+        var response = couponFacade.retrieveCouponList(shopToken);
+        return CommonResponse.success(response);
+    }
 }
