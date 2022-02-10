@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -12,6 +14,7 @@ public class CouponServiceImpl implements CouponService{
 
     private final CouponStore couponStore;
     private final CouponRead couponRead;
+    private final CouponFactory couponFactory;
 
     /**
      * 쿠폰 등록
@@ -51,5 +54,11 @@ public class CouponServiceImpl implements CouponService{
         var coupon = couponRead.getCoupon(couponToken);
         coupon.enable();
         return new CouponInfo.Main(coupon);
+    }
+
+    @Override
+    public List<CouponInfo.Main> retrieveCouponList(String shopToken) {
+        var couponList = couponRead.getCouponList(shopToken);
+        return couponFactory.convertCouponInfoMain(couponList);
     }
 }
