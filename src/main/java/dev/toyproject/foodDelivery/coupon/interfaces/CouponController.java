@@ -70,4 +70,17 @@ public class CouponController {
         var response = couponFacade.retrieveCouponList(shopToken);
         return CommonResponse.success(response);
     }
+
+    /**
+     * 사용자 쿠폰 발행
+     *
+     * @return
+     */
+    @PostMapping("/issue")
+    //@LoginCheck(type = LoginCheck.UserType.MEMBER)
+    public CommonResponse registerCouponIssue(@RequestBody @Valid CouponDto.RegisterCouponIssue request){
+        var command = couponDtoMapper.of(request);
+        var response = couponFacade.registerCouponIssue(command);
+        return CommonResponse.success(response);
+    }
 }
