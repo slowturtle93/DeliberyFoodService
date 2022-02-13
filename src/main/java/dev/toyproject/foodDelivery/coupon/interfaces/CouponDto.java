@@ -27,4 +27,12 @@ public class CouponDto {
         private String endDate;
         private Long expirationPeriod;
     }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class RegisterCouponIssue{
+        private String couponToken;
+        private String memberToken;
+    }
 }
