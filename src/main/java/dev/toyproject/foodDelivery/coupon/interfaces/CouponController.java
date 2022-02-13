@@ -77,7 +77,7 @@ public class CouponController {
      * @return
      */
     @PostMapping("/issue")
-    //@LoginCheck(type = LoginCheck.UserType.MEMBER)
+    @LoginCheck(type = LoginCheck.UserType.MEMBER)
     public CommonResponse registerCouponIssue(@RequestBody @Valid CouponDto.RegisterCouponIssue request){
         var command = couponDtoMapper.of(request);
         var response = couponFacade.registerCouponIssue(command);
