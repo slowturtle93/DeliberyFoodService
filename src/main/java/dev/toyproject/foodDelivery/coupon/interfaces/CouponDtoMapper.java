@@ -1,6 +1,7 @@
 package dev.toyproject.foodDelivery.coupon.interfaces;
 
 import dev.toyproject.foodDelivery.coupon.domain.CouponCommand;
+import dev.toyproject.foodDelivery.coupon.domain.issue.CouponIssueCommand;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -17,4 +18,6 @@ public interface CouponDtoMapper {
     CouponCommand.Register of(CouponDto.Register request);
 
     CouponCommand.CouponUpdate of(CouponDto.CouponUpdate request);
+
+    CouponIssueCommand.Main of(CouponDto.RegisterCouponIssue request);
 }
