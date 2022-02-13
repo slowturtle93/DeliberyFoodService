@@ -4,6 +4,8 @@ import dev.toyproject.foodDelivery.coupon.domain.CouponCommand;
 import dev.toyproject.foodDelivery.coupon.domain.CouponInfo;
 import dev.toyproject.foodDelivery.coupon.domain.CouponService;
 import dev.toyproject.foodDelivery.coupon.domain.CouponServiceImpl;
+import dev.toyproject.foodDelivery.coupon.domain.issue.CouponIssueCommand;
+import dev.toyproject.foodDelivery.coupon.domain.issue.CouponIssueInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -47,8 +49,24 @@ public class CouponFacade {
         return couponService.enable(couponToken);
     }
 
+    /**
+     * 등록 된 쿠폰 list 조회
+     *
+     * @param shopToken
+     * @return
+     */
     public List<CouponInfo.Main> retrieveCouponList(String shopToken){
         return couponService.retrieveCouponList(shopToken);
+    }
+
+    /**
+     * 사용자 쿠폰 발행
+     *
+     * @param command
+     * @return
+     */
+    public CouponIssueInfo.Main registerCouponIssue(CouponIssueCommand.Main command){
+        return couponService.registerCouponIssue(command);
     }
 
 }
