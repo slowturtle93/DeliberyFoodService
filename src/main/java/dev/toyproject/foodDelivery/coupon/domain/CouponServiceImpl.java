@@ -4,6 +4,7 @@ import dev.toyproject.foodDelivery.coupon.domain.issue.CouponIssueCommand;
 import dev.toyproject.foodDelivery.coupon.domain.issue.CouponIssueInfo;
 import dev.toyproject.foodDelivery.coupon.domain.issue.CouponIssueRead;
 import dev.toyproject.foodDelivery.coupon.domain.issue.CouponIssueStore;
+import dev.toyproject.foodDelivery.mapper.coupon.CouponMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
@@ -22,6 +23,7 @@ public class CouponServiceImpl implements CouponService{
     private final CouponFactory couponFactory;
     private final CouponIssueStore couponIssueStore;
     private final CouponIssueRead couponIssueRead;
+    private final CouponMapper couponMapper;
 
     /**
      * 쿠폰 등록
@@ -72,6 +74,18 @@ public class CouponServiceImpl implements CouponService{
     @Override
     public List<CouponInfo.Main> retrieveCouponList(String shopToken) {
         var couponList = couponRead.getCouponList(shopToken);
+        return couponFactory.convertCouponInfoMain(couponList);
+    }
+
+    /**
+     * 발행 가능한 쿠폰 조회
+     *
+     * @param shopToken
+     * @return
+     */
+    @Override
+    public List<CouponInfo.Main> retrieveCouponEnable(String shopToken) {
+        var couponList = couponMapper.findCouponEnable();
         return couponFactory.convertCouponInfoMain(couponList);
     }
 
