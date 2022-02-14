@@ -60,6 +60,16 @@ public class CouponFacade {
     }
 
     /**
+     * 발행 가능한 쿠폰 조회
+     *
+     * @param shopToken
+     * @return
+     */
+    public List<CouponInfo.Main> retrieveCouponEnable(String shopToken){
+        return couponService.retrieveCouponEnable(shopToken);
+    }
+
+    /**
      * 사용자 쿠폰 발행
      *
      * @param command
