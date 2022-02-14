@@ -72,6 +72,19 @@ public class CouponController {
     }
 
     /**
+     * 발행 가능한 쿠폰 조회
+     *
+     * @param shopToken
+     * @return
+     */
+    @GetMapping("/issue/retrieve/{shopToken}")
+    @LoginCheck(type = LoginCheck.UserType.MEMBER)
+    public CommonResponse retrieveCouponEnable(@PathVariable("shopToken") String shopToken){
+        var response = couponFacade.retrieveCouponEnable(shopToken);
+        return CommonResponse.success(response);
+    }
+
+    /**
      * 사용자 쿠폰 발행
      *
      * @return
