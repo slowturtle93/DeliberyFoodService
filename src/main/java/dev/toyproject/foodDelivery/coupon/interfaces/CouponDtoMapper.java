@@ -20,4 +20,6 @@ public interface CouponDtoMapper {
     CouponCommand.CouponUpdate of(CouponDto.CouponUpdate request);
 
     CouponIssueCommand.Main of(CouponDto.RegisterCouponIssue request);
+
+    CouponIssueCommand.RetrieveCouponIssue of(CouponDto.RetrieveCouponIssue request);
 }
