@@ -4,16 +4,56 @@
 
     <select id="findCouponEnable" parameterType="String" resultType="dev.toyproject.foodDelivery.coupon.domain.Coupon">
         SELECT COUPON_TOKEN
-             , SHOP_TOKEN
-             , DISCOUNT_PRICE
-             , END_DATE
-             , EXPIRATION_PERIOD
-          FROM coupon
-         WHERE 1=1
-           AND SHOP_TOKEN = #{shopToken}
-           AND END_DATE <![CDATA[ > ]]> SYSDATE()
-            OR EXPIRATION_PERIOD != 0
-           AND STATUS = 'ENABLE'
+        , SHOP_TOKEN
+        , DISCOUNT_PRICE
+        , END_DATE
+        , EXPIRATION_PERIOD
+        FROM coupon
+        WHERE 1=1
+        AND SHOP_TOKEN = #{shopToken}
+        AND END_DATE <![CDATA[ > ]]> SYSDATE()
+        OR EXPIRATION_PERIOD != 0
+        AND STATUS = 'ENABLE'
     </select>
 
+    <update id="updateCouponIssueStatusEnd" parameterType="dev.toyproject.foodDelivery.coupon.domain.issue.CouponIssueCommand">
+        UPDATE coupon_issue
+        SET STATUS = 'END'
+        WHERE ID IN (
+        SELECT SQ.ID
+        FROM (
+        SELECT T2.ID
+        , T2.COUPON_ISSUE_TOKEN
+        , T2.COUPON_TOKEN
+        , T2.MEMBER_TOKEN
+        , T2.STATUS
+        , T2.REG_DATE
+        , T2.MOD_DATE
+        FROM coupon T1
+        , coupon_issue T2
+        WHERE 1=1
+        AND T1.COUPON_TOKEN = T2.COUPON_TOKEN
+        AND T2.MEMBER_TOKEN = #{memberToken}
+        AND T1.SHOP_TOKEN   = #{shopToken}
+        AND T1.END_DATE IS NOT NULL
+        AND T1.END_DATE <![CDATA[ < ]]> SYSDATE()
+        AND T2.STATUS = 'INIT'
+        ) SQ
+        )
+    </update>
+
+    <select id="findAllCouponIssueEnable" parameterType="dev.toyproject.foodDelivery.coupon.domain.issue.CouponIssueCommand" resultType="dev.toyproject.foodDelivery.coupon.domain.issue.CouponIssue">
+        SELECT T2.ID
+        , T2.COUPON_ISSUE_TOKEN
+        , T2.COUPON_TOKEN
+        , T2.MEMBER_TOKEN
+        , T2.STATUS
+        FROM coupon T1
+        , coupon_issue T2
+        WHERE 1=1
+        AND T1.COUPON_TOKEN = T2.COUPON_TOKEN
+        AND T2.MEMBER_TOKEN = #{memberToken}
+        AND T1.SHOP_TOKEN   = #{shopToken}
+        AND T2.STATUS       = 'INIT'
+    </select>
 </mapper>
