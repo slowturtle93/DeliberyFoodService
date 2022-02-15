@@ -79,4 +79,14 @@ public class CouponFacade {
         return couponService.registerCouponIssue(command);
     }
 
+    /**
+     * 발행한 쿠폰 List 조회
+     *
+     * @param command
+     * @return
+     */
+    public List<CouponIssueInfo.Main> retrieveCouponIssue(CouponIssueCommand.RetrieveCouponIssue command){
+        return couponService.retrieveCouponIssue(command);
+    }
+
 }
