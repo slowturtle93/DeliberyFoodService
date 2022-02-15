@@ -20,4 +20,12 @@ public class CouponIssueCommand {
                     .build();
         }
     }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class RetrieveCouponIssue{
+        private String shopToken;
+        private String memberToken;
+    }
 }
