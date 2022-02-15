@@ -96,4 +96,17 @@ public class CouponController {
         var response = couponFacade.registerCouponIssue(command);
         return CommonResponse.success(response);
     }
+
+    /**
+     * 발행한 쿠폰 List 조회
+     *
+     * @return
+     */
+    @GetMapping("/issue/retrieve")
+    @LoginCheck(type = LoginCheck.UserType.MEMBER)
+    public CommonResponse retrieveCouponIssue(@RequestBody @Valid CouponDto.RetrieveCouponIssue request){
+        var command = couponDtoMapper.of(request);
+        var response = couponFacade.retrieveCouponIssue(command);
+        return CommonResponse.success(response);
+    }
 }
