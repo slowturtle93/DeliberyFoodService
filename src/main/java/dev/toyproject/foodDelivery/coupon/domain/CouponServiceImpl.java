@@ -32,6 +32,7 @@ public class CouponServiceImpl implements CouponService{
      * @return
      */
     @Override
+    @Transactional
     public CouponInfo.Main registerCoupon(CouponCommand.Register command) {
         var coupon = couponStore.store(command.toEntity());
         return new CouponInfo.Main(coupon);
@@ -72,6 +73,7 @@ public class CouponServiceImpl implements CouponService{
      * @return
      */
     @Override
+    @Transactional(readOnly = true)
     public List<CouponInfo.Main> retrieveCouponList(String shopToken) {
         var couponList = couponRead.getCouponList(shopToken);
         return couponFactory.convertCouponInfoMain(couponList);
@@ -84,6 +86,7 @@ public class CouponServiceImpl implements CouponService{
      * @return
      */
     @Override
+    @Transactional(readOnly = true)
     public List<CouponInfo.Main> retrieveCouponEnable(String shopToken) {
         var couponList = couponMapper.findCouponEnable();
         return couponFactory.convertCouponInfoMain(couponList);
@@ -96,6 +99,7 @@ public class CouponServiceImpl implements CouponService{
      * @return
      */
     @Override
+    @Transactional
     public CouponIssueInfo.Main registerCouponIssue(CouponIssueCommand.Main command) {
         var duplicationCoupon = couponIssueRead.duplicationCouponIssue(command);
         if (!duplicationCoupon){
@@ -104,5 +108,19 @@ public class CouponServiceImpl implements CouponService{
         }else {
             throw new DuplicateKeyException("이미 발행된 쿠폰입니다.");
         }
+    }
+
+    /**
+     * 발행한 쿠폰  list 조회
+     *
+     * @param command
+     * @return
+     */
+    @Override
+    @Transactional
+    public List<CouponIssueInfo.Main> retrieveCouponIssue(CouponIssueCommand.RetrieveCouponIssue command) {
+        couponMapper.updateCouponIssueStatusEnd(command);
+        var couponIssueInfoList = couponMapper.findAllCouponIssueEnable(command);
+        return couponFactory.convertCouponIssueInfoMain(couponIssueInfoList);
     }
 }

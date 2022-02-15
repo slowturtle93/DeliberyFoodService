@@ -18,4 +18,6 @@ public interface CouponService {
     public List<CouponInfo.Main> retrieveCouponEnable(String shopToken);
 
     public CouponIssueInfo.Main registerCouponIssue(CouponIssueCommand.Main command);
+
+    public List<CouponIssueInfo.Main> retrieveCouponIssue(CouponIssueCommand.RetrieveCouponIssue command);
 }
