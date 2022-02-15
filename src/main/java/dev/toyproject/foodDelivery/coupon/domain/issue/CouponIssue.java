@@ -3,6 +3,7 @@ package dev.toyproject.foodDelivery.coupon.domain.issue;
 import dev.toyproject.foodDelivery.AbstracEntity;
 import dev.toyproject.foodDelivery.common.exception.InvalidParamException;
 import dev.toyproject.foodDelivery.common.util.TokenGenerator;
+import dev.toyproject.foodDelivery.coupon.domain.Coupon;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -35,7 +36,8 @@ public class CouponIssue extends AbstracEntity {
     @RequiredArgsConstructor
     public enum Status{
         INIT("쿠폰발행"),
-        USED("사용완료");
+        USED("사용완료"),
+        END("기간종료");
 
         private final String description;
     }
@@ -53,4 +55,10 @@ public class CouponIssue extends AbstracEntity {
         this.memberToken = memberToken;
         this.status      = Status.INIT;
     }
+
+    // 쿠폰 상태 [USED] 변경
+    public void USED() { this.status = Status.USED; }
+
+    // 쿠폰 상태 [END] 변경
+    public void END() { this.status = Status.END; }
 }
