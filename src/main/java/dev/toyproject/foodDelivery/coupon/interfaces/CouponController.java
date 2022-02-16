@@ -109,4 +109,16 @@ public class CouponController {
         var response = couponFacade.retrieveCouponIssue(command);
         return CommonResponse.success(response);
     }
+
+    /**
+     * 발행 쿠폰 조회
+     *
+     * @param couponIssueToken
+     * @return
+     */
+    @GetMapping("/issue/{couponIssueToken}")
+    public CommonResponse retrieveCouponIssuePrice(@PathVariable("couponIssueToken") String couponIssueToken){
+        var response = couponFacade.retrieveCouponIssuePrice(couponIssueToken);
+        return CommonResponse.success(response);
+    }
 }
