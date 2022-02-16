@@ -92,6 +92,7 @@ public class OrderServiceImpl implements OrderService{
     @Override
     @Transactional
     public String registerOrder(OrderCommand.RegisterOrder registerOrder) {
+        orderFactory.orderPriceValidator(registerOrder);          // 가격 정보 확인
         Order order = orderStore.store(registerOrder.toEntity()); // 주문 정보 저장
         orderFactory.store(order, registerOrder);                 // 주문 정보 하위 객체 저장
         return order.getOrderToken();
