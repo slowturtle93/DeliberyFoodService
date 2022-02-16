@@ -89,4 +89,14 @@ public class CouponFacade {
         return couponService.retrieveCouponIssue(command);
     }
 
+    /**
+     * 발행 쿠폰 조회
+     *
+     * @param couponIssueToken
+     * @return
+     */
+    public CouponInfo.Main retrieveCouponIssuePrice(String couponIssueToken){
+        return couponService.retrieveCouponIssuePrice(couponIssueToken);
+    }
+
 }
