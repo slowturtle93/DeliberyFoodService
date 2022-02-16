@@ -33,6 +33,7 @@ public class Order extends AbstracEntity {
     private String orderToken;               // 주문 토큰
     private String memberToken;              // 사용자 토큰 정보
     private String shopToken;                // 가게 토큰 정보
+    private String couponIssueToken;         // 발행된 쿠폰 토큰 정보
     private String paymentMethod;            // 결제 방식
     private Long totalAmount;                // 주문 총 가격
     private String detail;                   // 주소 상세
@@ -69,6 +70,7 @@ public class Order extends AbstracEntity {
     public Order(
             String memberToken,
             String shopToken,
+            String couponIssueToken,
             String paymentMethod,
             Long totalAmount,
             String detail,
@@ -89,6 +91,7 @@ public class Order extends AbstracEntity {
         this.orderToken       = TokenGenerator.randomCharacterWithPrefix(ORDER_PREFIX);
         this.memberToken      = memberToken;
         this.shopToken        = shopToken;
+        this.couponIssueToken = couponIssueToken;
         this.paymentMethod    = paymentMethod;
         this.detail           = detail;
         this.totalAmount      = totalAmount;
