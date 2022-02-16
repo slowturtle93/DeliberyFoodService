@@ -17,6 +17,7 @@ public class OrderCommand {
     public static class RegisterOrder{
         private String memberToken;
         private String shopToken;
+        private String couponIssueToken;
         private String paymentMethod;
         private Long totalAmount;
         private String region1DepthName;
@@ -29,6 +30,7 @@ public class OrderCommand {
             return Order.builder()
                     .memberToken(memberToken)
                     .shopToken(shopToken)
+                    .couponIssueToken(couponIssueToken)
                     .paymentMethod(paymentMethod)
                     .detail(detail)
                     .totalAmount(totalAmount)
