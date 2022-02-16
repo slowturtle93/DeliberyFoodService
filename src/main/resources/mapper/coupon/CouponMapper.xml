@@ -56,4 +56,18 @@
         AND T1.SHOP_TOKEN   = #{shopToken}
         AND T2.STATUS       = 'INIT'
     </select>
+
+    <select id="findCouponInfo" parameterType="String" resultType="dev.toyproject.foodDelivery.coupon.domain.Coupon">
+        SELECT T1.COUPON_TOKEN
+             , T1.SHOP_TOKEN
+             , T1.DISCOUNT_PRICE
+             , T1.END_DATE
+             , T1.EXPIRATION_PERIOD
+          FROM coupon T1
+             , coupon_issue T2
+         WHERE 1=1
+           AND T1.COUPON_TOKEN       = T2.COUPON_TOKEN
+           AND T2.COUPON_ISSUE_TOKEN = #{couponIssueToken}
+           AND T2.STATUS             = 'INIT'
+    </select>
 </mapper>

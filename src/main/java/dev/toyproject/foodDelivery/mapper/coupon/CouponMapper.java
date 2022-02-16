@@ -14,4 +14,6 @@ public interface CouponMapper {
     public void updateCouponIssueStatusEnd(CouponIssueCommand.RetrieveCouponIssue command);
 
     public List<CouponIssue> findAllCouponIssueEnable(CouponIssueCommand.RetrieveCouponIssue command);
+
+    public Coupon findCouponInfo(String couponIssueToken);
 }
