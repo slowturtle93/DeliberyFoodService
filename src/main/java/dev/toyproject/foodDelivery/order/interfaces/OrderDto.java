@@ -22,6 +22,7 @@ public class OrderDto {
     public static class RegisterOrderRequest{
         private String memberToken;
         private String shopToken;
+        private String couponIssueToken;
         private String paymentMethod;
         private Long totalAmount;
         private String region1DepthName;
