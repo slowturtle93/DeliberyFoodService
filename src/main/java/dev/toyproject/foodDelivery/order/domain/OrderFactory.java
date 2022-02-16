@@ -26,9 +26,11 @@ public interface OrderFactory {
 
     public void setRedisCacheOrderPaymentToken(String orderToken, String paymentToken);
 
-    List<OrderMenu> store(Order order, OrderCommand.RegisterOrder registerOrder);
+    public List<OrderMenu> store(Order order, OrderCommand.RegisterOrder registerOrder);
 
-    OrderCommand.PaymentApproveRequest approveRequestConvertPayment(Payment payment, String pgToken);
+    public OrderCommand.PaymentApproveRequest approveRequestConvertPayment(Payment payment, String pgToken);
 
-    OrderInfo.OrderPaymentConfirmRequest orderPaymentConfirmInfo(String paymentToken);
+    public OrderInfo.OrderPaymentConfirmRequest orderPaymentConfirmInfo(String paymentToken);
+
+    public void orderPriceValidator(OrderCommand.RegisterOrder command);
 }

@@ -2,6 +2,7 @@ package dev.toyproject.foodDelivery.order.infrastructure;
 
 import dev.toyproject.foodDelivery.common.exception.InvalidParamException;
 import dev.toyproject.foodDelivery.common.util.redis.RedisCacheUtil;
+import dev.toyproject.foodDelivery.notification.common.domain.CommonApiService;
 import dev.toyproject.foodDelivery.order.domain.*;
 import dev.toyproject.foodDelivery.order.domain.menu.OrderMenu;
 import dev.toyproject.foodDelivery.order.domain.payment.PayMethod;
@@ -11,9 +12,11 @@ import dev.toyproject.foodDelivery.owner.domain.OwnerReader;
 import dev.toyproject.foodDelivery.shop.domain.ShopReader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -27,6 +30,7 @@ public class OrderFactoryImpl implements OrderFactory {
     private final OrderRead orderRead;
     private final ShopReader shopReader;
     private final OwnerReader ownerReader;
+    private final CommonApiService commonApiService;
 
     /**
      * 장바구니 hashKey 생성
@@ -228,5 +232,41 @@ public class OrderFactoryImpl implements OrderFactory {
         return OrderInfo.OrderPaymentConfirmRequest.builder()
                 .ownerToken(owner.getOwnerToken())
                 .build();
+    }
+
+    /**
+     * 주문 가격 정보 validation 확인
+     *
+     * @param command
+     */
+    @Override
+    public void orderPriceValidator(OrderCommand.RegisterOrder command) {
+        var discountPrice = 1L;
+
+        //  사용한 쿠폰이 있을 경우 가격 정보 조회
+        if (!StringUtils.isEmpty(command.getCouponIssueToken())){
+            var response = commonApiService.CouponIssueApiRequest(command.getCouponIssueToken());
+            Map<String, Object> couponInfo = (Map<String, Object>) response.getData(); // discountPrice
+            discountPrice = Double.valueOf((double) couponInfo.get("discountPrice")).longValue();
+        }
+
+        // 주문 메뉴 총 가격
+        var totalMenuPrice = command.getOrderMenuList().stream()
+                .mapToLong(orderMenu -> {
+
+                    var optionPrice =orderMenu.getOrderMenuOptionGroupList().stream()
+                            .mapToLong(orderMenuOptionGroup -> orderMenuOptionGroup.getOrderMenuOptionList().stream()
+                                    .mapToLong(orderMenuOption -> orderMenuOption.getOrderMenuOptionPrice()).sum()).sum();
+
+                    var menuPrice = orderMenu.getOrderMenuPrice() * orderMenu.getOrderMenuCount();
+
+                    return menuPrice + optionPrice;
+                }).sum();
+
+        var totalAmount = totalMenuPrice - discountPrice; // 주문 총 결제 금액
+
+        if (totalAmount != command.getTotalAmount()) {
+            throw new InvalidParamException("주문가격이 불일치합니다.");
+        }
     }
 }
