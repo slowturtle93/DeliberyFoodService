@@ -123,4 +123,16 @@ public class CouponServiceImpl implements CouponService{
         var couponIssueInfoList = couponMapper.findAllCouponIssueEnable(command);
         return couponFactory.convertCouponIssueInfoMain(couponIssueInfoList);
     }
+
+    /**
+     * 발행 쿠폰 조회
+     *
+     * @param couponIssueToken
+     * @return
+     */
+    @Override
+    public CouponInfo.Main retrieveCouponIssuePrice(String couponIssueToken) {
+        var coupon = couponMapper.findCouponInfo(couponIssueToken);
+        return new CouponInfo.Main(coupon);
+    }
 }
