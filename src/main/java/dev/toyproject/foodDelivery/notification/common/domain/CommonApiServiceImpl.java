@@ -1,5 +1,6 @@
 package dev.toyproject.foodDelivery.notification.common.domain;
 
+import dev.toyproject.foodDelivery.common.response.CommonResponse;
 import dev.toyproject.foodDelivery.common.util.retrofit.RetrofitUtils;
 import dev.toyproject.foodDelivery.notification.common.infrastructure.RetrofitCommonApi;
 import dev.toyproject.foodDelivery.order.domain.OrderInfo;
@@ -64,5 +65,21 @@ public class CommonApiServiceImpl implements CommonApiService{
 
         var response = retrofitUtils.responseSync(call)
                 .orElseThrow(RuntimeException::new);
+    }
+
+    /**
+     * 발행된 쿠폰 정보 조회
+     *
+     * @param couponIssueToken
+     */
+    @Override
+    public CommonResponse CouponIssueApiRequest(String couponIssueToken) {
+
+        var call = retrofitCommonApi.CouponIssueApiRequest(CONTENT_TYPE, couponIssueToken);
+
+        var response = retrofitUtils.responseSync(call)
+                .orElseThrow(RuntimeException::new);
+
+        return response;
     }
 }

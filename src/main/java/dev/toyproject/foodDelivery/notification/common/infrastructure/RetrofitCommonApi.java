@@ -3,9 +3,7 @@ package dev.toyproject.foodDelivery.notification.common.infrastructure;
 import dev.toyproject.foodDelivery.common.response.CommonResponse;
 import org.json.simple.JSONObject;
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.Header;
-import retrofit2.http.POST;
+import retrofit2.http.*;
 
 public interface RetrofitCommonApi {
 
@@ -26,4 +24,17 @@ public interface RetrofitCommonApi {
             @Header("content-type") String contentType,
             @Body JSONObject body
     );
+
+    @GET("v1/coupon/issue/{couponIssueToken}")
+    Call<CommonResponse> CouponIssueApiRequest(
+            @Header("content-type") String contentType,
+            @Path("couponIssueToken") String couponIssueToken
+    );
+
+    @POST("v1/coupon/issue/used")
+    Call<CommonResponse> CouponIssueUsedApiRequest(
+            @Header("content-type") String contentType,
+            @Body JSONObject body
+    );
+
 }
