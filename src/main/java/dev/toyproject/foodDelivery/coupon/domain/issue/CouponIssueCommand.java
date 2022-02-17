@@ -28,4 +28,11 @@ public class CouponIssueCommand {
         private String shopToken;
         private String memberToken;
     }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class CouponIssueToken{
+        private String couponIssueToken;
+    }
 }

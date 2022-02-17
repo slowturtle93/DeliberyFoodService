@@ -43,4 +43,11 @@ public class CouponDto {
         private String shopToken;
         private String memberToken;
     }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class CouponIssueToken{
+        private String couponIssueToken;
+    }
 }
