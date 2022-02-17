@@ -33,4 +33,6 @@ public interface OrderFactory {
     public OrderInfo.OrderPaymentConfirmRequest orderPaymentConfirmInfo(String paymentToken);
 
     public void orderPriceValidator(OrderCommand.RegisterOrder command);
+
+    public void orderCouponIssueStatusUsed(Payment payment);
 }

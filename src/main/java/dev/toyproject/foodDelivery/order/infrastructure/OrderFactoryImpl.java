@@ -269,4 +269,17 @@ public class OrderFactoryImpl implements OrderFactory {
             throw new InvalidParamException("주문가격이 불일치합니다.");
         }
     }
+
+    /**
+     * 결제 승인 후 발행 한 쿠폰 정보 상태 [USED] 변경
+     *
+     * @param payment
+     */
+    @Override
+    public void orderCouponIssueStatusUsed(Payment payment) {
+        var order = orderRead.getOrder(payment.getOrderToken());
+        if (!StringUtils.isEmpty(order.getCouponIssueToken())){
+            commonApiService.CouponIssueUsedApiRequest(order.getCouponIssueToken());
+        }
+    }
 }
