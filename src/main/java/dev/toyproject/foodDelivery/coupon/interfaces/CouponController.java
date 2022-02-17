@@ -121,4 +121,17 @@ public class CouponController {
         var response = couponFacade.retrieveCouponIssuePrice(couponIssueToken);
         return CommonResponse.success(response);
     }
+
+    /**
+     * 발행된 쿠폰 STATUS [USED] 변경
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/issue/used")
+    public CommonResponse couponIssueStatusUsed(@RequestBody @Valid CouponDto.CouponIssueToken request){
+        var command = couponDtoMapper.of(request);
+        couponFacade.couponIssueStatusUsed(command);
+        return CommonResponse.success("OK");
+    }
 }
