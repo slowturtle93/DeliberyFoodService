@@ -99,4 +99,13 @@ public class CouponFacade {
         return couponService.retrieveCouponIssuePrice(couponIssueToken);
     }
 
+    /**
+     * 발행된 쿠폰 STATUS [USED] 변경
+     *
+     * @param command
+     */
+    public void couponIssueStatusUsed(CouponIssueCommand.CouponIssueToken command){
+        couponService.couponIssueStatusUsed(command);
+    }
+
 }
