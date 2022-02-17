@@ -1,5 +1,7 @@
 package dev.toyproject.foodDelivery.coupon.infrastructure.issue;
 
+import dev.toyproject.foodDelivery.common.exception.EntityNotFoundException;
+import dev.toyproject.foodDelivery.coupon.domain.issue.CouponIssue;
 import dev.toyproject.foodDelivery.coupon.domain.issue.CouponIssueCommand;
 import dev.toyproject.foodDelivery.coupon.domain.issue.CouponIssueRead;
 import lombok.RequiredArgsConstructor;
@@ -25,5 +27,17 @@ public class CouponIssueReadImpl implements CouponIssueRead {
 
         if (couponIssue == null) return false;
         else return true;
+    }
+
+    /**
+     * 발행된 쿠폰 조회
+     *
+     * @param couponIssueToken
+     * @return
+     */
+    @Override
+    public CouponIssue getCouponIssue(String couponIssueToken) {
+        return couponIssueRepository.findByCouponIssueToken(couponIssueToken)
+                .orElseThrow(EntityNotFoundException::new);
     }
 }
