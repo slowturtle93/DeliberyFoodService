@@ -156,6 +156,7 @@ public class OrderServiceImpl implements OrderService{
         var paymentRequest = orderFactory.approveRequestConvertPayment(payment, pgToken);
         paymentProcessor.approvePay(paymentRequest);
         payment.paymentComplete();
+        orderFactory.orderCouponIssueStatusUsed(payment);
         kafkaOrderPaymentProducer.registerKafkaMessage(orderFactory.orderPaymentConfirmInfo(payment.getPaymentToken()));
     }
 
@@ -169,6 +170,7 @@ public class OrderServiceImpl implements OrderService{
     public void orderPaymentTossSuccess(String paymentToken) {
         var payment = paymentRead.getPayment(paymentToken);
         payment.paymentComplete();
+        orderFactory.orderCouponIssueStatusUsed(payment);
         kafkaOrderPaymentProducer.registerKafkaMessage(orderFactory.orderPaymentConfirmInfo(payment.getPaymentToken()));
     }
 
