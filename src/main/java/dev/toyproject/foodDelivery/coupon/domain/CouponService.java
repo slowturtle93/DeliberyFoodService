@@ -22,4 +22,6 @@ public interface CouponService {
     public List<CouponIssueInfo.Main> retrieveCouponIssue(CouponIssueCommand.RetrieveCouponIssue command);
 
     public CouponInfo.Main retrieveCouponIssuePrice(String couponIssueToken);
+
+    public void couponIssueStatusUsed(CouponIssueCommand.CouponIssueToken command);
 }

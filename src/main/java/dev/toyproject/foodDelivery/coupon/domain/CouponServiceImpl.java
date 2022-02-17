@@ -135,4 +135,16 @@ public class CouponServiceImpl implements CouponService{
         var coupon = couponMapper.findCouponInfo(couponIssueToken);
         return new CouponInfo.Main(coupon);
     }
+
+    /**
+     * 사용한 쿠폰 STATUS [USED] 변경
+     *
+     * @param command
+     */
+    @Override
+    @Transactional
+    public void couponIssueStatusUsed(CouponIssueCommand.CouponIssueToken command) {
+        var couponIssue = couponIssueRead.getCouponIssue(command.getCouponIssueToken());
+        couponIssue.USED();
+    }
 }
