@@ -22,4 +22,6 @@ public interface CouponDtoMapper {
     CouponIssueCommand.Main of(CouponDto.RegisterCouponIssue request);
 
     CouponIssueCommand.RetrieveCouponIssue of(CouponDto.RetrieveCouponIssue request);
+
+    CouponIssueCommand.CouponIssueToken of(CouponDto.CouponIssueToken request);
 }
