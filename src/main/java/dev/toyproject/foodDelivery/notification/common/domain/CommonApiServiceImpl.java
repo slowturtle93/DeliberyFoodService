@@ -82,4 +82,20 @@ public class CommonApiServiceImpl implements CommonApiService{
 
         return response;
     }
+
+    /**
+     * 결제 승인 후 발행한 쿠폰 상태 [USED] 변경
+     *
+     * @param couponIssueToken
+     */
+    @Override
+    public void CouponIssueUsedApiRequest(String couponIssueToken) {
+        JSONObject params = new JSONObject();
+        params.put("couponIssueToken", couponIssueToken);
+
+        var call = retrofitCommonApi.CouponIssueUsedApiRequest(CONTENT_TYPE, params);
+
+        var response = retrofitUtils.responseSync(call)
+                .orElseThrow(RuntimeException::new);
+    }
 }

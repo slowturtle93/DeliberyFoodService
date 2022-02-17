@@ -11,4 +11,6 @@ public interface CommonApiService {
     void OrderCancelApiRequest(String orderToken);
 
     CommonResponse CouponIssueApiRequest(String couponIssueToken);
+
+    void CouponIssueUsedApiRequest(String couponIssueToken);
 }
