@@ -13,4 +13,6 @@ public interface CommonApiService {
     CommonResponse CouponIssueApiRequest(String couponIssueToken);
 
     void CouponIssueUsedApiRequest(String couponIssueToken);
+
+    void CouponIssueInitApiRequest(String couponIssueToken);
 }

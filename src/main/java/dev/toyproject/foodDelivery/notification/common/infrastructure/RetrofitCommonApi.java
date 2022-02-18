@@ -37,4 +37,10 @@ public interface RetrofitCommonApi {
             @Body JSONObject body
     );
 
+    @POST("v1/coupon/issue/init")
+    Call<CommonResponse> CouponIssueInitApiRequest(
+            @Header("content-type") String contentType,
+            @Body JSONObject body
+    );
+
 }
