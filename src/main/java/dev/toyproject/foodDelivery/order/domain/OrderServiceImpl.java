@@ -198,6 +198,7 @@ public class OrderServiceImpl implements OrderService{
         var order = orderRead.getOrder(command.getOrderToken());
         payment.paymentRefund();
         order.orderCancel();
+        if(!StringUtils.isEmpty(order.getCouponIssueToken())) { orderFactory.orderCouponIssueStatusInit(order); } // 주문 취소 후 발행한 쿠폰 상태 [INIT] 변경
         paymentProcessor.cancelPay(new OrderCommand.PaymentCancelRequest(payment.getPaymentToken(), PayMethod.valueOf(payment.getPaymentType())));
     }
 }
