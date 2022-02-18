@@ -282,4 +282,14 @@ public class OrderFactoryImpl implements OrderFactory {
             commonApiService.CouponIssueUsedApiRequest(order.getCouponIssueToken());
         }
     }
+
+    /**
+     * 결제 승인 후 발행 한 쿠폰 정보 상태 [INIT] 변경
+     *
+     * @param order
+     */
+    @Override
+    public void orderCouponIssueStatusInit(Order order) {
+        commonApiService.CouponIssueInitApiRequest(order.getCouponIssueToken());
+    }
 }

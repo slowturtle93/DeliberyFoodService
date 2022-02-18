@@ -35,4 +35,6 @@ public interface OrderFactory {
     public void orderPriceValidator(OrderCommand.RegisterOrder command);
 
     public void orderCouponIssueStatusUsed(Payment payment);
+
+    public void orderCouponIssueStatusInit(Order order);
 }
