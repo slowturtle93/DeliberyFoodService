@@ -102,4 +102,14 @@ public class RiderServiceImpl implements RiderService{
         Rider rider = riderReader.getRiderByToken(command.getRiderToken());
         rider.updateRiderPassword(command.getRiderPwd());
     }
+
+    /**
+     * 라이더 배달 가능한 주문 목록 리스트 조회
+     *
+     * @return
+     */
+    @Override
+    public RiderInfo.AvailableOrders retrieveEnableOrderList(RiderCommand.RiderCurrentLocation command) {
+        return null;
+    }
 }

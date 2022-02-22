@@ -15,4 +15,6 @@ public interface RiderService {
     RiderInfo authCheck(RiderCommand command);
 
     void newPasswordUpdate(RiderCommand command);
+
+    RiderInfo.AvailableOrders retrieveEnableOrderList(RiderCommand.RiderCurrentLocation command);
 }
