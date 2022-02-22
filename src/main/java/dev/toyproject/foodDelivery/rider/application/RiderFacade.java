@@ -101,4 +101,13 @@ public class RiderFacade {
     public void newPasswordUpdate(RiderCommand command){
         riderService.newPasswordUpdate(command);
     }
+
+    /**
+     * 라이더 배달 가능한 주문 목록 리스트 조회
+     *
+     * @return
+     */
+    public RiderInfo.AvailableOrders retrieveEnableOrderList(RiderCommand.RiderCurrentLocation command){
+        return riderService.retrieveEnableOrderList(command);
+    }
 }
