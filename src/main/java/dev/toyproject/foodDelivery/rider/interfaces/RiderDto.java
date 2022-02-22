@@ -157,6 +157,14 @@ public class RiderDto {
         }
     }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class RiderCurrentLocation{
+        private String x;
+        private String y;
+    }
+
     /******************************** response ********************************/
 
     @Getter
@@ -182,5 +190,4 @@ public class RiderDto {
             this.status         = riderInfo.getStatus();
         }
     }
-    
 }
