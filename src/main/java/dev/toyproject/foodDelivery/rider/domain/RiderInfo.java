@@ -30,4 +30,21 @@ public class RiderInfo {
         this.deliveryMethod = rider.getDeliveryMethod();
         this.status         = rider.getStatus();
     }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class AvailableOrders{
+        private String orderToken;
+        private String toRegion1DepthName;
+        private String toRegion2DepthName;
+        private String toRegion3DepthName;
+        private String toAddressDetail;
+        private String shopName;
+        private String fromRegion1DepthName;
+        private String fromRegion2DepthName;
+        private String fromRegion3DepthName;
+        private String fromAddressDetail;
+        private String distance;
+    }
 }
