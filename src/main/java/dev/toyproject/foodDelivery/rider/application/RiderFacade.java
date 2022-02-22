@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -107,7 +108,7 @@ public class RiderFacade {
      *
      * @return
      */
-    public RiderInfo.AvailableOrders retrieveEnableOrderList(RiderCommand.RiderCurrentLocation command){
+    public List<RiderInfo.AvailableOrders> retrieveEnableOrderList(RiderCommand.RiderCurrentLocation command){
         return riderService.retrieveEnableOrderList(command);
     }
 }

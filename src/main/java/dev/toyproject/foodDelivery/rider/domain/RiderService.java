@@ -1,5 +1,7 @@
 package dev.toyproject.foodDelivery.rider.domain;
 
+import java.util.List;
+
 public interface RiderService {
 
     RiderInfo registerRider(RiderCommand command);
@@ -16,5 +18,5 @@ public interface RiderService {
 
     void newPasswordUpdate(RiderCommand command);
 
-    RiderInfo.AvailableOrders retrieveEnableOrderList(RiderCommand.RiderCurrentLocation command);
+    List<RiderInfo.AvailableOrders> retrieveEnableOrderList(RiderCommand.RiderCurrentLocation command);
 }
