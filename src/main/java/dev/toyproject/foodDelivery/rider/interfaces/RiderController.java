@@ -19,6 +19,7 @@ import javax.validation.constraints.NotNull;
 public class RiderController {
 
     private final RiderFacade riderFacade;
+    private final RiderDtoMapper riderDtoMapper;
 
     /**
      * 라이더 등록
@@ -129,5 +130,18 @@ public class RiderController {
         var riderCommand = request.toCommand();
         riderFacade.newPasswordUpdate(riderCommand);
         return CommonResponse.success("OK");
+    }
+
+    /**
+     * 라이더 배달 가능한 주문 목록 리스트 조회
+     *
+     * @return
+     */
+    @GetMapping("/enable/orders")
+    @LoginCheck(type = LoginCheck.UserType.RIDER)
+    public CommonResponse retrieveEnableOrderList(@RequestBody @Valid RiderDto.RiderCurrentLocation request){
+        var command = riderDtoMapper.of(request);
+        var response = riderFacade.retrieveEnableOrderList(command);
+        return CommonResponse.success(response);
     }
 }
