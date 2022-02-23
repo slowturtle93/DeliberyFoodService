@@ -1,5 +1,6 @@
 package dev.toyproject.foodDelivery.rider.domain;
 
+import dev.toyproject.foodDelivery.mapper.rider.RiderMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ public class RiderServiceImpl implements RiderService{
 
     private final RiderStore riderStore;
     private final RiderReader riderReader;
+    private final RiderMapper riderMapper;
 
     /**
      * 라이더 등록
@@ -106,12 +108,13 @@ public class RiderServiceImpl implements RiderService{
     }
 
     /**
-     * 라이더 배달 가능한 주문 목록 리스트 조회
+     * 라이더 현재 위치 기준 반경 3km 이내 배달 가능한 주문 목록 리스트 조회
      *
      * @return
      */
     @Override
     public List<RiderInfo.AvailableOrders> retrieveEnableOrderList(RiderCommand.RiderCurrentLocation command) {
-        return null;
+        List<RiderInfo.AvailableOrders> orderList = riderMapper.getOrdersAvailableDelivery(command);
+        return orderList;
     }
 }
