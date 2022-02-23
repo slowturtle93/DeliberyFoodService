@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.toyproject.foodDelivery.mapper.rider.RiderMapper">
+
+    <select id="getOrdersAvailableDelivery" resultType="dev.toyproject.foodDelivery.rider.domain.RiderInfo$AvailableOrders"
+            parameterType="dev.toyproject.foodDelivery.rider.domain.RiderCommand$RiderCurrentLocation">
+        SELECT T1.order_token        AS orderToken
+             , T2.shop_nm            AS shopName
+             , T3.region_1depth_name AS toRegion1DepthName
+             , T3.region_2depth_name AS toRegion2DepthName
+             , T3.region_3depth_name AS toRegion3DepthName
+             , T3.detail             AS toAddressDetail
+             , T1.region_1depth_name AS fromRegion1DepthName
+             , T1.region_2depth_name AS fromRegion2DepthName
+             , T1.region_3depth_name AS fromRegion3DepthName
+             , T1.detail             AS fromAddressDetail
+             , (6371 * acos( cos( radians( #{x} ) ) * cos( radians( T3.x) ) * cos( radians( T3.y) - radians(#{y}))
+                     + sin( radians(#{x}) ) * sin( radians(T3.x) ) ) ) AS distance
+          FROM orders             T1
+             , shop               T2
+             , shop_building_info T3
+         WHERE 1=1
+           AND T1.shop_token   = T2.shop_token
+           AND T2.id           = T3.shop_id
+           AND T1.status       = 'ORDER_COMPLETE'
+        HAVING distance <![CDATA[<=]]> 3
+         ORDER BY distance ASC;
+    </select>
+
+</mapper>
