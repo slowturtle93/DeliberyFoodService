@@ -45,6 +45,6 @@ public class RiderInfo {
         private String fromRegion2DepthName;
         private String fromRegion3DepthName;
         private String fromAddressDetail;
-        private String distance;
+        private double distance;
     }
 }
