@@ -144,4 +144,16 @@ public class RiderController {
         var response = riderFacade.retrieveEnableOrderList(command);
         return CommonResponse.success(response);
     }
+
+    /**
+     * 단건 주문 배달 Pick
+     *
+     * @param orderToken
+     * @return
+     */
+    @GetMapping("/order/pick/{orderToken}")
+    public CommonResponse riderOrderPick(@PathVariable("orderToken") String orderToken){
+        var response = riderFacade.riderOrderPick(orderToken);
+        return CommonResponse.success(response);
+    }
 }
