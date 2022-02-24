@@ -27,4 +27,25 @@
          ORDER BY distance ASC;
     </select>
 
+    <select id="getDeliveryOrderPickInfo" resultType="dev.toyproject.foodDelivery.rider.domain.RiderInfo$AvailableOrders" parameterType="String">
+        SELECT T1.order_token        AS orderToken
+             , T2.shop_nm            AS shopName
+             , T3.region_1depth_name AS toRegion1DepthName
+             , T3.region_2depth_name AS toRegion2DepthName
+             , T3.region_3depth_name AS toRegion3DepthName
+             , T3.detail             AS toAddressDetail
+             , T1.region_1depth_name AS fromRegion1DepthName
+             , T1.region_2depth_name AS fromRegion2DepthName
+             , T1.region_3depth_name AS fromRegion3DepthName
+             , T1.detail             AS fromAddressDetail
+          FROM orders             T1
+             , shop               T2
+             , shop_building_info T3
+         WHERE 1=1
+           AND T1.shop_token   = T2.shop_token
+           AND T2.id           = T3.shop_id
+           AND T1.status       = 'ORDER_COMPLETE'
+           AND T1.order_token  = #{orderToken}
+    </select>
+
 </mapper>

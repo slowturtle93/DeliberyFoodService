@@ -9,4 +9,6 @@ import java.util.List;
 @Mapper
 public interface RiderMapper {
     List<RiderInfo.AvailableOrders> getOrdersAvailableDelivery(RiderCommand.RiderCurrentLocation command);
+
+    RiderInfo.AvailableOrders getDeliveryOrderPickInfo(String orderToken);
 }
