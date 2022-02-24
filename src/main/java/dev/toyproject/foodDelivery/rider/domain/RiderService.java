@@ -19,4 +19,6 @@ public interface RiderService {
     void newPasswordUpdate(RiderCommand command);
 
     List<RiderInfo.AvailableOrders> retrieveEnableOrderList(RiderCommand.RiderCurrentLocation command);
+
+    RiderInfo.AvailableOrders riderOrderPick(String orderToken);
 }

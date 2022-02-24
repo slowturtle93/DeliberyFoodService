@@ -1,6 +1,7 @@
 package dev.toyproject.foodDelivery.rider.domain;
 
 import dev.toyproject.foodDelivery.mapper.rider.RiderMapper;
+import dev.toyproject.foodDelivery.notification.common.domain.CommonApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -116,5 +117,16 @@ public class RiderServiceImpl implements RiderService{
     public List<RiderInfo.AvailableOrders> retrieveEnableOrderList(RiderCommand.RiderCurrentLocation command) {
         List<RiderInfo.AvailableOrders> orderList = riderMapper.getOrdersAvailableDelivery(command);
         return orderList;
+    }
+
+    /**
+     * 단건 주문 배달 pick
+     *
+     * @param orderToken
+     * @return
+     */
+    @Override
+    public RiderInfo.AvailableOrders riderOrderPick(String orderToken) {
+        return riderMapper.getDeliveryOrderPickInfo(orderToken);
     }
 }
