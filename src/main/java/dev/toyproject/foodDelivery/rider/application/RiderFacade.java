@@ -111,4 +111,14 @@ public class RiderFacade {
     public List<RiderInfo.AvailableOrders> retrieveEnableOrderList(RiderCommand.RiderCurrentLocation command){
         return riderService.retrieveEnableOrderList(command);
     }
+
+    /**
+     * 단건 배달 주문 pick
+     *
+     * @param orderToken
+     * @return
+     */
+    public RiderInfo.AvailableOrders riderOrderPick(String orderToken){
+        return riderService.riderOrderPick(orderToken);
+    }
 }
