@@ -143,11 +143,20 @@ public class OrderFacade {
     }
 
     /**
-     * 주문 정보 [주문 취소] 상태 변경
+     * 주문 정보 [주문 취소] 상태 변경 OrderDeliveryPrepare
      *
      * @param command
      */
     public void orderCancel(OrderCommand.OrderPaymentStatusRequest command){
         orderService.orderCancel(command);
+    }
+
+    /**
+     * 주문 정보 [배송 준비] 상태 변경
+     *
+     * @param command
+     */
+    public void OrderDeliveryPrepare(OrderCommand.OrderPaymentStatusRequest command){
+        orderService.OrderDeliveryPrepare(command);
     }
 }
