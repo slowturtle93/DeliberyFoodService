@@ -206,4 +206,17 @@ public class OrderController {
         orderFacade.orderCancel(command);
         return CommonResponse.success("OK");
     }
+
+    /**
+     * 주문 정보 [배송 준비] 상태 변경
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/delivery/prepare")
+    public CommonResponse OrderDeliveryPrepare(@RequestBody @Valid OrderDto.OrderPaymentStatusRequest request){
+        var command = orderDtoMapper.of(request);
+        orderFacade.OrderDeliveryPrepare(command);
+        return CommonResponse.success("OK");
+    }
 }
