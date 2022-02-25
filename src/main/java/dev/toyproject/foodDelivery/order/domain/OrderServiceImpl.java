@@ -201,4 +201,15 @@ public class OrderServiceImpl implements OrderService{
         if(!StringUtils.isEmpty(order.getCouponIssueToken())) { orderFactory.orderCouponIssueStatusInit(order); } // 주문 취소 후 발행한 쿠폰 상태 [INIT] 변경
         paymentProcessor.cancelPay(new OrderCommand.PaymentCancelRequest(payment.getPaymentToken(), PayMethod.valueOf(payment.getPaymentType())));
     }
+
+    /**
+     * 주문 정보 [배송 준비] 상태 변경
+     *
+     * @param command
+     */
+    @Override
+    public void OrderDeliveryPrepare(OrderCommand.OrderPaymentStatusRequest command) {
+        var order = orderRead.getOrder(command.getOrderToken());
+        order.deliveryPrepare();
+    }
 }
