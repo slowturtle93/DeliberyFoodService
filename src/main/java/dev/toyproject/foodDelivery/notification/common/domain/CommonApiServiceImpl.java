@@ -114,4 +114,20 @@ public class CommonApiServiceImpl implements CommonApiService{
         var response = retrofitUtils.responseSync(call)
                 .orElseThrow(RuntimeException::new);
     }
+
+    /**
+     * 주문 상태 [배송 준비] 변경
+     *
+     * @param orderToken
+     */
+    @Override
+    public void OrderDeliveryPrepareApiRequest(String orderToken) {
+        JSONObject params = new JSONObject();
+        params.put("orderToken", orderToken);
+
+        var call = retrofitCommonApi.CouponIssueUsedApiRequest(CONTENT_TYPE, params);
+
+        var response = retrofitUtils.responseSync(call)
+                .orElseThrow(RuntimeException::new);
+    }
 }
