@@ -17,6 +17,7 @@ public class RiderServiceImpl implements RiderService{
     private final RiderStore riderStore;
     private final RiderReader riderReader;
     private final RiderMapper riderMapper;
+    private final CommonApiService commonApiService;
 
     /**
      * 라이더 등록
@@ -127,6 +128,7 @@ public class RiderServiceImpl implements RiderService{
      */
     @Override
     public RiderInfo.AvailableOrders riderOrderPick(String orderToken) {
+        commonApiService.OrderDeliveryPrepareApiRequest(orderToken);
         return riderMapper.getDeliveryOrderPickInfo(orderToken);
     }
 }
