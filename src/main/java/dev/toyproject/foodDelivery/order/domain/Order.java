@@ -142,6 +142,14 @@ public class Order extends AbstracEntity {
     }
 
     /**
+     * 주문 상태 [배송중] 변경
+     */
+    public void inDelivery() {
+        if (this.status != Status.DELIVERY_PREPARE) throw new IllegalStatusException();
+        this.status = Status.IN_DELIVERY;
+    }
+
+    /**
      * 주문 상태 [배송완료] 변경
      */
     public void deliveryComplete() {
