@@ -33,10 +33,18 @@ public class RiderCommand {
     }
 
     @Getter
-    @Setter
+    @Builder
     @ToString
     public static class RiderCurrentLocation{
         private String x;
         private String y;
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class RiderOrderMenuPickUp{
+        private String orderToken;
+        private String memberToken;
     }
 }

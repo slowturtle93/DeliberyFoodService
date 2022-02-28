@@ -165,6 +165,14 @@ public class RiderDto {
         private String y;
     }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class RiderOrderMenuPickUp{
+        private String orderToken;
+        private String memberToken;
+    }
+
     /******************************** response ********************************/
 
     @Getter
