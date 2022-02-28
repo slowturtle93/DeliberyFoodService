@@ -131,4 +131,15 @@ public class RiderServiceImpl implements RiderService{
         commonApiService.OrderDeliveryPrepareApiRequest(orderToken);
         return riderMapper.getDeliveryOrderPickInfo(orderToken);
     }
+
+    /**
+     * 주문 배달 음식 pickup
+     *
+     * @param orderToken
+     * @return
+     */
+    @Override
+    public void riderOrderPickup(String orderToken) {
+        commonApiService.OrderDeliveryPrepareApiRequest(orderToken);
+    }
 }

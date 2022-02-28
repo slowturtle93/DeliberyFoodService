@@ -21,4 +21,6 @@ public interface RiderService {
     List<RiderInfo.AvailableOrders> retrieveEnableOrderList(RiderCommand.RiderCurrentLocation command);
 
     RiderInfo.AvailableOrders riderOrderPick(String orderToken);
+
+    void riderOrderPickup(String orderToken);
 }
