@@ -156,4 +156,17 @@ public class RiderController {
         var response = riderFacade.riderOrderPick(orderToken);
         return CommonResponse.success(response);
     }
+
+    /**
+     * 단건 주문 배달 음식 pickup
+     *
+     * @param request
+     * @return
+     */
+    @GetMapping("/order/pickup")
+    public CommonResponse riderOrderPickup(@RequestBody @Valid RiderDto.RiderOrderMenuPickUp request){
+        var command = riderDtoMapper.of(request);
+        riderFacade.riderOrderPickup(command);
+        return CommonResponse.success("OK");
+    }
 }
