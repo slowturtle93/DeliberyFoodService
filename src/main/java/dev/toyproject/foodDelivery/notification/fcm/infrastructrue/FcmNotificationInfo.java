@@ -15,4 +15,8 @@ public class FcmNotificationInfo {
     // 사장님 주문 승인 FCM TITLE & MESSAGE
     public static final String FCM_OWNER_ORDER_APPROVAL_TITLE   = "[주문 승인]";
     public static final String FCM_OWNER_ORDER_APPROVAL_MESSAGE = "주문이 접수되었습니다. 주문하신 음식을 곧장 배달해드리겠습니다.";
+
+    // 라이더 배달 pickup 완료 FCM TITLE & MESSAGE
+    public static final String FCM_RIDER_ORDER_IN_DELIVERY_TITLE   = "[배달 픽업 완료]";
+    public static final String FCM_RIDER_ORDER_IN_DELIVERY_MESSAGE = "주문하신 음식을 안전하게 배달해 드리겠습니다.";
 }
