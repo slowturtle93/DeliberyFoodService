@@ -159,4 +159,13 @@ public class OrderFacade {
     public void OrderDeliveryPrepare(OrderCommand.OrderPaymentStatusRequest command){
         orderService.OrderDeliveryPrepare(command);
     }
+
+    /**
+     * 주문 정보 [배송 중] 상태 변경
+     *
+     * @param command
+     */
+    public void OrderInDelivery(OrderCommand.OrderPaymentStatusRequest command){
+        orderService.OrderInDelivery(command);
+    }
 }
