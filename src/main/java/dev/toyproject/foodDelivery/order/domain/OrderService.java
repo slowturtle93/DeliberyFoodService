@@ -31,4 +31,6 @@ public interface OrderService {
     public void orderCancel(OrderCommand.OrderPaymentStatusRequest command);
 
     public void OrderDeliveryPrepare(OrderCommand.OrderPaymentStatusRequest command);
+
+    public void OrderInDelivery(OrderCommand.OrderPaymentStatusRequest command);
 }
