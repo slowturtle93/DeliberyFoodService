@@ -1,6 +1,10 @@
 package dev.toyproject.foodDelivery.rider.application;
 
+import dev.toyproject.foodDelivery.common.util.redis.RedisCacheUtil;
 import dev.toyproject.foodDelivery.common.util.redis.SessionUtil;
+import dev.toyproject.foodDelivery.notification.fcm.domain.FcmNotificationRequest;
+import dev.toyproject.foodDelivery.notification.fcm.domain.FcmService;
+import dev.toyproject.foodDelivery.notification.fcm.infrastructrue.FcmNotificationInfo;
 import dev.toyproject.foodDelivery.rider.domain.RiderCommand;
 import dev.toyproject.foodDelivery.rider.domain.RiderInfo;
 import dev.toyproject.foodDelivery.rider.domain.RiderService;
@@ -17,6 +21,8 @@ import java.util.List;
 public class RiderFacade {
 
     private final RiderService riderService;
+    private final RedisCacheUtil redisCacheUtil;
+    private final FcmService fcmService;
 
     /**
      * 라이더 등록
@@ -120,5 +126,17 @@ public class RiderFacade {
      */
     public RiderInfo.AvailableOrders riderOrderPick(String orderToken){
         return riderService.riderOrderPick(orderToken);
+    }
+
+    /**
+     * 단건 배달 주문 pick
+     *
+     * @param command
+     * @return
+     */
+    public void riderOrderPickup(RiderCommand.RiderOrderMenuPickUp command){
+        riderService.riderOrderPickup(command.getOrderToken());
+        var deviceToken = redisCacheUtil.getDeviceTokenInfo(command.getMemberToken());
+        fcmService.sendFcm(new FcmNotificationRequest(FcmNotificationInfo.FCM_RIDER_ORDER_IN_DELIVERY_TITLE,FcmNotificationInfo.FCM_RIDER_ORDER_IN_DELIVERY_MESSAGE, deviceToken));
     }
 }
