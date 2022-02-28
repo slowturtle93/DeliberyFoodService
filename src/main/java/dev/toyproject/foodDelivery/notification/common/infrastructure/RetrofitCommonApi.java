@@ -49,4 +49,10 @@ public interface RetrofitCommonApi {
             @Body JSONObject body
     );
 
+    @POST("v1/order/delivery/in")
+    Call<CommonResponse> OrderInDeliveryApiRequest(
+            @Header("content-type") String contentType,
+            @Body JSONObject body
+    );
+
 }

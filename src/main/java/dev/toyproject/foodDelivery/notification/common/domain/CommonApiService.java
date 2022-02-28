@@ -17,4 +17,6 @@ public interface CommonApiService {
     void CouponIssueInitApiRequest(String couponIssueToken);
 
     void OrderDeliveryPrepareApiRequest(String orderToken);
+
+    void OrderInDeliveryApiRequest(String orderToken);
 }
