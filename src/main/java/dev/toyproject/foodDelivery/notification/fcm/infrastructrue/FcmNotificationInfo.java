@@ -19,4 +19,8 @@ public class FcmNotificationInfo {
     // 라이더 배달 pickup 완료 FCM TITLE & MESSAGE
     public static final String FCM_RIDER_ORDER_IN_DELIVERY_TITLE   = "[배달 픽업 완료]";
     public static final String FCM_RIDER_ORDER_IN_DELIVERY_MESSAGE = "주문하신 음식을 안전하게 배달해 드리겠습니다.";
+
+    // 라이더 배달 완료 FCM TITLE & MESSAGE
+    public static final String FCM_RIDER_ORDER_COMPLETE_TITLE   = "[배달 완료]";
+    public static final String FCM_RIDER_ORDER_COMPLETE_MESSAGE = "주문하신 음식을 안전하게 배달하였습니다.";
 }
