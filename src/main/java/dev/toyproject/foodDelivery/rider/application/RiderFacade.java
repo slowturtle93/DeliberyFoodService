@@ -134,9 +134,21 @@ public class RiderFacade {
      * @param command
      * @return
      */
-    public void riderOrderPickup(RiderCommand.RiderOrderMenuPickUp command){
+    public void riderOrderPickup(RiderCommand.RiderOrderMenuCommand command){
         riderService.riderOrderPickup(command.getOrderToken());
         var deviceToken = redisCacheUtil.getDeviceTokenInfo(command.getMemberToken());
         fcmService.sendFcm(new FcmNotificationRequest(FcmNotificationInfo.FCM_RIDER_ORDER_IN_DELIVERY_TITLE,FcmNotificationInfo.FCM_RIDER_ORDER_IN_DELIVERY_MESSAGE, deviceToken));
+    }
+
+    /**
+     * 단건 배달 주문 pick
+     *
+     * @param command
+     * @return
+     */
+    public void riderOrderComplete(RiderCommand.RiderOrderMenuCommand command){
+        riderService.riderOrderComplete(command.getOrderToken());
+        var deviceToken = redisCacheUtil.getDeviceTokenInfo(command.getMemberToken());
+        fcmService.sendFcm(new FcmNotificationRequest(FcmNotificationInfo.FCM_RIDER_ORDER_COMPLETE_TITLE,FcmNotificationInfo.FCM_RIDER_ORDER_COMPLETE_MESSAGE, deviceToken));
     }
 }
