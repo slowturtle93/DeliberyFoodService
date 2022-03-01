@@ -55,4 +55,10 @@ public interface RetrofitCommonApi {
             @Body JSONObject body
     );
 
+    @POST("v1/order/delivery/complete")
+    Call<CommonResponse> OrderCompleteApiRequest(
+            @Header("content-type") String contentType,
+            @Body JSONObject body
+    );
+
 }

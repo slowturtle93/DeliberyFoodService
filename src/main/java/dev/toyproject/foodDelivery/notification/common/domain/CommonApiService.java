@@ -19,4 +19,6 @@ public interface CommonApiService {
     void OrderDeliveryPrepareApiRequest(String orderToken);
 
     void OrderInDeliveryApiRequest(String orderToken);
+
+    void OrderCompleteApiRequest(String orderToken);
 }
