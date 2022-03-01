@@ -142,4 +142,14 @@ public class RiderServiceImpl implements RiderService{
     public void riderOrderPickup(String orderToken) {
         commonApiService.OrderDeliveryPrepareApiRequest(orderToken);
     }
+
+    /**
+     * 라이더 주문 배달 완료
+     *
+     * @param orderToken
+     */
+    @Override
+    public void riderOrderComplete(String orderToken) {
+        commonApiService.OrderCompleteApiRequest(orderToken);
+    }
 }

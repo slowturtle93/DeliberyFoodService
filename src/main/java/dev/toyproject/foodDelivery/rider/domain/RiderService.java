@@ -23,4 +23,6 @@ public interface RiderService {
     RiderInfo.AvailableOrders riderOrderPick(String orderToken);
 
     void riderOrderPickup(String orderToken);
+
+    void riderOrderComplete(String orderToken);
 }
