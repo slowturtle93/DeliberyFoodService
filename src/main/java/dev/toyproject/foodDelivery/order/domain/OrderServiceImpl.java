@@ -225,4 +225,15 @@ public class OrderServiceImpl implements OrderService{
         var order = orderRead.getOrder(command.getOrderToken());
         order.inDelivery();
     }
+
+    /**
+     * 주문 정보 [배달완료] 상태 변경
+     *
+     * @param command
+     */
+    @Override
+    public void OrderComplete(OrderCommand.OrderPaymentStatusRequest command) {
+        var order = orderRead.getOrder(command.getOrderToken());
+        order.orderComplete();
+    }
 }
