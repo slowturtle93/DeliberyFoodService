@@ -168,7 +168,7 @@ public class RiderDto {
     @Getter
     @Setter
     @ToString
-    public static class RiderOrderMenuPickUp{
+    public static class RiderOrderMenuRequest{
         private String orderToken;
         private String memberToken;
     }

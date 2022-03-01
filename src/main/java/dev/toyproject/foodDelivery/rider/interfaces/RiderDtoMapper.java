@@ -16,5 +16,5 @@ public interface RiderDtoMapper {
 
     RiderCommand.RiderCurrentLocation of(RiderDto.RiderCurrentLocation request);
 
-    RiderCommand.RiderOrderMenuPickUp of(RiderDto.RiderOrderMenuPickUp request);
+    RiderCommand.RiderOrderMenuCommand of(RiderDto.RiderOrderMenuRequest request);
 }

@@ -43,7 +43,7 @@ public class RiderCommand {
     @Getter
     @Builder
     @ToString
-    public static class RiderOrderMenuPickUp{
+    public static class RiderOrderMenuCommand{
         private String orderToken;
         private String memberToken;
     }
