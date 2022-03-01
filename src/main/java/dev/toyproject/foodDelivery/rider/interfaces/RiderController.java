@@ -164,9 +164,22 @@ public class RiderController {
      * @return
      */
     @GetMapping("/order/pickup")
-    public CommonResponse riderOrderPickup(@RequestBody @Valid RiderDto.RiderOrderMenuPickUp request){
+    public CommonResponse riderOrderPickup(@RequestBody @Valid RiderDto.RiderOrderMenuRequest request){
         var command = riderDtoMapper.of(request);
         riderFacade.riderOrderPickup(command);
+        return CommonResponse.success("OK");
+    }
+
+    /**
+     * 라이더 배달 완료
+     *
+     * @param request
+     * @return
+     */
+    @GetMapping("/order/complete")
+    public CommonResponse riderOrderComplete(@RequestBody @Valid RiderDto.RiderOrderMenuRequest request){
+        var command = riderDtoMapper.of(request);
+        riderFacade.riderOrderComplete(command);
         return CommonResponse.success("OK");
     }
 }
