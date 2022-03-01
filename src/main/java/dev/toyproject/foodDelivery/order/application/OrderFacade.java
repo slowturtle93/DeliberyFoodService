@@ -168,4 +168,13 @@ public class OrderFacade {
     public void OrderInDelivery(OrderCommand.OrderPaymentStatusRequest command){
         orderService.OrderInDelivery(command);
     }
+
+    /**
+     * 주문 정보 [배달완료] 상태 변경 OrderComplete
+     *
+     * @param command
+     */
+    public void OrderComplete(OrderCommand.OrderPaymentStatusRequest command){
+        orderService.OrderComplete(command);
+    }
 }
