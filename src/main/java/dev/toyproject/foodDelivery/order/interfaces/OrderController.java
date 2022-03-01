@@ -232,4 +232,17 @@ public class OrderController {
         orderFacade.OrderInDelivery(command);
         return CommonResponse.success("OK");
     }
+
+    /**
+     * 주문 정보 [배달완료] 상태 변경
+     *
+     * @param request
+     * @return
+     */
+    @PostMapping("/delivery/complete")
+    public CommonResponse OrderComplete(@RequestBody @Valid OrderDto.OrderPaymentStatusRequest request){
+        var command = orderDtoMapper.of(request);
+        orderFacade.OrderComplete(command);
+        return CommonResponse.success("OK");
+    }
 }
