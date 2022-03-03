@@ -16,6 +16,7 @@ public class OwnerCommand {
     private String ownerTel;     // 사장 전화번호
     private String ownerBirth;   // 사장 생년월일
     private String ownerName;    // 사장 이름
+    private String deviceToken;  // 사장님 device Token
 
 
     public Owner toEntity() {

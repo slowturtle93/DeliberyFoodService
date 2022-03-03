@@ -13,4 +13,8 @@ public interface OwnerService {
     OwnerInfo updateOwnerPassword(OwnerCommand command, String afterPassword);
 
     OwnerInfo disableOwner(String ownerToken);
+
+    OwnerInfo authCheck(OwnerCommand command);
+
+    void newPasswordUpdate(OwnerCommand command);
 }

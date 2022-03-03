@@ -1,5 +1,6 @@
 package dev.toyproject.foodDelivery.member.interfaces;
 
+import dev.toyproject.foodDelivery.address.domain.AddressFragment;
 import dev.toyproject.foodDelivery.common.util.SHA256Util;
 import dev.toyproject.foodDelivery.member.domain.Member;
 import dev.toyproject.foodDelivery.member.domain.MemberCommand;
@@ -33,8 +34,8 @@ public class MemberDto {
         @NotEmpty(message = "memberNickname 는 필수값입니다.")
         private String memberNickname;
 
-        public MemberCommand toCommand(){
-            return MemberCommand.builder()
+        public MemberCommand.Main toCommand(){
+            return MemberCommand.Main.builder()
                     .memberMail(memberMail)
                     .memberPwd(SHA256Util.encryptSHA256(memberPwd))
                     .memberTel(memberTel)
@@ -55,10 +56,13 @@ public class MemberDto {
         @NotEmpty(message = "memberPassword 는 필수값입니다.")
         private String memberPwd;
 
-        public MemberCommand toCommand(){
-            return MemberCommand.builder()
+        private String deviceToken;
+
+        public MemberCommand.Main toCommand(){
+            return MemberCommand.Main.builder()
                     .memberMail(memberMail)
                     .memberPwd(SHA256Util.encryptSHA256(memberPwd))
+                    .deviceToken(deviceToken)
                     .build();
         }
     }
@@ -76,8 +80,8 @@ public class MemberDto {
         @NotEmpty(message = "memberNickname 는 필수값입니다.")
         private String memberNickname;
 
-        public MemberCommand toCommand(){
-            return MemberCommand.builder()
+        public MemberCommand.Main toCommand(){
+            return MemberCommand.Main.builder()
                     .memberToken(memberToken)
                     .memberTel(memberTel)
                     .memberNickname(memberNickname)
@@ -98,8 +102,8 @@ public class MemberDto {
         @NotEmpty(message = "afterPassword 는 필수값입니다.")
         private String afterPassword;
 
-        public MemberCommand toCommand(){
-            return MemberCommand.builder()
+        public MemberCommand.Main toCommand(){
+            return MemberCommand.Main.builder()
                     .memberToken(memberToken)
                     .memberPwd(SHA256Util.encryptSHA256(beforePassword))
                     .build();
@@ -111,6 +115,63 @@ public class MemberDto {
     @ToString
     public static class ChangeMemberRequest{
         private String memberToken;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class authCheckRequest{
+        private String memberToken;
+        private String memberMail;
+        private String memberTel;
+
+        public MemberCommand.Main toCommand(){
+            return MemberCommand.Main.builder()
+                    .memberToken(memberToken)
+                    .memberMail(memberMail)
+                    .memberTel(memberTel)
+                    .build();
+        }
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class authCheckNumberRequest{
+        private String memberToken;
+        private String authNumber;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class NewPasswordRequest{
+        private String memberToken;
+        private String memberPwd;
+
+        public MemberCommand.Main toCommand(){
+            return MemberCommand.Main.builder()
+                    .memberToken(memberToken)
+                    .memberPwd(SHA256Util.encryptSHA256(memberPwd))
+                    .build();
+        }
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class MemberAddressRequest{
+        private String memberToken;
+        private String detail;
+        private AddressFragment addressFragment;
+
+        public MemberCommand.Address toCommand(){
+            return MemberCommand.Address.builder()
+                    .memberToken(memberToken)
+                    .detail(detail)
+                    .addressFragment(addressFragment)
+                    .build();
+        }
     }
 
     /******************************** response ********************************/
@@ -125,7 +186,7 @@ public class MemberDto {
         private final String addressCode;
         private final Member.Status status;
 
-        public response(MemberInfo memberInfo){
+        public response(MemberInfo.Main memberInfo){
             this.memberMail     = memberInfo.getMemberMail();
             this.memberToken    = memberInfo.getMemberToken();
             this.memberNickname = memberInfo.getMemberNickname();

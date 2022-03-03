@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "fooddelivery-f80a5",
+  "private_key_id": "9d64e077ac96e0a3c68c46e488e9bf921ee83afc",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDaZlMdh7kvbQph\nXtrQJEq3wWIrOSbhH8zv1q8nPJbNglLEyy2SoaYvEp3OPf9cmx8jfNHMIENYH6yZ\nAFLXoXgcVTrqVBYYS681GKjIqVYP2j/EGb2RM1OjgQi/qfHHzlG2wuN4ga76Eply\n4wkX/l6DDzh+xBjsHcYy6wSnLjgrBkuS5M4/y0Qikkp59g2MPGS1YlQHzK1TmtHB\nX7euQGjoNSC4h28aCeb2JkjIs9Vv15YgqXt6W41GMovQFefaPI54AJqB54oIHcuO\n8vRMtNZ3ybots4h+K36fHCq6z63e9r5LPxqypadmO9Bi7baQpL54KbKTaMfrxEBs\nKcBn4QcvAgMBAAECggEAAJAs/LGB575nPXMKK2k8jBbCkwv1rrTvSVsLXpWIagVB\nA2Lmvi8Oh6aLo6GDTBDWVrgWrmkS42JJhqd6jzXKYoBRw5Lt76gaTo++t63AHBBb\nA71xQLOaLpzBkgT1K6e7jDYachAbjGeJ38L4Hgi446uhYKpOyiUVgsIaY/f5ixra\n1FHvuJwgsjWZjVkC3ts4mEIUyhzTb6BAVuVSY5IkWt4zPAfL5gaKa8Otr9qjqaPn\n/NUf8cwRq7VkMqxFs9sBSkGq68pDbWu+E+L9mtH59PAoeZ4wTuhlzv3KulHxNaxo\nQiJm7AZDBGOVAtS7IIi1TeuI9JNjKTS7lB36IxL+IQKBgQD6iqacWijYlqaUXFV3\n+8Ic4S9Ehxi5pLxmUwt+LQm4wat6JF1+dkgdKU+9itqe1Xy51O4TsxA/QyPllb3S\nwyS60ry7sDRtaVgMo6OjQ5Qe2m6MOklk6MnTNuJ6JG2ESGWPv58ylRLeKAwzs7Wx\nBoBR7DhmyIwjOPL5BIhLZ8aKcQKBgQDfKGiL9QLnP7uZagdCc47N62mFXO4ynq3/\nqGd8UXNkZVFyufyakOoC5nBegYUd8Vnoz1lIFgr5hTw8GE5swTFblKqbeY/xK2QL\nOHX063dl8gKyE7wMtycFtJH5ILq7lyW8HY8omwXY63q+5iRkkfc5m1V2CfbLLzEJ\nhpl/hrk7nwKBgQDJdpKRKWKs/z9GD5VenOAzTtQue5/jL9ebRG36cQbfPUTBO9q+\nZSiJ4n1PggdYL31TBSjISHXpGPkVlTqF7wtq+yhumDsgO9RknXVpRF8oDCdWtUvt\nS892+yxUYVR7Saf5VnISP5NjdrqRHJIenoay2YtlAyDE9fdTTFS4peMd0QKBgGmH\nomkNJKJW8VBLY8N5Aj8+5Fe86qflgkM0UDvqCLehcjLe4SX3AbL9ZoZKmbjfObVu\n2LnOMsJsz19b3zpu4fh9BXEgu4FBE756pM19zKjZGY085+DbfAimq6E0aRntEFs1\nX03Ega9jLFi6XNtya4dCfdekPqE3X+kxTcWQ4GfhAoGBALcNT9L8+GrYIyYi/aPh\n5SUnHmeLbjYtDHtvraTSyVSNqc/mSqBhNv82+mp25snrWaGcHsi/fhWwiK5THnxY\nnQh5Hj4mgcBx5Ah5TRwtRuhUMbLmzokyyHf6EDb4gJ0+CCJf/EZekGMDCrOrB5FT\nZ96188WUyqlhOf2vsHET8kGz\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-arc1t@fooddelivery-f80a5.iam.gserviceaccount.com",
+  "client_id": "106100155936198559633",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-arc1t%40fooddelivery-f80a5.iam.gserviceaccount.com"
+}

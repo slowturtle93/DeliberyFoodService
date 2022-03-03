@@ -2,6 +2,7 @@ package dev.toyproject.foodDelivery.rider.domain;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 @Getter
@@ -31,4 +32,19 @@ public class RiderCommand {
                 .build();
     }
 
+    @Getter
+    @Builder
+    @ToString
+    public static class RiderCurrentLocation{
+        private String x;
+        private String y;
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    public static class RiderOrderMenuCommand{
+        private String orderToken;
+        private String memberToken;
+    }
 }

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.toyproject.foodDelivery.mapper.coupon.CouponMapper">
+
+    <select id="findCouponEnable" parameterType="String" resultType="dev.toyproject.foodDelivery.coupon.domain.Coupon">
+        SELECT COUPON_TOKEN
+        , SHOP_TOKEN
+        , DISCOUNT_PRICE
+        , END_DATE
+        , EXPIRATION_PERIOD
+        FROM coupon
+        WHERE 1=1
+        AND SHOP_TOKEN = #{shopToken}
+        AND END_DATE <![CDATA[ > ]]> SYSDATE()
+        OR EXPIRATION_PERIOD != 0
+        AND STATUS = 'ENABLE'
+    </select>
+
+    <update id="updateCouponIssueStatusEnd" parameterType="dev.toyproject.foodDelivery.coupon.domain.issue.CouponIssueCommand">
+        UPDATE coupon_issue
+        SET STATUS = 'END'
+        WHERE ID IN (
+        SELECT SQ.ID
+        FROM (
+        SELECT T2.ID
+        , T2.COUPON_ISSUE_TOKEN
+        , T2.COUPON_TOKEN
+        , T2.MEMBER_TOKEN
+        , T2.STATUS
+        , T2.REG_DATE
+        , T2.MOD_DATE
+        FROM coupon T1
+        , coupon_issue T2
+        WHERE 1=1
+        AND T1.COUPON_TOKEN = T2.COUPON_TOKEN
+        AND T2.MEMBER_TOKEN = #{memberToken}
+        AND T1.SHOP_TOKEN   = #{shopToken}
+        AND T1.END_DATE IS NOT NULL
+        AND T1.END_DATE <![CDATA[ < ]]> SYSDATE()
+        AND T2.STATUS = 'INIT'
+        ) SQ
+        )
+    </update>
+
+    <select id="findAllCouponIssueEnable" parameterType="dev.toyproject.foodDelivery.coupon.domain.issue.CouponIssueCommand" resultType="dev.toyproject.foodDelivery.coupon.domain.issue.CouponIssue">
+        SELECT T2.ID
+        , T2.COUPON_ISSUE_TOKEN
+        , T2.COUPON_TOKEN
+        , T2.MEMBER_TOKEN
+        , T2.STATUS
+        FROM coupon T1
+        , coupon_issue T2
+        WHERE 1=1
+        AND T1.COUPON_TOKEN = T2.COUPON_TOKEN
+        AND T2.MEMBER_TOKEN = #{memberToken}
+        AND T1.SHOP_TOKEN   = #{shopToken}
+        AND T2.STATUS       = 'INIT'
+    </select>
+
+    <select id="findCouponInfo" parameterType="String" resultType="dev.toyproject.foodDelivery.coupon.domain.Coupon">
+        SELECT T1.COUPON_TOKEN
+             , T1.SHOP_TOKEN
+             , T1.DISCOUNT_PRICE
+             , T1.END_DATE
+             , T1.EXPIRATION_PERIOD
+          FROM coupon T1
+             , coupon_issue T2
+         WHERE 1=1
+           AND T1.COUPON_TOKEN       = T2.COUPON_TOKEN
+           AND T2.COUPON_ISSUE_TOKEN = #{couponIssueToken}
+           AND T2.STATUS             = 'INIT'
+    </select>
+</mapper>

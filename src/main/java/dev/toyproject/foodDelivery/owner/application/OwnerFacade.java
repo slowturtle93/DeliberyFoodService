@@ -1,6 +1,15 @@
 package dev.toyproject.foodDelivery.owner.application;
 
-import dev.toyproject.foodDelivery.common.util.SessionUtil;
+import dev.toyproject.foodDelivery.common.util.redis.RedisCacheUtil;
+import dev.toyproject.foodDelivery.common.util.redis.SessionUtil;
+import dev.toyproject.foodDelivery.notification.email.domain.MailSendRequest;
+import dev.toyproject.foodDelivery.notification.email.domain.MailService;
+import dev.toyproject.foodDelivery.notification.email.infrastructure.MailPasswordLinkRequest;
+import dev.toyproject.foodDelivery.notification.fcm.domain.FcmNotificationRequest;
+import dev.toyproject.foodDelivery.notification.fcm.domain.FcmService;
+import dev.toyproject.foodDelivery.notification.fcm.infrastructrue.FcmNotificationInfo;
+import dev.toyproject.foodDelivery.notification.sms.domain.NaverSensService;
+import dev.toyproject.foodDelivery.notification.sms.infrastructure.NaverSensRequest;
 import dev.toyproject.foodDelivery.owner.domain.OwnerCommand;
 import dev.toyproject.foodDelivery.owner.domain.OwnerInfo;
 import dev.toyproject.foodDelivery.owner.domain.OwnerService;
@@ -16,6 +25,10 @@ import javax.servlet.http.HttpSession;
 public class OwnerFacade {
 
     private final OwnerService ownerService;
+    private final NaverSensService naverSensService;
+    private final MailService mailService;
+    private final RedisCacheUtil redisCacheUtil;
+    private final FcmService fcmService;
 
     /**
      * 회원가입 진행
@@ -46,17 +59,18 @@ public class OwnerFacade {
      */
     public OwnerInfo loginOwner(OwnerCommand command, HttpSession session){
         var loginOwnerInfo = ownerService.loginOwnerInfo(command.getOwnerLoginId(), command.getOwnerPwd()); // 로그인 정보 확인
-        SessionUtil.setLoginOwnerToken(session, loginOwnerInfo.getOwnerToken()); // session 에 사장 Token 정보 저장
+        SessionUtil.setLoginOwnerToken(session, loginOwnerInfo.getOwnerToken());                                      // session 에 사장 Token 정보 저장
+        redisCacheUtil.setRedisCacheDeviceToken(loginOwnerInfo.getOwnerToken(), command.getDeviceToken());            // 사장님 device Token 정보 등록
         return loginOwnerInfo;
     }
 
     /**
      * 사장님 로그아웃 진행
      *
-     * @param session
+     * @param ownerToken
      */
-    public void logoutOwner(HttpSession session){
-        SessionUtil.removeLogoutOwner(session); // session 에 사장 Token 정보 삭제
+    public void logoutOwner(String ownerToken){
+        redisCacheUtil.removeDeviceToken(ownerToken); // device Token 정보 삭제
     }
 
     /**
@@ -91,5 +105,57 @@ public class OwnerFacade {
     public void disableOwner(String ownerToken, HttpSession session){
         ownerService.disableOwner(ownerToken); // 사장 상태 [DISABLE] 변경
         SessionUtil.removeLogoutOwner(session);  // 회원 탈퇴 시 Session 정보 삭제
+    }
+
+    /**
+     * 본인인증
+     *
+     * @param command
+     * @return
+     */
+    public OwnerInfo authCheck(OwnerCommand command){
+        var ownerInfo = ownerService.authCheck(command);
+        return ownerInfo;
+    }
+
+    /**
+     * 휴대폰번호로 비밀번호 변경 링크 발송
+     *
+     * @param command
+     */
+    public void passwordLindSendToSms(OwnerCommand command){
+        naverSensService.sendNaverSens(NaverSensRequest.toPwdLinkInfo(command.getOwnerTel(), command.getOwnerToken()));
+    }
+
+    /**
+     * 이메일로 비밀번호 변경 링크 발송
+     *
+     * @param command
+     */
+    public void passwordLindSendToMail(OwnerCommand command){
+        MailSendRequest mailAuthNumberRequest = new MailPasswordLinkRequest(command.getOwnerMail() ,command.getOwnerToken());
+        mailService.sendMail(mailAuthNumberRequest);
+    }
+
+    /**
+     * 신규 비밀번호 업데이트
+     *
+     * @param command
+     */
+    public void newPasswordUpdate(OwnerCommand command){
+        ownerService.newPasswordUpdate(command);
+    }
+
+    /**
+     * 사장님 주문 요청 push 알림
+     *
+     * @param ownerToken
+     */
+    public void ownerOrderConfirmPush(String ownerToken){
+        var deviceToken = redisCacheUtil.getDeviceTokenInfo(ownerToken);
+        fcmService.sendFcm(new FcmNotificationRequest(
+                FcmNotificationInfo.FCM_OWNER_ORDER_CONFIRM_TITLE,
+                FcmNotificationInfo.FCM_OWNER_ORDER_CONFIRM_MESSAGE,
+                deviceToken));
     }
 }

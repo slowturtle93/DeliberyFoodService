@@ -91,4 +91,28 @@ public class OwnerServiceImpl implements OwnerService {
         owner.disable(); // 사장 상태 [DISABLE] 변경
         return new OwnerInfo(owner);
     }
+
+    /**
+     * 본인인증
+     *
+     * @param command
+     * @return
+     */
+    @Override
+    public OwnerInfo authCheck(OwnerCommand command) {
+        Owner owner = ownerReader.authCheck(command.getOwnerLoginId(), command.getOwnerTel());
+        return new OwnerInfo(owner);
+    }
+
+    /**
+     * 신규 비밀번호 업데이트트
+     *
+     * @param command
+     */
+    @Override
+    @Transactional
+    public void newPasswordUpdate(OwnerCommand command) {
+        Owner owner = ownerReader.getOwnerByToken(command.getOwnerToken());
+        owner.updateOwnerPassword(command.getOwnerPwd());
+    }
 }

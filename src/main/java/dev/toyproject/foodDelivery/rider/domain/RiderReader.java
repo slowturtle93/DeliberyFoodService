@@ -9,4 +9,6 @@ public interface RiderReader {
     Rider getRiderByToken(String riderToken);
 
     Rider getRiderByTokenAndPwd(String riderToken, String riderPwd);
+
+    Rider authCheck(String riderLoginId, String riderTel);
 }

@@ -9,12 +9,62 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: none
+      format_sql: true
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://3.37.42.105:3306/foodDelivery?serverTimezone=UTC&characterEncoding=UTF-8
     username: foodDel
     password: Qwer1234!@
+    mapper-locations: classpath:/mapper/**/*.xml
   redis:
     host: "127.0.0.1"
     port: 6379
+
+  common-api:
+    url: http://localhost:8088/
+  address-api:
+    url: https://dapi.kakao.com/
+  ## NANVER SENS
+  sens-api:
+    url: https://sens.apigw.ntruss.com/
+    accessKey: BUw33p
+    secretKey: 6WxdRYGsWYqU7
+    from: "01011112222"
+    type: SMS
+    contentType: COMM
+    countryCode: 82
+    serviceId: ncp:sms:kr:26752:fooddelpjt
+
+  ## java mail
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: 이메일
+    password: 비밀번호
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  ## kafka
+  kafka:
+    bootstrap-servers: 3.35.209.108:9092
+# payment
+payment:
+  method:
+    kakao:
+      url: https://kapi.kakao.com/
+      Authorization: 'KakaoAK 08010af8d5d90327d758890edc3489f7'
+      ContentType: 'application/x-www-form-urlencoded;charset=utf-8'
+      approvalUrl: http://localhost:8088/v1/order/kakao/success
+      cancelUrl: http://localhost:8088/v1/order/kakao/cancel
+      failUrl: http://localhost:8088/v1/order/kakao/fail
+    toss:
+      url: https://pay.toss.im/
+      apiKey: sk_test_w5lNQylNqa5lNQe013Nq
+      retUrl: http://localhost:8088/v1/order/toss/order-check?orderno=1
+      retCancelUrl: http://localhost:8088/v1/order/toss/cancel
+      resultCallback: http://localhost:8088/v1/order/toss/callback
+      callbackVersion: V2

@@ -9,4 +9,6 @@ public interface MemberReader {
     Member getMemberByToken(String memberToken);
 
     Member getMemberByTokenAndPwd(String memberToken, String memberPwd);
+
+    Member authCheck(String memberMail, String memberTel);
 }

@@ -35,15 +35,4 @@ public class RedisSessionConfig extends AbstractHttpSessionApplicationInitialize
     public LettuceConnectionFactory connectionFactory(){
         return new LettuceConnectionFactory(redisHost, redisPort);
     }
-
-    // RedisTemplate Bean 설정
-    @Bean
-    public RedisTemplate<String, Object> redisTemplate(@Qualifier("redisSessionConnectionFactory")RedisConnectionFactory redisConnectionFactory){
-        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(redisConnectionFactory);                 // Redis Connection 설정
-        redisTemplate.setKeySerializer(new StringRedisSerializer());                // Redis Key 직렬화 정의
-        redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer()); // Redis Value 직렬화 정의
-
-        return redisTemplate;
-    }
 }

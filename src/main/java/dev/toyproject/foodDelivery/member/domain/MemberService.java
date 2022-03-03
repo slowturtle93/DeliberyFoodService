@@ -1,19 +1,37 @@
 package dev.toyproject.foodDelivery.member.domain;
 
+import java.util.List;
+
 /**
  * MEMBER 도메인 요구사항
  */
 public interface MemberService {
 
-    MemberInfo registerMember(MemberCommand command);
+    MemberInfo.Main registerMember(MemberCommand.Main command);
 
-    MemberInfo loginMemberInfo(String memberMail, String memberPwd);
+    MemberInfo.Main loginMemberInfo(String memberMail, String memberPwd);
 
     void duplicateMemberMail(String memberMail);
 
-    MemberInfo updateMember(MemberCommand command);
+    MemberInfo.Main updateMember(MemberCommand.Main command);
 
-    MemberInfo updateMemberPassword(MemberCommand command, String afterPassword);
+    MemberInfo.Main updateMemberPassword(MemberCommand.Main command, String afterPassword);
 
-    MemberInfo disableMember(String memberToken);
+    MemberInfo.Main disableMember(String memberToken);
+
+    MemberInfo.Main authCheck(MemberCommand.Main command);
+
+    void authNumberRegister(MemberCommand.Main command, String authNumber);
+
+    void authNumberCheck(String memberToken, String authNumber);
+
+    void newPasswordUpdate(MemberCommand.Main command);
+
+    MemberInfo.Address registerAddress(MemberCommand.Address command);
+
+    MemberInfo.Address updateAddress(String memberAddressToken, MemberCommand.Address command);
+
+    void deleteAddress(String memberAddressToken);
+
+    List<MemberInfo.Address> retrieveAddressList(String memberToken);
 }

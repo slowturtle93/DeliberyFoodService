@@ -127,6 +127,52 @@ public class RiderDto {
         }
     }
 
+    @Getter
+    @Setter
+    @ToString
+    public static class AuthCheckRequest{
+        private String riderLoginId;
+        private String riderTel;
+
+        public RiderCommand toCommand(){
+            return RiderCommand.builder()
+                    .riderLoginId(riderLoginId)
+                    .riderTel(riderTel)
+                    .build();
+        }
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class NewPasswordUpdateRequest{
+        private String riderToken;
+        private String riderPwd;
+
+        public RiderCommand toCommand(){
+            return RiderCommand.builder()
+                    .riderToken(riderToken)
+                    .riderPwd(SHA256Util.encryptSHA256(riderPwd))
+                    .build();
+        }
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class RiderCurrentLocation{
+        private String x;
+        private String y;
+    }
+
+    @Getter
+    @Setter
+    @ToString
+    public static class RiderOrderMenuRequest{
+        private String orderToken;
+        private String memberToken;
+    }
+
     /******************************** response ********************************/
 
     @Getter
@@ -152,5 +198,4 @@ public class RiderDto {
             this.status         = riderInfo.getStatus();
         }
     }
-    
 }

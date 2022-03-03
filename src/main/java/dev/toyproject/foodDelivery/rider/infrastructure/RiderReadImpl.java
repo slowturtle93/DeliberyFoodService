@@ -65,4 +65,17 @@ public class RiderReadImpl implements RiderReader {
         return riderRepository.findByRiderTokenAndRiderPwdAndStatus(riderToken, riderPwd, Rider.Status.ENABLE)
                 .orElseThrow(EntityNotFoundException::new);
     }
+
+    /**
+     * 라이더 본인인증
+     *
+     * @param riderLoginId
+     * @param riderTel
+     * @return
+     */
+    @Override
+    public Rider authCheck(String riderLoginId, String riderTel) {
+        return riderRepository.findByRiderLoginIdAndRiderTelAndStatus(riderLoginId, riderTel, Rider.Status.ENABLE)
+                .orElseThrow(EntityNotFoundException::new);
+    }
 }

@@ -1,6 +1,10 @@
 package dev.toyproject.foodDelivery.rider.application;
 
-import dev.toyproject.foodDelivery.common.util.SessionUtil;
+import dev.toyproject.foodDelivery.common.util.redis.RedisCacheUtil;
+import dev.toyproject.foodDelivery.common.util.redis.SessionUtil;
+import dev.toyproject.foodDelivery.notification.fcm.domain.FcmNotificationRequest;
+import dev.toyproject.foodDelivery.notification.fcm.domain.FcmService;
+import dev.toyproject.foodDelivery.notification.fcm.infrastructrue.FcmNotificationInfo;
 import dev.toyproject.foodDelivery.rider.domain.RiderCommand;
 import dev.toyproject.foodDelivery.rider.domain.RiderInfo;
 import dev.toyproject.foodDelivery.rider.domain.RiderService;
@@ -9,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -16,6 +21,8 @@ import javax.servlet.http.HttpSession;
 public class RiderFacade {
 
     private final RiderService riderService;
+    private final RedisCacheUtil redisCacheUtil;
+    private final FcmService fcmService;
 
     /**
      * 라이더 등록
@@ -80,5 +87,68 @@ public class RiderFacade {
         var riderInfo = riderService.updateRiderPassword(command, afterPassword); // 비밀번호 변경
         SessionUtil.removeLogoutRider(session); // 비밀번호 변경 후 재접속을 위해 session 값 삭제
         return riderInfo;
+    }
+
+    /**
+     * 비밀번호 찾기 본인인증
+     *
+     * @param command
+     * @return
+     */
+    public RiderInfo authCheck(RiderCommand command){
+        var riderInfo = riderService.authCheck(command);
+        return riderInfo;
+    }
+
+    /**
+     * 신규 비밀번호 업데이트
+     *
+     * @param command
+     */
+    public void newPasswordUpdate(RiderCommand command){
+        riderService.newPasswordUpdate(command);
+    }
+
+    /**
+     * 라이더 배달 가능한 주문 목록 리스트 조회
+     *
+     * @return
+     */
+    public List<RiderInfo.AvailableOrders> retrieveEnableOrderList(RiderCommand.RiderCurrentLocation command){
+        return riderService.retrieveEnableOrderList(command);
+    }
+
+    /**
+     * 단건 배달 주문 pick
+     *
+     * @param orderToken
+     * @return
+     */
+    public RiderInfo.AvailableOrders riderOrderPick(String orderToken){
+        return riderService.riderOrderPick(orderToken);
+    }
+
+    /**
+     * 단건 배달 주문 pick
+     *
+     * @param command
+     * @return
+     */
+    public void riderOrderPickup(RiderCommand.RiderOrderMenuCommand command){
+        riderService.riderOrderPickup(command.getOrderToken());
+        var deviceToken = redisCacheUtil.getDeviceTokenInfo(command.getMemberToken());
+        fcmService.sendFcm(new FcmNotificationRequest(FcmNotificationInfo.FCM_RIDER_ORDER_IN_DELIVERY_TITLE,FcmNotificationInfo.FCM_RIDER_ORDER_IN_DELIVERY_MESSAGE, deviceToken));
+    }
+
+    /**
+     * 단건 배달 주문 pick
+     *
+     * @param command
+     * @return
+     */
+    public void riderOrderComplete(RiderCommand.RiderOrderMenuCommand command){
+        riderService.riderOrderComplete(command.getOrderToken());
+        var deviceToken = redisCacheUtil.getDeviceTokenInfo(command.getMemberToken());
+        fcmService.sendFcm(new FcmNotificationRequest(FcmNotificationInfo.FCM_RIDER_ORDER_COMPLETE_TITLE,FcmNotificationInfo.FCM_RIDER_ORDER_COMPLETE_MESSAGE, deviceToken));
     }
 }

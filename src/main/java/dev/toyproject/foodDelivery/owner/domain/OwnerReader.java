@@ -9,4 +9,6 @@ public interface OwnerReader {
     Owner getLoginOwner(String ownerLoginId, String ownerPwd);
 
     Owner getOwnerByTokenAndPwd(String ownerToken, String ownerPwd);
+
+    Owner authCheck(String ownerLoginId, String ownerTel);
 }
